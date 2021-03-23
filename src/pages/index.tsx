@@ -1,5 +1,5 @@
 import {Banner, Card,CardInfo,  Header,Lista, Navegacao, ContainerNav, Produtos, Container, RedesSociais, Footer, Logo, Rights} from '../PageStyles/index.style'
-import { FaInstagram, FaWhatsapp, FaAddressCard } from 'react-icons/fa'
+import { FaInstagram, FaWhatsapp} from 'react-icons/fa'
 import { FiMenu } from 'react-icons/fi'
 import React from 'react'
 
@@ -37,8 +37,6 @@ const Home: React.FC = () => {
         </ContainerNav>
       </Navegacao>
       <Header>
-        <h1>******* Store!</h1>
-        <h2>Sua ******* em Primeiro Lugar!</h2>
       </Header>
       <Banner >
         <div className="Container">
