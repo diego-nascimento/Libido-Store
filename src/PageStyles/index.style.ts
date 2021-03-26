@@ -15,7 +15,7 @@ export const Header = styled.header`
   background-image: url('MainPanel.png');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center bottom;
+  background-position: center center;
   
   @media(max-width: 800px){
     height: 500px;
@@ -23,131 +23,16 @@ export const Header = styled.header`
 `;
 
 
-interface INavegacao{
-  MenuBackground: boolean
-}
-
-export const Navegacao = styled.nav<INavegacao>`
-background-color: ${({MenuBackground}) => MenuBackground ? `${styles.componentsColor}`: 'none' };
-height: 70px;
-width: 100vw;
-position: fixed;
-top: 0px;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-text-transform: uppercase;
-transition: .4s;
-z-index: 99;
-padding: 20px;
-
-.BotaoMenu{
-  display: none;
-  z-index: 99;
-}
-
-@media(max-width: 800px){
-  .BotaoMenu{
-    display: block;
-  }
-}
-`;
-
-export const ContainerNav = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-interface ILista{
-  MenuState: boolean,
-}
-
-
-export const Lista = styled.ul<ILista>`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 70px;
-  flex-direction: row;
-  color: ${styles.fontColor};
-  opacity: 1;
-  transition: .5s;
-
-  li{
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70px;
-    letter-spacing: 1px;
-    transition: .3s;
-
-    svg{
-      color: ${styles.dest2Components};
-    }
-
-    :hover{
-      color: ${styles.fontColorDest};
-    }
-  }
-
-  @media(max-width: 800px){
-    opacity: ${props => props.MenuState ? '1' : '0'};
-    transform: ${props => props.MenuState ? 'translateY(0px)' : 'translateY(-20px)'};
-    position: fixed;
-    background: ${styles.componentsColor};
-    color: ${styles.fontColor};
-    top: 55px;
-    left: 30px;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0px;
-    border-radius: 7px;
-  }
-`;
-
-
-export const RedesSociais = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 70px;
-  flex-direction: row;
-  color: ${styles.fontColor};
-
-  li{
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70px;
-    letter-spacing: 1px;
-
-    svg{
-      color: ${styles.dest2Components};
-    }
-
-    :hover{
-      color: ${styles.fontColor};
-    }
-  }
-`;
-
 export const Banner = styled.section`
 width: 100vw;
-background: white;
+background: #311F2B;
 display: flex;
 justify-content: center;
-color: ${styles.componentsColor};
 
 p{
     text-align: left;
     line-height: 2rem;
     letter-spacing: 1px;
-    color: #ccc;
 }
 
 .Container{
@@ -161,7 +46,7 @@ p{
     display: flex;
     align-items: center;
     padding: 0px 20px;
-    color: #111;
+    color: ${styles.fontColorInDark};
   }
 
   @media(max-width: 800px){
@@ -213,6 +98,7 @@ export const Card = styled.div`
   align-items: center;
   border-radius: 15px;
   overflow: hidden;
+  color: ${styles.fontColorInDark};
 
   img{
     width: 100%;
@@ -244,81 +130,13 @@ export const CardInfo = styled.div`
   button{
     width: 200px;
     height: 50px;
-    background: ${styles.dest2Components};
+    background: ${styles.componentsColor};
     font-size: 1.2rem;
     font-weight: bold;
     border: none;
     border-radius: 8px;
     margin-top: 10px;
   }
-  
 `;
 
-export const Footer = styled.footer`
-  background: ${styles.bgColor};
-  width: calc(100vw - 20px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  
-
-  .Footer-Container{
-    display: grid;
-    flex-direction: row;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 50px 0px;
-    grid-gap: 20px;
-    width: 100%;
-
-    @media(max-width: 800px){
-      grid-template-columns: 1fr;
-      padding: 0px 10px;
-    }
-    
-  }
-  
-  p{
-    margin: 20px 0px;
-    color: ${styles.fontColorDest}
-  }
-
-  ul{
-    li{
-      color: ${styles.fontColor};
-      padding: 5px 0px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-  }
-`;
-
-export const Logo = styled.div`
-  width: 100%;
-  background-color: white;
-  height: 150px;
-`;
-
-export const Rights = styled.section`
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-
-  .Rights-Container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-
-    @media(max-width: 800px){
-      flex-direction: column;
-    }
-
-    .Redes-Sociais-Footer{
-      width: 100px;
-    }
-  }
-`;
 

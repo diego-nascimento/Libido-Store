@@ -51,7 +51,7 @@ html{
     }
 
     p, a, span, li{
-      font-size: 1.3em;
+      font-size: 1.3rem;
     }
 
     svg{
