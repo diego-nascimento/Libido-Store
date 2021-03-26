@@ -95,6 +95,7 @@ export const Lista = styled.ul<ILista>`
     align-items: flex-start;
     padding: 10px 0px;
     border-radius: 7px;
+    height: 100px
   }
 `;
 

@@ -6,18 +6,7 @@ const Footer: React.FC =() => {
   return (
     <FooterContainer>
         <div className="Container Footer-Container">
-          <Logo></Logo>
-           <div className="Grid-Container">
-            <p>Onde Estamos?</p>
-            <ul>
-              <li>
-                Rua Nilo Correa Condé, 108
-              </li>
-              <li>
-                Piraúba - MG, Sossego
-              </li>
-            </ul>
-          </div>
+          {/*<Logo></Logo>*/}
           <div className="Grid-Container">
             <p>Entre em Contato</p>
             <ul>
@@ -25,7 +14,7 @@ const Footer: React.FC =() => {
               <li><FaInstagram />:</li>
             </ul>
           </div>
-          <div>
+          <div className="Grid-Container">
             <p>Links Uteis</p>
             <ul>
               <li>Sobre nós</li>
@@ -34,7 +23,7 @@ const Footer: React.FC =() => {
           </div>
         </div>
         <Rights className="Container">
-          <section className="Rights-Container">
+          <div className="Rights-Container">
             <span>© {new Date().getFullYear()} Libido, Todos os Direitos Reservados.</span>
             <RedesSociais className="Redes-Sociais-Footer">
               <li>
@@ -44,7 +33,7 @@ const Footer: React.FC =() => {
                 <FaWhatsapp />
               </li>
         </RedesSociais>
-          </section>
+          </div>
         </Rights>
       </FooterContainer>
   )

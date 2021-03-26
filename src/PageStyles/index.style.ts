@@ -60,7 +60,7 @@ p{
 `;
 
 export const Produtos = styled.section`
-  width: calc(100vw);
+  width: 100vw;
   padding: 100px 20px;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@ export const Produtos = styled.section`
     margin-bottom: 20px;
     letter-spacing: 1px;
     align-self: center;
-    color: ${styles.componentsColor}
+    color: ${styles.fontColor}
   }
 
 `;
@@ -79,13 +79,13 @@ export const Produtos = styled.section`
 export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  width: calc(100% - 20px);
   grid-gap: 20px;
   justify-content: center;
-  
+  width: calc(100% - 20px);
 
 @media(max-width: 800px){
     grid-template-columns: 1fr;
+    width:100%;
   }
 `;
 
@@ -103,7 +103,6 @@ export const Card = styled.div`
   img{
     width: 100%;
     flex: 1;
-    border-radius: 15px;
   }
 
   :hover{

@@ -4,7 +4,7 @@ import { styles } from '../../styles/styles';
 
 export const FooterContainer = styled.footer`
   background: ${styles.componentsDest};
-  width: calc(100vw - 20px);
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,15 +12,22 @@ export const FooterContainer = styled.footer`
   
 
   .Footer-Container{
-    display: grid;
-    flex-direction: row;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: space-around;
     padding: 50px 0px;
-    grid-gap: 20px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    .Grid-Container{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
 
     @media(max-width: 800px){
-      grid-template-columns: 1fr;
       padding: 0px 10px;
     }
     

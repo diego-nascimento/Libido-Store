@@ -10,7 +10,7 @@ const Nav: React.FC = () => {
 
   React.useEffect(() => {
     window.addEventListener('scroll', () => {
-    window.pageYOffset < 200? setMenuBackground(false): setMenuBackground(true)
+    window.pageYOffset < 70? setMenuBackground(false): setMenuBackground(true)
   })
   })
 
@@ -18,13 +18,21 @@ const Nav: React.FC = () => {
     <Navegacao MenuBackground={MenuBackGround}>
         <ContainerNav className="Container">
           <FiMenu  onClick={()=>setMenuState(!MenuState)} className="BotaoMenu"/>
-        <Lista  MenuState={MenuState}> 
+        <Lista MenuState={MenuState}>
           <li>
-            Sobre Nós
+            <Link href="/">
+              <a>Inicio</a>
+            </Link> 
+          </li>
+           <li>
+            <Link href="/">
+              <a>Sobre Nós</a>
+            </Link> 
           </li>
           <li>
-            
+            <Link href="/produtos">
               <a>Produtos</a>
+            </Link> 
           </li>
         </Lista>
         <RedesSociais>
