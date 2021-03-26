@@ -1,9 +1,15 @@
 import {Banner, Card,CardInfo,  Header, Produtos, Container} from '../PageStyles/index.style'
 import Layout from '../Components/Layout/Layout'
-
 import React from 'react'
+import {api} from '../service/api'
+import {ICategoria} from '../Interfaces/ICategoria'
 
-const Home: React.FC = () => {
+interface IHome{
+  data?: Array<ICategoria>
+  error?: any
+}
+
+const Home: React.FC <IHome> = ({data}) => {
   return (
     <Layout>
       <Header>
@@ -17,62 +23,19 @@ const Home: React.FC = () => {
       <Produtos>
         <h1>Nossos Produtos</h1>
         <Container>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
-          <Card>
-            <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />
-            <CardInfo>
-              <h2>Nome do Produto</h2>
-              <button>Veja Mais</button>
-            </CardInfo>
-          </Card>
+          {data && data.map(categoria => {
+            return (
+              <Card key={categoria._id}>
+                <img src={categoria.Imagem.url} alt={categoria.Imagem.Nome} />
+                <CardInfo>
+                  <h2>{categoria.Nome}</h2>
+                  <button>Veja Mais</button>
+                  </CardInfo>
+              </Card>
+            )
+          })}
+          
+          
         </Container>
       </Produtos>
       
@@ -82,3 +45,11 @@ const Home: React.FC = () => {
 
 export default Home
 
+export async function getStaticProps() {
+    const response = await api.get('/categorias')
+    return {
+      props: {
+        data: response.data
+      }
+    }
+}
