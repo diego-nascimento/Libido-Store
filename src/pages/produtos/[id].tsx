@@ -20,8 +20,7 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias}) => {
               <Card key={produto._id}>
                 {produto.imagem? <img src={produto.imagem.url} alt={produto.Nome} />:<img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />}
                 <div className="info">
-              <h2>Nome do Produto</h2>
-              <p>Loren Ipsum do loren ipsun</p>
+              <h2>{produto.Nome}</h2>
             </div>
           </Card>
             )
@@ -55,7 +54,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}:any) {
 
-  const responseProdutos = await api.get('/produtos')
+  const responseProdutos = await api.get( `/produtos?categoria._id=${params.id}`)
   const responseCategorias = await api.get('/categorias')
   return {
     props: {
