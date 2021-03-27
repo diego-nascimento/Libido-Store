@@ -37,9 +37,14 @@ const Nav: React.FC = () => {
         </Lista>
         <RedesSociais>
           <li>
-            <FaInstagram />
+            <Link href="https://www.instagram.com/sexshop_pirauba/">
+              <a ><FaInstagram /></a>
+            </Link>
           </li>
-          <li><FaWhatsapp /></li>
+          <li>
+            <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
+              <a ><FaWhatsapp /></a>
+            </Link></li>
         </RedesSociais>
         </ContainerNav>
       </Navegacao>
