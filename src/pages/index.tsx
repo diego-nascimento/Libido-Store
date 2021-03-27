@@ -3,13 +3,14 @@ import Layout from '../Components/Layout/Layout'
 import React from 'react'
 import {api} from '../service/api'
 import {ICategoria} from '../Interfaces/ICategoria'
+import Link from 'next/link'
 
 interface IHome{
-  data?: Array<ICategoria>
+  categorias?: Array<ICategoria>
   error?: any
 }
 
-const Home: React.FC <IHome> = ({data}) => {
+const Home: React.FC <IHome> = ({categorias}) => {
   return (
     <Layout>
       <Header>
@@ -23,19 +24,20 @@ const Home: React.FC <IHome> = ({data}) => {
       <Produtos>
         <h1>Nossos Produtos</h1>
         <Container>
-          {data && data.map(categoria => {
+          {categorias && categorias.map(categoria => {
             return (
               <Card key={categoria._id}>
-                <img src={categoria.Imagem.url} alt={categoria.Imagem.Nome} />
+              {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />}
                 <CardInfo>
                   <h2>{categoria.Nome}</h2>
-                  <button>Veja Mais</button>
+                  <Link href={`/produtos/${categoria._id}`}>
+                    <a ><button>Veja Mais</button></a>
+                  </Link>
                   </CardInfo>
               </Card>
             )
           })}
-          
-          
+
         </Container>
       </Produtos>
       
@@ -49,7 +51,8 @@ export async function getStaticProps() {
     const response = await api.get('/categorias')
     return {
       props: {
-        data: response.data
-      }
+        categorias: response.data
+      },
+      revalidate: 5000
     }
 }

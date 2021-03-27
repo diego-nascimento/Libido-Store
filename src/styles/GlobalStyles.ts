@@ -31,7 +31,7 @@ html{
     color: ${styles.fontColor};
 
     h1, h2{
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Khula', sans-serif;
     }
 
     p, li, a, span{
@@ -52,6 +52,10 @@ html{
 
     p, a, span, li{
       font-size: 1.3rem;
+    }
+
+    button{
+      cursor: pointer;
     }
 
     svg{
