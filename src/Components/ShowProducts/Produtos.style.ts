@@ -54,4 +54,23 @@ export const Card = styled.div`
     width: 100%;
     flex: 1;
   }
+
+  h2, p, b{
+    padding: 5px 0px;  
+  }
+
+  h2{
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  p{
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  b{
+    font-size: 1.2rem;
+  }
 `;

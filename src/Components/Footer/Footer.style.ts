@@ -25,6 +25,14 @@ export const FooterContainer = styled.footer`
       justify-content: center;
       flex-direction: column;
       align-items: center;
+
+      a{
+        color: ${styles.fontColorInDark};
+
+        :hover{
+          color: ${styles.componentsColor};
+        }
+      }
     }
 
     @media(max-width: 800px){
@@ -74,6 +82,14 @@ export const Rights = styled.section`
 
     .Redes-Sociais-Footer{
       width: 100px;
+
+      svg{
+        color: ${styles.fontColorInDark};
+
+        :hover{
+          color: ${styles.componentsColor};
+        }
+      }
     }
   }
 `;

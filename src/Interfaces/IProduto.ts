@@ -6,4 +6,6 @@ export interface IProduto{
   Nome: string, 
   imagem: IImagem
   categoria: ICategoria
+  preco: number
+  descricao: string
 }

@@ -53,14 +53,13 @@ export const Lista = styled.ul<ILista>`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 70px;
   flex-direction: row;
   opacity: 1;
   transition: .5s;
   font-weight: bold;
 
   li{
-    padding: 10px 20px;
+    padding: 20px 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,7 +94,7 @@ export const Lista = styled.ul<ILista>`
     align-items: flex-start;
     padding: 10px 0px;
     border-radius: 7px;
-    height: 100px
+    height: 150px;
   }
 `;
 

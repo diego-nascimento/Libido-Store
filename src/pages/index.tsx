@@ -4,6 +4,7 @@ import React from 'react'
 import {api} from '../service/api'
 import {ICategoria} from '../Interfaces/ICategoria'
 import Link from 'next/link'
+import Head from 'next/head'
 
 interface IHome{
   categorias?: Array<ICategoria>
@@ -13,6 +14,9 @@ interface IHome{
 const Home: React.FC <IHome> = ({categorias}) => {
   return (
     <Layout>
+      <Head>
+        <title>Libido Store - Inicio</title>
+      </Head>
       <Header>
       </Header>
       <Banner >
@@ -23,18 +27,17 @@ const Home: React.FC <IHome> = ({categorias}) => {
       </Banner>
       <Produtos>
         <h1>Nossos Produtos</h1>
-        <Container>
+        <Container className="Container">
           {categorias && categorias.map(categoria => {
             return (
-              <Card key={categoria._id}>
-              {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />}
-                <CardInfo>
-                  <h2>{categoria.Nome}</h2>
-                  <Link href={`/produtos/${categoria._id}`}>
-                    <a ><button>Veja Mais</button></a>
-                  </Link>
-                  </CardInfo>
-              </Card>
+              <Link href={`/produtos/${categoria._id}`}>
+                <a >
+                <Card key={categoria._id}>
+                  {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />}
+                </Card>
+                </a>
+              </Link>
+              
             )
           })}
 

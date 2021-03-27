@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Layout from '../Components/Layout/Layout'
 import ShowProdutos from '../Components/ShowProducts/ShowProdutos'
 import { ICategoria } from '../Interfaces/ICategoria'
@@ -12,6 +13,9 @@ interface IAllProdutos{
 const Produtos: React.FC<IAllProdutos> = ({produtos, categorias}) => {
   return (
     <Layout>
+      <Head>
+        <title>Libido Store - Produtos</title>
+      </Head>
       <ShowProdutos produtos={produtos} title={"Nossos Produtos"}/>
     </Layout>
   )

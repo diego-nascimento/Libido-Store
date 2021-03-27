@@ -10,8 +10,8 @@ const Nav: React.FC = () => {
 
   React.useEffect(() => {
     window.addEventListener('scroll', () => {
-    window.pageYOffset < 70? setMenuBackground(false): setMenuBackground(true)
-  })
+      window.pageYOffset < 70? setMenuBackground(false): setMenuBackground(true)
+    })
   })
 
   return (
@@ -25,7 +25,7 @@ const Nav: React.FC = () => {
             </Link> 
           </li>
            <li>
-            <Link href="/">
+            <Link href="/sobre">
               <a>Sobre Nós</a>
             </Link> 
           </li>
@@ -44,7 +44,8 @@ const Nav: React.FC = () => {
           <li>
             <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
               <a ><FaWhatsapp /></a>
-            </Link></li>
+            </Link>
+          </li>
         </RedesSociais>
         </ContainerNav>
       </Navegacao>
