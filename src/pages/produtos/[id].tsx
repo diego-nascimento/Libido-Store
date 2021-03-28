@@ -38,7 +38,7 @@ export async function getStaticPaths() {
   });
   return {
     paths: params,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -54,6 +54,6 @@ export async function getStaticProps({params}:any) {
       produtos: responseProdutos.data,
       categoria: responseCategoriaAtual.data
     },
-    revalidate: 5000
+    revalidate: 10
   }
 }
