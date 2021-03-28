@@ -56,6 +56,6 @@ export async function getStaticProps() {
       props: {
         categorias: response.data
       },
-      revalidate: 10
+      revalidate: 2000
     }
 }

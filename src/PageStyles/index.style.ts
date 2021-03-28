@@ -79,6 +79,7 @@ export const Container = styled.div`
   justify-content: center;
   width: calc(100% - 20px);
   align-items: center;
+  margin-top: 50px;
 
 @media(max-width: 800px){
     grid-template-columns: 1fr;

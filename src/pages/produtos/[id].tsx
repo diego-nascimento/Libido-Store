@@ -54,6 +54,6 @@ export async function getStaticProps({params}:any) {
       produtos: responseProdutos.data,
       categoria: responseCategoriaAtual.data
     },
-    revalidate: 10
+    revalidate: 2000
   }
 }

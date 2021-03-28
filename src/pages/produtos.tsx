@@ -32,6 +32,6 @@ export async function getStaticProps() {
       categorias: responseCategorias.data,
       produtos: responseProdutos.data
     },
-    revalidate: 10
+    revalidate: 2000
   }
 }
