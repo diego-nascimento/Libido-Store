@@ -28,7 +28,7 @@ const Home: React.FC <IHome> = ({categorias}) => {
       <Produtos>
         <h1>Nossos Produtos</h1>
         <Container className="Container">
-          {categorias && categorias.map(categoria => {
+          {categorias && categorias !== undefined && categorias.map(categoria => {
             return (
               <Link href={`/produtos/${categoria._id}`}>
                 <a >
@@ -56,6 +56,6 @@ export async function getStaticProps() {
       props: {
         categorias: response.data
       },
-      revalidate: 5000
+      revalidate: 10
     }
 }
