@@ -26,7 +26,6 @@ const Home: React.FC <IHome> = ({categorias}) => {
         </div>
       </Banner>
       <Produtos>
-        <h1>Nossos Produtos</h1>
         <Container className="Container">
           {categorias && categorias !== undefined && categorias.map(categoria => {
             return (

@@ -74,7 +74,7 @@ export const Produtos = styled.section`
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
   justify-content: center;
   width: calc(100% - 20px);
