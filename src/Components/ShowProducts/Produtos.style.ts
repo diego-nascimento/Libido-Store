@@ -26,7 +26,7 @@ export const Container = styled.div`
   justify-content: center;
   width: calc(100% - 20px);
 
-@media(max-width: 800px){
+@media only screen and  (max-width: 800px){
     grid-template-columns: 1fr;
     width:100%;
   }

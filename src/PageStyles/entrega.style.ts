@@ -19,12 +19,16 @@ export const SobreContainer = styled.section`
     letter-spacing: 1px;
     align-self: center;
     color: ${styles.fontColor};
-    text-shadow: 0px 14px 19px rgba(150, 150, 150, 1);
+    text-shadow: 0px 14px 19px #e4a0a1;
   }
 
   
-  @media(max-width: 800px){
-    padding: 0px 10px;
+  @media only screen and  (max-width: 800px){
+    padding: 50px 10px;
+
+    h1{
+      font-size: 1.6rem;
+    }
   }
 `;
 
@@ -37,12 +41,7 @@ export const Container = styled.div`
     width: 400px;
   }
 
-  @media(max-width: 800px){
-    
-    img{
-      width: 250px;
-    }
-  }
+  
 `;
 
 export const InfoContainer = styled.section`
@@ -56,7 +55,9 @@ export const InfoContainer = styled.section`
     color: ${styles.fontColorDest};
   }
 
-  @media(max-width: 800px){
+  
+  @media only screen and  (max-width: 800px){
+
 
     p{
     font-size: 1.6rem;

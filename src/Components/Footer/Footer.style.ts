@@ -35,7 +35,7 @@ export const FooterContainer = styled.footer`
       }
     }
 
-    @media(max-width: 800px){
+    @media only screen and  (max-width: 800px){
       padding: 0px 10px;
     }
     
@@ -76,7 +76,7 @@ export const Rights = styled.section`
     width: 100%;
     align-items: center;
 
-    @media(max-width: 800px){
+    @media only screen and  (max-width: 800px){
       flex-direction: column;
     }
 

@@ -17,7 +17,7 @@ export const Header = styled.header`
   background-size: cover;
   background-position: center center;
   
-  @media(max-width: 800px){
+  @media only screen and  (max-width: 800px){
     height: 500px;
   }
 `;
@@ -49,7 +49,7 @@ p{
     color: ${styles.fontColorInDark};
   }
 
-  @media(max-width: 800px){
+  @media only screen and  (max-width: 800px){
     grid-template-columns: 1fr;
 
     h2, p{
@@ -81,7 +81,7 @@ export const Container = styled.div`
   align-items: center;
   margin-top: 50px;
 
-@media(max-width: 800px){
+@media only screen and  (max-width: 800px){
     grid-template-columns: 1fr;
     width:90%;
   }

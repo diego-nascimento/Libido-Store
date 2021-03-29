@@ -1,5 +1,14 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle} from 'styled-components';
 import {styles} from './styles'
+import { keyframes } from 'styled-components';
+
+const ImageShowUp = keyframes`
+  from{
+    opacity: 0
+  }to{
+    opacity: 1;
+  }
+`;
 
 export const GlobalStyles = createGlobalStyle`
   *{
@@ -66,7 +75,7 @@ html{
       padding: 50px 0px;
     }
 
-    @media(max-width: 800px){
+    @media only screen and  (max-width: 800px){
       h1{
         font-size: 1.9em;
       }
@@ -97,4 +106,9 @@ html{
       color: initial;
     }
   }
+
+  img{
+    animation: ${ImageShowUp} .5s forwards;
+  }
+
 `;
