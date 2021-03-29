@@ -25,8 +25,8 @@ const Nav: React.FC = () => {
             </Link> 
           </li>
            <li>
-            <Link href="/sobre">
-              <a>Sobre Nós</a>
+            <Link href="/entrega">
+              <a>Entrega</a>
             </Link> 
           </li>
           <li>

@@ -29,9 +29,9 @@ const Home: React.FC <IHome> = ({categorias}) => {
         <Container className="Container">
           {categorias && categorias !== undefined && categorias.map(categoria => {
             return (
-              <Link href={`/produtos/${categoria._id}`}>
+              <Link href={`/produtos/${categoria._id}`} key={categoria._id}>
                 <a >
-                <Card key={categoria._id}>
+                <Card >
                   {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />}
                 </Card>
                 </a>
