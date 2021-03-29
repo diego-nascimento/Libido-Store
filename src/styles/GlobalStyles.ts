@@ -1,6 +1,6 @@
 import { createGlobalStyle} from 'styled-components';
 import {styles} from './styles'
-import {ImageShowUp} from '../styles/Keyframes'
+import {ImageShowUp, PBottomTop} from '../styles/Keyframes'
 
 export const GlobalStyles = createGlobalStyle`
   *{
@@ -67,6 +67,10 @@ html{
       padding: 50px 0px;
     }
 
+    p{
+      animation: ${PBottomTop} .5s forwards;
+    }
+
     @media only screen and  (max-width: 800px){
       h1{
         font-size: 1.9em;
@@ -104,7 +108,7 @@ html{
   }
 
   .PageContainer{
-    animation: ${ImageShowUp({opacity: 1})} 1s forwards;
+    animation: ${ImageShowUp({opacity: 1})} .5s forwards;
   }
 `;
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import {Container} from './LoadingPage.style'
-import {PulseLoader} from 'react-spinners'
+import {PuffLoader} from 'react-spinners'
 
 const LoadingPage = () => {
   return (
     <Container>
-      <PulseLoader color={'white'} size={20} />
+      <PuffLoader color={'white'} size={60} />
     </Container>
   )
 }
