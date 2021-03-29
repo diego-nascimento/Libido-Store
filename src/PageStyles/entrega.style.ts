@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-
-
 import { styles } from '../styles/styles';
+import {ImageShowUp} from '../styles/Keyframes'
 
 
 export const SobreContainer = styled.section`
@@ -39,6 +38,7 @@ export const Container = styled.div`
 
   img{
     width: 400px;
+    animation: ${ImageShowUp({opacity: .7})} .5s forwards;
   }
 
   

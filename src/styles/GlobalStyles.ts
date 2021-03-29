@@ -1,14 +1,6 @@
 import { createGlobalStyle} from 'styled-components';
 import {styles} from './styles'
-import { keyframes } from 'styled-components';
-
-const ImageShowUp = keyframes`
-  from{
-    opacity: 0
-  }to{
-    opacity: 1;
-  }
-`;
+import {ImageShowUp} from '../styles/Keyframes'
 
 export const GlobalStyles = createGlobalStyle`
   *{
@@ -108,7 +100,7 @@ html{
   }
 
   img{
-    animation: ${ImageShowUp} .5s forwards;
+    animation: ${ImageShowUp({opacity: 1})} .5s forwards;
   }
 
 `;
