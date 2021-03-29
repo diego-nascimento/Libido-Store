@@ -49,6 +49,8 @@ const Home: React.FC <IHome> = ({categorias}) => {
 
 export default Home
 
+
+
 export async function getStaticProps() {
     const response = await api.get('/categorias')
     return {

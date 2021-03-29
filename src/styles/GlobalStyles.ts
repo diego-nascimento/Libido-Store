@@ -103,4 +103,8 @@ html{
     animation: ${ImageShowUp({opacity: 1})} .5s forwards;
   }
 
+  .PageContainer{
+    animation: ${ImageShowUp({opacity: 1})} 1s forwards;
+  }
 `;
+

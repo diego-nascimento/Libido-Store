@@ -12,7 +12,7 @@ const Footer: React.FC =() => {
             <p>Entre em Contato</p>
             <ul>
               <li><FaWhatsapp />: (32) 9 9113-0257</li>
-              <li><FaInstagram />:</li>
+              <li><FaInstagram />: @sexshop_pirauba</li>
             </ul>
           </div>
           <div className="Grid-Container">

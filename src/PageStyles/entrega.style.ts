@@ -39,9 +39,7 @@ export const Container = styled.div`
   img{
     width: 400px;
     animation: ${ImageShowUp({opacity: .7})} .5s forwards;
-  }
-
-  
+  }  
 `;
 
 export const InfoContainer = styled.section`

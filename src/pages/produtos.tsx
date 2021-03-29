@@ -23,7 +23,6 @@ const Produtos: React.FC<IAllProdutos> = ({produtos, categorias}) => {
 
 export default Produtos
 
-
 export async function getStaticProps() {
   const responseProdutos = await api.get('/produtos')
   const responseCategorias = await api.get('/categorias')
