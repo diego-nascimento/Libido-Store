@@ -9,9 +9,9 @@ interface IShowProdutos{
 
 const ShowProdutos: React.FC<IShowProdutos> = ({produtos, title}) =>{
   return(
-      <ProdutosContainer>
+      <ProdutosContainer >
         <h1>{title}</h1>
-        <Container>
+        <Container className="Container">
           {produtos && produtos.map(produto =>{
             return (
               <Card key={produto._id}>

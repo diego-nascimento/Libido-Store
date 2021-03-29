@@ -19,8 +19,8 @@ const Footer: React.FC =() => {
             <p>Links Uteis</p>
             <ul>
               <li>
-                <Link href="/sobre">
-                  <a>Sobre Nós</a>
+                <Link href="/entrega">
+                  <a>Entregas</a>
                 </Link> 
               </li>
               <li>

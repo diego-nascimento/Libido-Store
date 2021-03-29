@@ -17,7 +17,7 @@ export const Header = styled.header`
   background-size: cover;
   background-position: center center;
   
-  @media only screen and  (max-width: 800px){
+  @media  (max-width: 800px){
     height: 500px;
   }
 `;
@@ -40,8 +40,6 @@ p{
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
 
-  
-
   h2, p{
     display: flex;
     align-items: center;
@@ -49,7 +47,7 @@ p{
     color: ${styles.fontColorInDark};
   }
 
-  @media only screen and  (max-width: 800px){
+  @media  (max-width: 800px){
     grid-template-columns: 1fr;
 
     h2, p{
@@ -64,7 +62,6 @@ export const Produtos = styled.section`
   padding: 100px 20px;
   display: flex;
   flex-direction: column;
-  background-color: ${styles.componentsColor};
   justify-content: center;
   align-items: center;
 
@@ -81,7 +78,7 @@ export const Container = styled.div`
   align-items: center;
   margin-top: 50px;
 
-@media only screen and  (max-width: 800px){
+@media  (max-width: 800px){
     grid-template-columns: 1fr;
     width:90%;
   }

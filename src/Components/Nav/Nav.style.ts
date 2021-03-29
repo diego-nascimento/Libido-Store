@@ -30,7 +30,7 @@ export const Navegacao = styled.nav<INavegacao>`
     z-index: 99;
   }
 
-  @media only screen and  (max-width: 800px){
+  @media  (max-width: 800px){
     .BotaoMenu{
       display: block;
     }
@@ -82,7 +82,7 @@ export const Lista = styled.ul<ILista>`
     }
   }
 
-  @media only screen and  (max-width: 800px){
+  @media  (max-width: 800px){
     opacity: ${props => props.MenuState ? '1' : '0'};
     transform: ${props => props.MenuState ? 'translateY(0px)' : 'translateY(-20px)'};
     position: fixed;

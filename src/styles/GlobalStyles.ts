@@ -11,10 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
-html{
-  width: 100%;
-}
-
 #__next {
   position: relative;
   display: flex;
@@ -25,7 +21,7 @@ html{
 
   
   body{
-    background: ${styles.bgColor};
+    background-image: linear-gradient(to bottom,  #eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6, #eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6,#eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6);
     overflow: hidden;
     overflow-y: scroll;
     height: 100%;
@@ -44,11 +40,11 @@ html{
     }
 
     h1{
-      font-size: 3em;
+      font-size: 2rem;
     }
 
     h2{
-      font-size: 2em;
+      font-size: 1.5em;
     }
 
     p, a, span, li{
@@ -71,9 +67,9 @@ html{
       animation: ${PBottomTop} .5s forwards;
     }
 
-    @media only screen and  (max-width: 800px){
+    @media  (max-width: 800px){
       h1{
-        font-size: 1.9em;
+        font-size: 1.3rem;
       }
 
       h2{

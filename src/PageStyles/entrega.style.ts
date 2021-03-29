@@ -5,10 +5,9 @@ import {ImageShowUp} from '../styles/Keyframes'
 
 export const SobreContainer = styled.section`
   width: 100vw;
-  padding: 100px 20px;
   display: flex;
   flex-direction: column;
-  background-color: ${styles.componentsColor};
+  padding: 50px 20px;
   align-items: center;
   background-image: linear-gradient(to bottom,  #eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6, #eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6,#eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6);
 
@@ -22,12 +21,8 @@ export const SobreContainer = styled.section`
   }
 
   
-  @media only screen and  (max-width: 800px){
-    padding: 50px 10px;
-
-    h1{
-      font-size: 1.6rem;
-    }
+  @media (max-width: 800px){
+    padding: 30px 20px;
   }
 `;
 
@@ -37,7 +32,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   img{
-    width: 400px;
+    width: 50%;
     animation: ${ImageShowUp({opacity: .7})} .5s forwards;
   }  
 `;
@@ -47,21 +42,16 @@ export const InfoContainer = styled.section`
   text-align: left;
 
   p{
-    font-size: 2.2rem;
     letter-spacing: 1px;
     line-height: 3rem;
     color: ${styles.fontColorDest};
   }
 
   
-  @media only screen and  (max-width: 800px){
-
-
+  @media (max-width: 800px){
     p{
-    font-size: 1.6rem;
-    letter-spacing: 1px;
-    line-height: 3rem;
-    
-  }
+      letter-spacing: 1px;
+      line-height: 1.9rem;
+    }
   }
 `;

@@ -7,7 +7,7 @@ export const ProdutosContainer = styled.section`
   padding: 100px 20px;
   display: flex;
   flex-direction: column;
-  background-color: ${styles.componentsColor};
+  align-items: center;
 
   h1{
     text-transform: uppercase;
@@ -21,12 +21,13 @@ export const ProdutosContainer = styled.section`
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   justify-content: center;
   width: calc(100% - 20px);
+  align-items: center;
 
-@media only screen and  (max-width: 800px){
+@media  (max-width: 800px){
     grid-template-columns: 1fr;
     width:100%;
   }
@@ -34,7 +35,6 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   width: 100%;
-  background: white;
   display: flex;
   position: relative;
   justify-content: center;
@@ -45,9 +45,13 @@ export const Card = styled.div`
   color: ${styles.fontColorInDark};
 
   .info{
-    background: ${styles.componentsDest};
+    background: ${styles.componentsColor};
     width: 100%;
     padding: 20px 10px;
+    color: ${styles.componentsDest};
+    border: 1px solid ${styles.componentsDest};
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
   }
 
   img{
