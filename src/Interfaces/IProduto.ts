@@ -5,7 +5,8 @@ export interface IProduto{
   _id: string,
   Nome: string, 
   imagem: IImagem
-  categoria: ICategoria
+  categorias: Array<ICategoria>
   preco: number
   descricao: string
+  especificacao: string
 }

@@ -13,7 +13,6 @@ export const SobreContainer = styled.section`
 
   h1{
     text-transform: uppercase;
-    margin-bottom: 20px;
     letter-spacing: 1px;
     align-self: center;
     color: ${styles.fontColor};

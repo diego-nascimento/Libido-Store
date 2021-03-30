@@ -44,11 +44,11 @@ html{
     }
 
     h1{
-      font-size: 1.6rem;
+      font-size: 2rem;
     }
 
     h2{
-      font-size: 1.5em;
+      font-size: 1.7em;
     }
 
     p, a, span, li, b{
@@ -77,30 +77,31 @@ html{
       }
 
       h1{
-        font-size: 1.3rem;
+        font-size: 1.7rem;
       }
 
       h2{
-       font-size: 1em;
+       font-size: 1.4rem;
       }
 
       p, a, span, li, b{
-        font-size: .8em;
+        font-size: 1.2rem;
       }
       
     }
 
     @media(max-width: 650px){
       h1{
-        font-size: .9rem;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
       }
 
       h2{
-       font-size: .7rem;
+       font-size: 1rem;
       }
 
       p, a, span, li, b{
-        font-size: .6rem;
+        font-size: .9rem;
       }
     }
   }
