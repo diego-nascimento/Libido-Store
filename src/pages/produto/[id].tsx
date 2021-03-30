@@ -24,7 +24,8 @@ const Produto: React.FC<IProdutoPage> = ({ produto }) => {
      <Wrapper className="Container">
        <InfoContainer  >
          <div className="imageContainer">
-          <img src={produto.imagem.url} alt={produto.Nome} />
+           {produto.imagem === undefined? <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={produto.Nome} />: <img src={produto.imagem.url} alt={produto.Nome} />}
+          
          </div>
 
          <div className="info">

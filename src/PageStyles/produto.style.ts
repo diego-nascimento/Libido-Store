@@ -12,7 +12,7 @@ export const Wrapper = styled.section`
   h1{
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: ${styles.fontColor}
+    color: ${styles.fontColor};
     margin: 0px;
   }
 `;
