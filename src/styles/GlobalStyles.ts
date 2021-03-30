@@ -51,7 +51,7 @@ html{
       font-size: 1.5em;
     }
 
-    p, a, span, li{
+    p, a, span, li, b{
       font-size: 1.2rem;
     }
 
@@ -80,7 +80,7 @@ html{
        font-size: 1em;
       }
 
-      p, a, span, li{
+      p, a, span, li, b{
         font-size: .8em;
       }
       
@@ -95,7 +95,7 @@ html{
        font-size: .7rem;
       }
 
-      p, a, span, li{
+      p, a, span, li, b{
         font-size: .6rem;
       }
     }
@@ -103,7 +103,7 @@ html{
 
   .Container{
     width: 100%;
-    max-width: 1200px;
+    max-width: 1500px;
   }
 
   a{

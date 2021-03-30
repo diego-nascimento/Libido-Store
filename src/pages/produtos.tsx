@@ -10,13 +10,14 @@ interface IAllProdutos{
   categorias: Array<ICategoria>
 }
 
-const Produtos: React.FC<IAllProdutos> = ({produtos, categorias}) => {
+const Produtos: React.FC<IAllProdutos> = ({ produtos, categorias }) => {
+
   return (
     <Layout>
       <Head>
         <title>Libido Store - Produtos</title>
       </Head>
-      <ShowProdutos produtos={produtos} title={"Nossos Produtos"}/>
+      <ShowProdutos produtos={produtos} title={"Produtos Disponiveis"} categorias={categorias}/>
     </Layout>
   )
 }

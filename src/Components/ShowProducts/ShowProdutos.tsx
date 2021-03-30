@@ -1,16 +1,46 @@
+import Link from 'next/link'
 import React from 'react'
+import { ICategoria } from '../../Interfaces/ICategoria'
 import { IProduto } from '../../Interfaces/IProduto'
-import {Card, ProdutosContainer, Container} from './Produtos.style'
+import { Card, Wrapper, ProdutosContainer, Container, SideBar } from './Produtos.style'
+import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
+import { MdExpandMore } from 'react-icons/md';
 
 interface IShowProdutos{
   produtos: Array<IProduto>
   title: string
+  categorias:Array<ICategoria>
 }
 
-const ShowProdutos: React.FC<IShowProdutos> = ({produtos, title}) =>{
+const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) => {
   return(
-      <ProdutosContainer >
-        <h1>{title}</h1>
+    <Wrapper className="Container">
+      <h1>{title}</h1>
+      <ProdutosContainer>
+        <SideBar>
+          <div className="block">
+            <Accordion style={{background: 'rgba(0,0,0,0)', border: 'none'}} TransitionProps={{ unmountOnExit: true }}> 
+              <AccordionSummary expandIcon={<MdExpandMore />} >
+                  <h2>Categorias</h2>
+              </AccordionSummary>
+              <AccordionDetails>
+                <ul>
+                  {categorias && categorias.map(categoria => {
+                    return (
+                      <li key={categoria._id}>
+                        <Link href={`/categoria/${categoria._id}`}>
+                          <a>
+                            <p>{categoria.Nome}</p>
+                          </a>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+        </AccordionDetails>
+      </Accordion> 
+          </div>
+        </SideBar>
         <Container className="Container">
           {produtos && produtos.map(produto =>{
             return (
@@ -29,6 +59,8 @@ const ShowProdutos: React.FC<IShowProdutos> = ({produtos, title}) =>{
           })}
         </Container>
       </ProdutosContainer>
+      
+      </Wrapper>
   )
 }
 
