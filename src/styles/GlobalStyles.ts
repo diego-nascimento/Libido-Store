@@ -72,6 +72,10 @@ html{
     }
 
     @media  (max-width: 800px){
+      section{
+        padding: 20px 0px;
+      }
+
       h1{
         font-size: 1.3rem;
       }

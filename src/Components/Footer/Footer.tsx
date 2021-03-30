@@ -1,4 +1,4 @@
-import { FooterContainer, Logo, Rights } from './Footer.style'
+import { FooterContainer, Rights } from './Footer.style'
 import { RedesSociais } from '../Nav/Nav.style'
 import { FaInstagram, FaWhatsapp} from 'react-icons/fa'
 import Link from 'next/link'

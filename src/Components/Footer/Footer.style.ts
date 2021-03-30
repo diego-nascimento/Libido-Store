@@ -14,7 +14,6 @@ export const FooterContainer = styled.footer`
   .Footer-Container{
     display: flex;
     justify-content: space-around;
-    padding: 50px 0px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -55,12 +54,6 @@ export const FooterContainer = styled.footer`
       justify-content: flex-start;
     }
   }
-`;
-
-export const Logo = styled.div`
-  width: 100%;
-  background-color: white;
-  height: 150px;
 `;
 
 export const Rights = styled.section`
