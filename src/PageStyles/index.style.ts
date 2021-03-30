@@ -103,6 +103,11 @@ export const Card = styled.div`
   h2{
     padding: 10px 0px;
   }
+
+  @media  (max-width: 800px){
+    width:100%;
+  }
+
 `;
 
 export const CardInfo = styled.div`
