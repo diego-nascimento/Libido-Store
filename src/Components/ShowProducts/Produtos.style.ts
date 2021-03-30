@@ -78,6 +78,7 @@ export const SideBar = styled.aside`
   width: 100%;
   height: 100%;
   border: 1px solid ${styles.dest2Components};
+  padding: 0px 10px;
 
   .block{
     border-bottom: 1px solid rgba(0,0,0, .5);
