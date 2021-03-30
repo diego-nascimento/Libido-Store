@@ -37,13 +37,13 @@ const Nav: React.FC = () => {
         </Lista>
         <RedesSociais>
           <li>
-            <Link href="https://www.instagram.com/sexshop_pirauba/">
-              <a ><FaInstagram /></a>
+            <Link href="https://www.instagram.com/loveshoplibido/">
+              <a target="blank"><FaInstagram /></a>
             </Link>
           </li>
           <li>
             <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
-              <a ><FaWhatsapp /></a>
+              <a target="blank"><FaWhatsapp /></a>
             </Link>
           </li>
         </RedesSociais>

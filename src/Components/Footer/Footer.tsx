@@ -12,7 +12,7 @@ const Footer: React.FC =() => {
             <p>Entre em Contato</p>
             <ul>
               <li><FaWhatsapp />: (32) 9 9113-0257</li>
-              <li><FaInstagram />: @sexshop_pirauba</li>
+              <li><FaInstagram />: @loveshoplibido</li>
             </ul>
           </div>
           <div className="Grid-Container">
@@ -36,13 +36,13 @@ const Footer: React.FC =() => {
             <span>© {new Date().getFullYear()} Libido, Todos os Direitos Reservados.</span>
             <RedesSociais className="Redes-Sociais-Footer">
             <li>
-              <Link href="https://www.instagram.com/sexshop_pirauba/">
-                <a ><FaInstagram /></a>
+              <Link href="https://www.instagram.com/loveshoplibido/">
+                <a target="blank"><FaInstagram /></a>
               </Link>
           </li>
           <li>
             <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
-              <a ><FaWhatsapp /></a>
+              <a target="blank"><FaWhatsapp /></a>
             </Link>
           </li>
         </RedesSociais>
