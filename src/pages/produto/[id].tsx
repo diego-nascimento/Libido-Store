@@ -15,19 +15,18 @@ interface IProdutoPage{
   produto: IProduto 
 }
 
-const Produto: React.FC<IProdutoPage> = ({ produto }) => {
+const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
+
  return(
      <Layout>
       <Head>
         <title>Libido Store - {produto && produto.Nome}</title>
      </Head>
-     <Wrapper className="Container">
-       <InfoContainer  >
+     {produto && <Wrapper className="Container">
+        <InfoContainer  >
          <div className="imageContainer">
-           {produto.imagem === undefined? <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={produto.Nome} />: <img src={produto.imagem.url} alt={produto.Nome} />}
-          
+           <img src={produto.imagem.url} alt={produto.Nome}/>
          </div>
-
          <div className="info">
            <div className="top">
              
@@ -69,14 +68,14 @@ const Produto: React.FC<IProdutoPage> = ({ produto }) => {
       </Accordion> 
        </DescricaoContainer>
        }
-     </Wrapper>
+     </Wrapper>}
+      
      
     </Layout>
  )
 }
 
-
-export default Produto
+export default ProdutoPage
 
 export async function getStaticPaths() {
   const response = await api.get('/produtos')
@@ -96,12 +95,11 @@ export async function getStaticPaths() {
 }
 
 
-export async function getStaticProps({params}:any) {
+export async function getStaticProps({ params }: any) {
   const responseProdutos = await api.get(`/produtos/${params.id}`)
-  const produto: IProduto = responseProdutos.data
   return {
     props: {
-      produto: produto
+      produto: responseProdutos.data
     },
     revalidate: 2000
   }

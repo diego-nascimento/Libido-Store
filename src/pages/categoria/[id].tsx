@@ -24,9 +24,6 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categor
 
 export default ProdutoCategoria
 
-
-
-
 export async function getStaticPaths() {
   const response = await api.get('/categorias')
 
