@@ -97,11 +97,11 @@ html{
       }
 
       h2{
-       font-size: 1rem;
+       font-size: .8rem;
       }
 
       p, a, span, li, b{
-        font-size: .9rem;
+        font-size: .6rem;
       }
     }
   }

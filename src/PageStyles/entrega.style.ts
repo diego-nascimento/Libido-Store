@@ -42,16 +42,16 @@ export const InfoContainer = styled.section`
 
   p{
     letter-spacing: 1px;
-    line-height: 3rem;
+    line-height: 1.8rem;
     color: ${styles.fontColorDest};
-    font-size: 1.4rem;
   }
 
   
   @media (max-width: 800px){
     p{
       letter-spacing: 1px;
-      line-height: 1.9rem;
+      line-height: 1.5rem;
+      font-size: .8rem;
     }
   }
 `;

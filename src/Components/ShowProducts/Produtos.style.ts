@@ -80,13 +80,14 @@ export const SideBar = styled.aside`
   padding: 10px 10px;
 
   .block{  
-    h3{
-      text-decoration: underline;
+    h2{
+      width: 100%;
     }
 
     ul{
       padding: 10px 20px;
       li{
+        width: 100%;
         padding: 10px 0px;
         list-style: square;
         transition: .5s;
