@@ -19,6 +19,10 @@ export const GlobalStyles = createGlobalStyle`
   height: 100%;
 }
 
+html{
+  font-size: 100%;
+}
+
   
   body{
     background-image: linear-gradient(to bottom,  #eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6, #eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6,#eba5a6, #e4a0a1, #de9b9c, #d79697, #d19192, #d19192, #d19192, #d19192, #d79697, #de9b9c, #e4a0a1, #eba5a6);
@@ -40,7 +44,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     h1{
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
 
     h2{
@@ -48,7 +52,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     p, a, span, li{
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
 
     button{
@@ -80,6 +84,20 @@ export const GlobalStyles = createGlobalStyle`
         font-size: .8em;
       }
       
+    }
+
+    @media(max-width: 650px){
+      h1{
+        font-size: .9rem;
+      }
+
+      h2{
+       font-size: .7rem;
+      }
+
+      p, a, span, li{
+        font-size: .6rem;
+      }
     }
   }
 

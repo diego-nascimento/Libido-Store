@@ -17,7 +17,7 @@ export const SobreContainer = styled.section`
     letter-spacing: 1px;
     align-self: center;
     color: ${styles.fontColor};
-    text-shadow: 0px 14px 19px #e4a0a1;
+    text-shadow: 0px 4px 5px rgba(0,0,0, .6);
   }
 
   
@@ -32,8 +32,8 @@ export const Container = styled.div`
   flex-direction: column;
 
   img{
-    width: 50%;
-    animation: ${ImageShowUp({opacity: .7})} .5s forwards;
+    width: 30%;
+    animation: ${ImageShowUp({opacity: .9})} .5s forwards;
   }  
 `;
 
@@ -45,6 +45,7 @@ export const InfoContainer = styled.section`
     letter-spacing: 1px;
     line-height: 3rem;
     color: ${styles.fontColorDest};
+    font-size: 1.4rem;
   }
 
   

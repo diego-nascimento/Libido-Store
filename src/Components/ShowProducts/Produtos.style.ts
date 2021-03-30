@@ -27,11 +27,10 @@ export const Container = styled.div`
   width: calc(100% - 20px);
   align-items: center;
 
-@media  (max-width: 800px){
-    grid-template-columns: 1fr;
-    width:100%;
+  @media(max-width: 1200px){
+    grid-template-columns: repeat(2, 1fr);
   }
-`;
+`
 
 export const Card = styled.div`
   width: 100%;
@@ -43,15 +42,13 @@ export const Card = styled.div`
   border-radius: 15px;
   overflow: hidden;
   color: ${styles.fontColorInDark};
+  height: 100%;
 
   .info{
-    background: ${styles.componentsColor};
+    background: ${styles.componentsDest};
     width: 100%;
     padding: 20px 10px;
-    color: ${styles.componentsDest};
-    border: 1px solid ${styles.componentsDest};
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    color: ${styles.fontColorInDark};
   }
 
   img{
@@ -69,12 +66,11 @@ export const Card = styled.div`
     text-align: center;
   }
 
-  p{
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
+  
 
   b{
     font-size: 1.2rem;
   }
+
+  
 `;

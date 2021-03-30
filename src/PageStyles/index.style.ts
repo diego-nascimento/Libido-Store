@@ -57,35 +57,32 @@ p{
 }
 `;
 
-export const Produtos = styled.section`
+export const Categorias = styled.section`
   width: 100vw;
-  padding: 100px 20px;
+  padding:  50px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
-  
-
 `;
 
 export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
-  justify-content: center;
   width: calc(100% - 20px);
-  align-items: center;
-  margin-top: 50px;
+
+  a{
+    display: flex;
+    justify-content: center;
+  }
 
 @media  (max-width: 800px){
-    grid-template-columns: 1fr;
     width:90%;
   }
 `;
 
 export const Card = styled.div`
-  width: 100%;
+  width: 80%;
   background: white;
   display: flex;
   position: relative;
