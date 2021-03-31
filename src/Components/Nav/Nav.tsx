@@ -10,7 +10,7 @@ const Nav: React.FC = () => {
 
   React.useEffect(() => {
     window.addEventListener('scroll', () => {
-      window.pageYOffset < 70? setMenuBackground(false): setMenuBackground(true)
+      window.pageYOffset < 30? setMenuBackground(false): setMenuBackground(true)
     })
   })
 

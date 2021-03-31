@@ -44,15 +44,18 @@ html{
     }
 
     h1{
-      font-size: 2rem;
+      font-size: 1.5rem;
+      line-height: 2rem;
     }
 
     h2{
-      font-size: 1.3rem;
+      font-size: .8rem;
+      line-height: 1.2rem;
     }
 
     p, a, span, li, b{
       font-size: 1rem;
+      line-height: 1.4rem;
     }
 
     button{
@@ -64,7 +67,7 @@ html{
     }
 
     section{
-      padding: 50px 0px;
+      padding: 100px 0px;
     }
 
     p{
@@ -77,34 +80,17 @@ html{
       }
 
       h1{
-        font-size: 1.7rem;
-      }
-
-      h2{
-       font-size: 1.4rem;
-      }
-
-      p, a, span, li, b{
         font-size: 1.2rem;
-      }
-      
-    }
-
-    @media(max-width: 650px){
-      h1{
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-      }
-
-      h2{
-       font-size: .8rem;
+        line-height: 1.6rem;
       }
 
       p, a, span, li, b{
-        font-size: .6rem;
-      }
+        font-size: .8rem;
+        line-height: 1.2rem;
+      }   
     }
   }
+
 
   .Container{
     width: 100%;
@@ -123,7 +109,7 @@ html{
   }
 
   img{
-    animation: ${ImageShowUp({opacity: 1})} .5s forwards;
+    animation: ${ImageShowUp({ opacity: 1 })} .5s forwards;
   }
 
   .PageContainer{

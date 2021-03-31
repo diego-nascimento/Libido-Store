@@ -3,7 +3,7 @@ import Footer from '../Footer/Footer'
 import Head from 'next/head'
 import React from 'react'
 import LoadingPage from '../LoadingPage/LoadingPage'
-import {Main} from './Layout.style'
+import {PageContainer, Main} from './Layout.style'
 
 const Layout: React.FC = ({ children }) => {
   const [Loading, setLoading] = React.useState(true)
@@ -16,7 +16,7 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     Loading ? <LoadingPage /> :
-    <div className="PageContainer">
+    <PageContainer>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -25,7 +25,7 @@ const Layout: React.FC = ({ children }) => {
         {children}
       </Main>
       <Footer />
-    </div>
+    </PageContainer>
   )
 }
 

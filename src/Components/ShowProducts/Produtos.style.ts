@@ -59,7 +59,7 @@ export const Card = styled.div`
 
   img{
     width: 100%;
-    flex: 1;
+    height: 300px;
   }
 
   h2, p, b{
@@ -68,8 +68,16 @@ export const Card = styled.div`
 
   h2{
     letter-spacing: 1px;
-    text-align: center;
-  }  
+    text-align: left;
+    text-transform: capitalize;
+    font-weight: 400;
+  }
+  
+  @media(max-width: 800px){
+    img{
+      height: auto;
+    }
+  }
 `;
 
 
@@ -82,15 +90,20 @@ export const SideBar = styled.aside`
   .block{  
     h2{
       width: 100%;
+      height: 100%;
+      cursor: pointer;
     }
 
     ul{
-      padding: 10px 20px;
+      padding: 10px 0px;
+      width: 100%;
+      height: 100%;
       li{
         width: 100%;
         padding: 10px 0px;
         list-style: square;
         transition: .5s;
+        border-bottom: 1px solid ${styles.componentsDest};
 
         :hover{
           opacity: .7;

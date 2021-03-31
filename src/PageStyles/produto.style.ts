@@ -3,15 +3,15 @@ import { styles } from '../styles/styles';
 
 
 export const Wrapper = styled.section`
-  padding-top: 80px;
+  padding: 100px 10px;
   width: calc(100% - 20px);
   display: flex;
   justify-content: center;
   flex-direction: column;
 
   h1{
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
     color: ${styles.fontColor};
     margin: 0px;
   }
@@ -21,6 +21,7 @@ export const InfoContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
+
 
   .imageContainer{
     width: 100%;
@@ -36,14 +37,23 @@ export const InfoContainer = styled.div`
     align-items: flex-start;
     justify-content: flex-start;
 
-    span, p, a{
-      font-size: .8rem;
+    .preco{
+      margin-top: 20px;
+      h2{
+        font-size: 1.3rem;
+      }
     }
 
-    .preco{
+    .descricao{
       margin-top: 20px;
     }
 
+    .prontaEntrega{
+      color: ${styles.componentsDest};
+      font-size: 1.6rem;
+      margin-top: 20px;
+      width: 100%;
+    }
 
   }
 
@@ -53,5 +63,17 @@ export const InfoContainer = styled.div`
 `;
 
 export const DescricaoContainer = styled.section`
-  color: ${styles.fontColorInDark}
+  color: ${styles.fontColorInDark};
+
+
+  .ContainerEspec{
+    border-top: 1px solid ${styles.componentsDest};
+    padding-top: 10px;
+    
+
+    img{
+      
+      width: 300px;
+    }
+  }
 `;

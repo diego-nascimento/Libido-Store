@@ -40,6 +40,10 @@ p{
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
 
+  h2{
+    font-size: 1.5rem;
+  }
+
   h2, p{
     display: flex;
     align-items: center;
@@ -49,6 +53,10 @@ p{
 
   @media  (max-width: 800px){
     grid-template-columns: 1fr;
+
+    h2{
+      font-size: 1.2rem;
+    }
 
     h2, p{
     padding: 0px 10px;

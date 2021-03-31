@@ -31,7 +31,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
            <div className="top">
              
            </div>
-           <h1>{produto.Nome}</h1>
+           <h1>{(produto.Nome).toLowerCase()}</h1>
            <p>
             <span>(Cod Item: jasidjisaio) - </span>
             Outros Produtos: {produto.categorias && produto.categorias.map(categoria => {
@@ -43,11 +43,17 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
             })}
            </p>
            <div className="preco">
-              <h2>{Intl.NumberFormat('pt-BR', {
+              <h2>Por {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
                   }).format(produto.preco)}</h2>
            </div>
+            <div className="descricao">
+              <p>
+                {produto.descricao}
+              </p>
+           </div>
+           {produto.pronta && <b className="prontaEntrega">Pronta Entrega</b>}
          </div> 
        </InfoContainer>
        {
@@ -58,11 +64,10 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
              border: `1px solid ${styles.dest2Components}`,
            }} TransitionProps={{ unmountOnExit: true }}>
           <AccordionSummary expandIcon={<MdExpandMore />} >
-            <h2>Descrição</h2>
+            <h2>Especificações</h2>
           </AccordionSummary>
            <AccordionDetails >
-             <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }}>
-
+             <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }} className="ContainerEspec">
              </div>
           </AccordionDetails>
       </Accordion> 
