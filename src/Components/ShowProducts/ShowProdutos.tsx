@@ -19,7 +19,7 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
       <ProdutosContainer>
         <SideBar>
           <div className="block">
-            <Accordion style={{background: 'rgba(0,0,0,0)', border: 'none'}} TransitionProps={{ unmountOnExit: true }}> 
+            <Accordion style={{background: 'rgba(0,0,0,0)', border: 'none'}}> 
               <AccordionSummary  expandIcon={<MdExpandMore />}>
                   <h2>Categorias</h2>
               </AccordionSummary>
