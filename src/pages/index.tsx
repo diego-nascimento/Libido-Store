@@ -58,6 +58,6 @@ export async function getStaticProps() {
       props: {
         categorias: response.data
       },
-      revalidate: 2000
+      revalidate: process.env.REVALIDATETIME
     }
 }

@@ -107,6 +107,6 @@ export async function getStaticProps({ params }: any) {
     props: {
       produto: responseProdutos.data
     },
-    revalidate: 2000
+    revalidate: process.env.REVALIDATETIME
   }
 }

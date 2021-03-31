@@ -52,6 +52,6 @@ export async function getStaticProps({params}:any) {
       produtos: responseProdutos.data,
       categoria: responseCategoriaAtual.data
     },
-    revalidate: 2000
+    revalidate: process.env.REVALIDATETIME
   }
 }
