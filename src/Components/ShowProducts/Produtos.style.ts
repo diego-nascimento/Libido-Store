@@ -10,7 +10,13 @@ export const Wrapper = styled.section`
     text-transform: uppercase;
     letter-spacing: 1px;
     align-self: center;
-    color: ${styles.fontColor}
+    color: ${styles.fontColor};
+    padding-bottom: 10px;
+  }
+
+  @media(max-width:800px){
+    width: 100%;
+    padding: 100px 10px;
   }
 `;
 
@@ -20,7 +26,7 @@ export const ProdutosContainer = styled.div`
   grid-gap: 20px;
 
   @media(max-width: 1100px){
-grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -29,12 +35,12 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
-  justify-content: center;
-  
+  justify-content: center; 
   align-items: center;
 
   @media only screen and (max-width: 1200px){
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
   }
 `
 
@@ -47,19 +53,20 @@ export const Card = styled.div`
   align-items: center;
   border-radius: 15px;
   overflow: hidden;
-  color: ${styles.fontColorInDark};
   height: 100%;
+  transform: scale(.95);
 
   .info{
-    background: ${styles.componentsDest};
+    background: ${styles.componentsColor};
     width: 100%;
     padding: 20px 10px;
-    color: ${styles.fontColorInDark};
+    height: 100%;
+    color: ${styles.componentsDest};
   }
 
   img{
     width: 100%;
-    height: 300px;
+    
   }
 
   h2, p, b{

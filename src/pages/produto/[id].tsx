@@ -53,7 +53,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
                 {produto.descricao}
               </p>
            </div>
-           {produto.pronta && <b className="prontaEntrega">Pronta Entrega</b>}
+           
          </div> 
        </InfoContainer>
        {
@@ -64,10 +64,11 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
              border: `1px solid ${styles.dest2Components}`,
            }} TransitionProps={{ unmountOnExit: true }}>
           <AccordionSummary expandIcon={<MdExpandMore />} >
-            <h2>Especificações</h2>
+            <h2>Descrição</h2>
           </AccordionSummary>
            <AccordionDetails >
-             <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }} className="ContainerEspec">
+             <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }}>
+
              </div>
           </AccordionDetails>
       </Accordion> 

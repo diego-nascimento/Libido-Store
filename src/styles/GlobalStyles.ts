@@ -87,6 +87,7 @@ html{
       p, a, span, li, b{
         font-size: .8rem;
         line-height: 1.2rem;
+        background: transparent;
       }   
     }
   }
