@@ -53,11 +53,12 @@ export default Home
 
 
 export async function getStaticProps() {
-    const response = await api.get('/categorias')
+  const response = await api.get('/categorias')
+  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
     return {
       props: {
         categorias: response.data
       },
-      revalidate: process.env.REVALIDATETIME
+      revalidate: revalidateTime && parseInt(revalidateTime)
     }
 }

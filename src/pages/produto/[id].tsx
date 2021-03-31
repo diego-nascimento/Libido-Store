@@ -103,10 +103,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const responseProdutos = await api.get(`/produtos/${params.id}`)
+  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
       produto: responseProdutos.data
     },
-    revalidate: process.env.REVALIDATETIME
+    revalidate: revalidateTime ? parseInt(revalidateTime): 0
   }
 }
