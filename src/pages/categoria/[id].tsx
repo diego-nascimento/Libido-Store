@@ -43,10 +43,10 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({params}:any) {
-
-  const responseProdutos = await api.get( `/produtos?categorias=${params.id}`)
+  const responseProdutos = await api.get( `/produtos?categorias._id=${params.id}`)
   const responseCategorias = await api.get('/categorias')
   const responseCategoriaAtual = await api.get(`/categorias/${params.id}`)
+  console.log(params)
   return {
     props: {
       categorias: responseCategorias.data,
