@@ -48,11 +48,11 @@ html{
     }
 
     h2{
-      font-size: 1.7em;
+      font-size: 1.3rem;
     }
 
     p, a, span, li, b{
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     button{
