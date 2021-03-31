@@ -33,7 +33,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
            </div>
            <h1>{(produto.Nome).toLowerCase()}</h1>
            <p>
-            <span>(Cod Item: jasidjisaio) - </span>
+            {/*<span>(Cod Item: jasidjisaio) - </span> */}
             Outros Produtos: {produto.categorias && produto.categorias.map(categoria => {
              return (
                <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
