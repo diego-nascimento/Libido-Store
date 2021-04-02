@@ -18,6 +18,7 @@ const Home: React.FC <IHome> = ({categorias}) => {
         <title>Libido Store - Inicio</title>
       </Head>
       <Header>
+        <h1 style={{visibility: 'hidden'}}>Libido Love Store</h1>
       </Header>
       <Banner >
         <div className="Container">
@@ -52,11 +53,12 @@ export default Home
 
 
 export async function getStaticProps() {
-    const response = await api.get('/categorias')
+  const response = await api.get('/categorias')
+  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
     return {
       props: {
         categorias: response.data
       },
-      revalidate: 2000
+      revalidate: revalidateTime && parseInt(revalidateTime)
     }
 }

@@ -46,12 +46,13 @@ export async function getStaticProps({params}:any) {
   const responseProdutos = await api.get( `/produtos?categorias._id=${params.id}`)
   const responseCategorias = await api.get('/categorias')
   const responseCategoriaAtual = await api.get(`/categorias/${params.id}`)
+   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
       categorias: responseCategorias.data,
       produtos: responseProdutos.data,
       categoria: responseCategoriaAtual.data
     },
-    revalidate: 2000
+    revalidate: revalidateTime && parseInt(revalidateTime)
   }
 }

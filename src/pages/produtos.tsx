@@ -27,11 +27,14 @@ export default Produtos
 export async function getStaticProps() {
   const responseProdutos = await api.get('/produtos')
   const responseCategorias = await api.get('/categorias')
+  
+  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
       categorias: responseCategorias.data,
       produtos: responseProdutos.data
     },
-    revalidate: 2000
+    
+    revalidate: revalidateTime && parseInt(revalidateTime)
   }
 }

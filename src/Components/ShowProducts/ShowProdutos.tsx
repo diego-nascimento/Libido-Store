@@ -19,8 +19,8 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
       <ProdutosContainer>
         <SideBar>
           <div className="block">
-            <Accordion style={{background: 'rgba(0,0,0,0)', border: 'none'}} TransitionProps={{ unmountOnExit: true }}> 
-              <AccordionSummary expandIcon={<MdExpandMore />} >
+            <Accordion style={{background: 'rgba(0,0,0,0)', border: 'none'}}> 
+              <AccordionSummary  expandIcon={<MdExpandMore />}>
                   <h2>Categorias</h2>
               </AccordionSummary>
               <AccordionDetails>
@@ -49,11 +49,12 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
                   <Card >
                   {produto.imagem? <img src={produto.imagem.url} alt={produto.Nome} />:<img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="No Image" />}
                   <div className="info">
-                    <h2>{produto.Nome}</h2>
-                    <b> {Intl.NumberFormat('pt-BR', {
+                    <h2>{(produto.Nome.toLowerCase())}</h2>
+                    <b>Por {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
                   }).format(produto.preco)}</b>
+                  
                   </div>
               </Card>
                 </a>

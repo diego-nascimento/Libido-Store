@@ -31,23 +31,30 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
            <div className="top">
              
            </div>
-           <h1>{produto.Nome}</h1>
-           <p>
-            <span>(Cod Item: jasidjisaio) - </span>
+           <h1>{(produto.Nome).toLowerCase()}</h1>
+           <p style={{fontSize: '.6 rem'}}>
+            {/*<span>(Cod Item: jasidjisaio) - </span> */}
             Outros Produtos: {produto.categorias && produto.categorias.map(categoria => {
              return (
                <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
-                <a >{categoria.Nome} </a>
+                <a style={{fontSize: '.6 rem'}}>{categoria.Nome} </a>
                </Link>
              )
             })}
            </p>
            <div className="preco">
-              <h2>{Intl.NumberFormat('pt-BR', {
+              <h2>Por {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
                   }).format(produto.preco)}</h2>
            </div>
+            <div className="descricao">
+              <p>
+                {produto.descricao}
+              </p>
+           </div>
+           {produto.pronta && <h2>Pronta Entrega</h2>}
+           
          </div> 
        </InfoContainer>
        {
@@ -97,10 +104,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const responseProdutos = await api.get(`/produtos/${params.id}`)
+  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
       produto: responseProdutos.data
     },
-    revalidate: 2000
+    revalidate: revalidateTime ? parseInt(revalidateTime): 0
   }
 }

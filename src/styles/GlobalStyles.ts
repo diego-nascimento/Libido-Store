@@ -9,6 +9,8 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0px;
     box-sizing: border-box;
     list-style: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
 #__next {
@@ -30,6 +32,7 @@ html{
     overflow-y: scroll;
     height: 100%;
     color: ${styles.fontColor};
+    font-smooth: antial
 
     h1, h2{
       font-family: 'Khula', sans-serif;
@@ -44,17 +47,18 @@ html{
     }
 
     h1{
-      font-size: 2rem;
-      
+      font-size: 1.5rem;
+      line-height: 2rem;
     }
 
     h2{
       font-size: .9rem;
-      font-weight: 400;
+      line-height: 1.2rem;
     }
 
     p, a, span, li, b{
       font-size: 1rem;
+      line-height: 1.4rem;
     }
 
     button{
@@ -66,7 +70,7 @@ html{
     }
 
     section{
-      padding: 50px 0px;
+      padding: 100px 0px;
     }
 
     p{
@@ -79,31 +83,18 @@ html{
       }
 
       h1{
-        font-size: 1.7rem;
-      }
-
-      h2{
-       font-size: .7rem;
-      }
-
-      p, a, span, li, b{
         font-size: 1.2rem;
+        line-height: 1.6rem;
       }
-      
-    }
-
-    @media(max-width: 650px){
-      h1{
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-      }
-
 
       p, a, span, li, b{
-        font-size: .6rem;
-      }
+        font-size: .8rem;
+        line-height: 1.2rem;
+        background: transparent;
+      }   
     }
   }
+
 
   .Container{
     width: 100%;
@@ -122,7 +113,7 @@ html{
   }
 
   img{
-    animation: ${ImageShowUp({opacity: 1})} .5s forwards;
+    animation: ${ImageShowUp({ opacity: 1 })} .5s forwards;
   }
 
   .PageContainer{
