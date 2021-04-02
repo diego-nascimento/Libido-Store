@@ -9,7 +9,7 @@ export const Wrapper = styled.section`
   h1{
     text-transform: uppercase;
     letter-spacing: 1px;
-    align-self: center;
+    align-self: left;
     color: ${styles.fontColor}
   }
 `;
@@ -65,11 +65,7 @@ export const Card = styled.div`
   h2, p, b{
     padding: 5px 0px;  
   }
-
-  h2{
-    letter-spacing: 1px;
-    text-align: center;
-  }  
+ 
 `;
 
 
@@ -80,9 +76,6 @@ export const SideBar = styled.aside`
   padding: 10px 10px;
 
   .block{  
-    h2{
-      width: 100%;
-    }
 
     ul{
       padding: 10px 20px;

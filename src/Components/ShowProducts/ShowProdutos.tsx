@@ -50,7 +50,6 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
                   {produto.imagem? <img src={produto.imagem.url} alt={produto.Nome} />:<img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="No Image" />}
                   <div className="info">
                     <h2>{produto.Nome}</h2>
-                    <p>{produto.descricao}</p>
                     <b> {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',

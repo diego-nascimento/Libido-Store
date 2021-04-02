@@ -45,10 +45,12 @@ html{
 
     h1{
       font-size: 2rem;
+      
     }
 
     h2{
-      font-size: 1.3rem;
+      font-size: .9rem;
+      font-weight: 400;
     }
 
     p, a, span, li, b{
@@ -81,7 +83,7 @@ html{
       }
 
       h2{
-       font-size: 1.4rem;
+       font-size: .7rem;
       }
 
       p, a, span, li, b{
@@ -96,9 +98,6 @@ html{
         margin-bottom: 20px;
       }
 
-      h2{
-       font-size: .8rem;
-      }
 
       p, a, span, li, b{
         font-size: .6rem;

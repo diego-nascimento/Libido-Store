@@ -9,4 +9,5 @@ export interface IProduto{
   preco: number
   descricao: string
   especificacao: string
+  pronta: boolean
 }
