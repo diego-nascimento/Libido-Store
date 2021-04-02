@@ -111,6 +111,7 @@ export const SideBar = styled.aside`
         list-style: square;
         transition: .5s;
         border-bottom: 1px solid ${styles.componentsDest};
+        list-style: none;
 
         :hover{
           opacity: .7;

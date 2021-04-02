@@ -28,16 +28,14 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
            <img src={produto.imagem.url} alt={produto.Nome}/>
          </div>
          <div className="info">
-           <div className="top">
-             
-           </div>
+         {produto.pronta && <h2>Pronta Entrega</h2>}
            <h1>{(produto.Nome).toLowerCase()}</h1>
-           <p style={{fontSize: '.6 rem'}}>
+           <p style={{fontSize: '.6rem'}}>
             {/*<span>(Cod Item: jasidjisaio) - </span> */}
             Outros Produtos: {produto.categorias && produto.categorias.map(categoria => {
              return (
                <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
-                <a style={{fontSize: '.6 rem'}}>{categoria.Nome} </a>
+                <a style={{fontSize: '.6rem'}}>{categoria.Nome} </a>
                </Link>
              )
             })}
@@ -53,7 +51,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
                 {produto.descricao}
               </p>
            </div>
-           {produto.pronta && <h2>Pronta Entrega</h2>}
+           
            
          </div> 
        </InfoContainer>
