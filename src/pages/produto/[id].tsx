@@ -28,7 +28,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
            <img src={produto.imagem.url} alt={produto.Nome}/>
          </div>
          <div className="info">
-         {produto.pronta && <h2>Pronta Entrega</h2>}
+         
            <h1>{(produto.Nome).toLowerCase()}</h1>
            <p style={{fontSize: '.6rem'}}>
             {/*<span>(Cod Item: jasidjisaio) - </span> */}
@@ -51,8 +51,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
                 {produto.descricao}
               </p>
            </div>
-           
-           
+           {produto.pronta && <h2 style={{marginTop: '20px', fontSize: '1.1rem'}}>Pronta Entrega</h2>}
          </div> 
        </InfoContainer>
        {
