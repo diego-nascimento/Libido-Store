@@ -15,7 +15,7 @@ const Home: React.FC <IHome> = ({categorias}) => {
   return (
     <Layout>
       <Head>
-        <title>Libido Store - Inicio</title>
+        <title>Libido - Inicio</title>
       </Head>
       <Header>
         <h1 style={{visibility: 'hidden'}}>Libido Love Store</h1>
