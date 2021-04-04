@@ -34,7 +34,5 @@ export async function getStaticProps() {
       categorias: responseCategorias.data,
       produtos: responseProdutos.data
     },
-    
-    revalidate: revalidateTime && parseInt(revalidateTime)
   }
 }

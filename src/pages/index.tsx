@@ -65,6 +65,5 @@ export async function getStaticProps() {
       props: {
         categorias: response.data
       },
-      revalidate: revalidateTime && parseInt(revalidateTime)
     }
 }

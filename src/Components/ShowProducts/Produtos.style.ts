@@ -66,7 +66,6 @@ export const Card = styled.div`
 
   img{
     width: 100%;
-    
   }
 
   h2, p, b{

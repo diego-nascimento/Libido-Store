@@ -6,9 +6,10 @@ import { api } from '../../service/api'
 import {Wrapper, InfoContainer, DescricaoContainer} from '../../PageStyles/produto.style'
 import Link from 'next/link'
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
-import { MdExpandMore } from 'react-icons/md'
+import { MdExpandMore, MdArrowBack } from 'react-icons/md'
 import { styles } from '../../styles/styles'
 import marked from 'marked'
+import Router from 'next/router'
 
 
 interface IProdutoPage{
@@ -23,6 +24,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
         <title>Libido LoveShop- {produto && produto.Nome}</title>
      </Head>
      {produto && <Wrapper className="Container">
+        <div className="voltar" onClick={()=>{Router.back()}}><MdArrowBack /> <p>Voltar</p></div>
         <InfoContainer  >
          <div className="imageContainer">
            <img src={produto.imagem.url} alt={produto.Nome}/>
@@ -106,6 +108,5 @@ export async function getStaticProps({ params }: any) {
     props: {
       produto: responseProdutos.data
     },
-    revalidate: revalidateTime ? parseInt(revalidateTime): 0
   }
 }

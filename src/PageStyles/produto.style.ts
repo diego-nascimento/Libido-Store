@@ -15,6 +15,16 @@ export const Wrapper = styled.section`
     color: ${styles.fontColor};
     margin: 0px;
   }
+
+  .voltar{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: center;
+    cursor: pointer;
+    padding: 5px 0px;
+    width: 80px;
+  }
 `;
 
 export const InfoContainer = styled.div`
