@@ -28,6 +28,8 @@ width: 100vw;
 background: #311F2B;
 display: flex;
 justify-content: center;
+padding: 50px 0px;
+
 
 p{
     text-align: left;
@@ -42,27 +44,32 @@ p{
 
   h2{
     font-size: 1.5rem;
+    text-transform: capitalize;
   }
 
   h2, p{
     display: flex;
     align-items: center;
-    padding: 0px 20px;
     color: ${styles.fontColorInDark};
   }
 
   @media  (max-width: 800px){
     grid-template-columns: 1fr;
+    padding: 30px 20px;
 
     h2{
       font-size: 1.2rem;
     }
-
-    h2, p{
-    padding: 0px 10px;
-  }
+    p{
+      font-size: .6rem;
+      line-height: 1.2rem;
+    }
   }
 }
+`;
+
+export const TextContainer = styled.div`
+  width: 100%;
 `;
 
 export const Categorias = styled.section`

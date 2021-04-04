@@ -15,7 +15,7 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categor
   return (
     <Layout>
       <Head>
-        <title>Libido - {categoria && categoria.Nome}</title>
+        <title>Libido LoveShop - {categoria && categoria.Nome}</title>
       </Head>
       {categoria && <ShowProdutos produtos={produtos} title={categoria.Nome} categorias={categorias}/>}
     </Layout>
@@ -53,6 +53,5 @@ export async function getStaticProps({params}:any) {
       produtos: responseProdutos.data,
       categoria: responseCategoriaAtual.data
     },
-    revalidate: revalidateTime && parseInt(revalidateTime)
   }
 }

@@ -20,7 +20,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
  return(
      <Layout>
       <Head>
-        <title>Libido - {produto && produto.Nome}</title>
+        <title>Libido LoveShop- {produto && produto.Nome}</title>
      </Head>
      {produto && <Wrapper className="Container">
         <InfoContainer  >
