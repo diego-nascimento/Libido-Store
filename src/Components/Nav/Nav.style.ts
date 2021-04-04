@@ -85,6 +85,7 @@ export const Lista = styled.ul<ILista>`
   @media  (max-width: 800px){
     opacity: ${props => props.MenuState ? '1' : '0'};
     transform: ${props => props.MenuState ? 'translateY(0px)' : 'translateY(-20px)'};
+    display: ${props => props.MenuState ? 'flex' : 'none'};
     position: fixed;
     background: ${styles.componentsColor};
     color: ${styles.fontColor};
@@ -94,7 +95,6 @@ export const Lista = styled.ul<ILista>`
     align-items: flex-start;
     padding: 10px 0px;
     border-radius: 7px;
-    height: 150px;
   }
 `;
 
