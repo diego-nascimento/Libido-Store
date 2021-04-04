@@ -28,7 +28,7 @@ width: 100vw;
 background: #311F2B;
 display: flex;
 justify-content: center;
-padding: 50px 0px;
+padding: 50px 20px;
 
 
 p{
