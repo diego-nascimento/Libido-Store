@@ -8,7 +8,7 @@ const Entrega: React.FC = () => {
   return (
     <Layout>
       <Head>
-        <title>Libido LoveShop- Entrega</title>
+        <title>Libido LoveShop- Entregas</title>
       </Head>
       <SobreContainer>
         <Container className="Container">

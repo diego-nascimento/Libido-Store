@@ -24,47 +24,50 @@ export const Header = styled.header`
 
 
 export const Banner = styled.section`
-width: 100vw;
-background: #311F2B;
-display: flex;
-justify-content: center;
-padding: 50px 20px;
-
-
-p{
-    text-align: left;
-    line-height: 2rem;
-    letter-spacing: 1px;
-}
-
-.Container{
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 20px;
-
-  h2{
-    font-size: 1.5rem;
-    text-transform: capitalize;
-  }
-
-  h2, p{
-    display: flex;
-    align-items: center;
-    color: ${styles.fontColorInDark};
-  }
+  width: 100vw;
+  background: #311F2B;
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
 
   @media  (max-width: 800px){
-    grid-template-columns: 1fr;
-    padding: 30px 20px;
+      padding: 30px 20px;
+  }
+
+
+  p{
+      text-align: left;
+      line-height: 2rem;
+      letter-spacing: 1px;
+  }
+
+  .Container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 20px;
 
     h2{
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+      text-transform: capitalize;
     }
-    p{
-      font-size: .6rem;
-      line-height: 1.2rem;
+
+    h2, p{
+      display: flex;
+      align-items: center;
+      color: ${styles.fontColorInDark};
     }
-  }
+
+    @media  (max-width: 800px){
+      grid-template-columns: 1fr;
+
+      h2{
+        font-size: 1.2rem;
+      }
+      p{
+        font-size: .7rem;
+        line-height: 1.2rem;
+      }
+    }
 }
 `;
 
