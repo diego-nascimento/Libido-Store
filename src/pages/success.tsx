@@ -1,8 +1,18 @@
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
 import {Wrapper, Container} from '../PageStyles/checkout.style'
+import { connect } from 'react-redux'
+import * as CartActions from '../store/modules/cart/actions'
 
-const Sucesso: React.FC = () => {
+interface ISucesso{
+  dispatch: any
+}
+
+const Sucesso: React.FC<ISucesso> = ({dispatch}) => {
+  React.useEffect(() => {
+    dispatch(CartActions.LimparCarrinho());
+  })
+
   return (
     <Layout>
       <Wrapper>
@@ -15,4 +25,4 @@ const Sucesso: React.FC = () => {
   )
 }
 
-export default Sucesso
+export default connect()(Sucesso)

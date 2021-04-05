@@ -34,6 +34,6 @@ export default async function handler(Request, Response) {
     template: 'email',
     context: data,
   };
-  await transporter.sendMail(email);
-  return Response.status(200);
+  const response = await transporter.sendMail(email);
+  return Response.status(200).json(response);
 }

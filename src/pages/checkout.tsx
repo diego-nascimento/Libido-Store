@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { SetLocale } from '../Util/SetLocaleYup'
 import Router from 'next/router'
+import * as CartActions from '../store/modules/cart/actions'
 
 import {api} from '../service/api'
 
@@ -30,6 +31,7 @@ interface CarrinhoProps{
   produtos: Array<IProduto>
   tamanho_carrinho: number
   total: number
+  dispatch: any
 }
 
 interface IDataForm{
@@ -47,6 +49,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   produtos,
   tamanho_carrinho,
   total,
+  dispatch
 }) => {
   SetLocale()
 
@@ -58,7 +61,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     tamanho_carrinho < 1 && Router.push('/produtos')
   }, [])
   const handleSubmitForm = async (data: IDataForm, event: any) => {
-    api.post('api/mail', {
+    const response = await api.post('api/mail', {
       data: {
         data: data,
         produtos: produtos,
