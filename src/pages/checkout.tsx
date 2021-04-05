@@ -58,7 +58,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     tamanho_carrinho < 1 && Router.push('/produtos')
   }, [])
   const handleSubmitForm = async (data: IDataForm, event: any) => {
-    api.post('api/mail', {
+    await api.post('api/mail', {
       data: {
         data: data,
         produtos: produtos,

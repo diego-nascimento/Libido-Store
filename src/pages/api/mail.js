@@ -10,7 +10,7 @@ const options = {
 };
 
 const transporter = nodemailer.createTransport(sgTransport(options));
-
+console.log(process.env.SG_APIKEY);
 transporter.use(
   'compile',
   hbs({
@@ -28,6 +28,6 @@ export default async function handler(Request, Response) {
     template: 'email',
     context: data,
   };
-  transporter.sendMail(email);
+  await transporter.sendMail(email);
   return Response.status(200);
 }
