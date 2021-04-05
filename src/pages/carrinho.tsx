@@ -1,13 +1,12 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {Wrapper, Container, ProdutosContainer, Card, ImageContainer, InfoContainer, BotaoFinalizar} from '../PageStyles/carrinho.style'
+import {Wrapper, Container, ProdutosContainer, Card, ImageContainer, InfoContainer, BotaoFinalizar} from '../PageStyles/checkout.style'
 import {connect} from 'react-redux'
 import * as CartActions from '../store/modules/cart/actions'
 import { IProduto } from '../Interfaces/IProduto'
 import Link from 'next/link'
 import Head from 'next/head'
 import {FaArrowUp, FaArrowDown} from 'react-icons/fa'
-import { remove } from 'nprogress'
 
 
 interface CarrinhoProps{
@@ -90,7 +89,10 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                       style: 'currency',
                       currency: 'BRL',
                   }).format(total)} </h2>
-                  <BotaoFinalizar >Finalizar Pedido!</BotaoFinalizar>
+                <Link href="/checkout">
+                  <a ><BotaoFinalizar>Continuar</BotaoFinalizar></a>
+                </Link>
+                  
                 </div>
                 </ProdutosContainer>
             }

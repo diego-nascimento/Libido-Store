@@ -133,3 +133,14 @@ export const BotaoFinalizar = styled.button`
   border-radius: 15px;
 `;
 
+export const Formulario = styled.form`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  
+  .Endereco{
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    grid-gap: 10px;
+  }
+`;
