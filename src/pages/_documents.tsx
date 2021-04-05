@@ -35,6 +35,18 @@ export default class MyDocument extends Document {
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="stylesheet" type="text/css" href="/nprogress.css"/>
           <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,300&display=swap" rel="stylesheet" />
+          <link
+            rel="preload"
+            href="/fonts/Vintage/Vintage-Edge.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Vintage/Vintage-Modern.ttf"
+            as="font"
+            crossOrigin=""
+          />
 <link href="https://fonts.googleapis.com/css2?family=Khula&display=swap" rel="stylesheet" />
         </Head>
         <body>

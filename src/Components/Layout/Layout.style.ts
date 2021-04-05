@@ -12,5 +12,5 @@ export const Main = styled.main`
   flex-direction: column;
   align-items: center;
   z-index: 1;
-  min-height: 100vh;
+  min-height: 100%;
 `;
