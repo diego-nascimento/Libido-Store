@@ -10,12 +10,12 @@ const options = {
 };
 
 const transporter = nodemailer.createTransport(sgTransport(options));
-console.log(process.env.SG_APIKEY);
+
 transporter.use(
   'compile',
   hbs({
     viewEngine: 'express-handlebars',
-    viewPath: path.resolve('./views'),
+    viewPath: path.resolve('views'),
   }),
 );
 
