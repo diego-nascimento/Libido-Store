@@ -14,12 +14,14 @@ const transporter = nodemailer.createTransport(sgTransport(options));
 transporter.use(
   'compile',
   hbs({
+    layoutsDir: path.resolve(process.cwd(), 'public', 'views', 'layout'),
     viewEngine: 'express-handlebars',
-    viewPath: path.resolve('views'),
+    viewPath: path.resolve(process.cwd(), 'public', 'views'),
   }),
 );
 
 export default async function handler(Request, Response) {
+  console.log();
   const data = Request.body.data;
   var email = {
     from: 'libidopirauba@gmail.com',
