@@ -10,13 +10,22 @@ import { MdExpandMore, MdArrowBack } from 'react-icons/md'
 import { styles } from '../../styles/styles'
 import marked from 'marked'
 import Router from 'next/router'
+import {connect} from 'react-redux'
+import * as CartActions from '../../store/modules/cart/actions';
+import Botao from '../../Components/BotaoComprar/BotaoComprar'
 
 
 interface IProdutoPage{
   produto: IProduto 
+  dispatch: any
 }
 
-const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
+const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
+
+  
+  const addProduto = (produto: IProduto  ) => {
+    dispatch(CartActions.AdicionarAoCarrinho(produto));
+  }
 
  return(
      <Layout>
@@ -54,6 +63,8 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
               </p>
            </div>
            {produto.pronta && <h2 style={{marginTop: '20px', fontSize: '1.1rem'}}>Pronta Entrega</h2>}
+           <Botao Produto={produto} Click={addProduto} Style={{marginTop: '40px', fontSize: '1.1rem'}}>Comprar</Botao>
+           
          </div> 
        </InfoContainer>
        {
@@ -75,13 +86,11 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto }) => {
        </DescricaoContainer>
        }
      </Wrapper>}
-      
-     
     </Layout>
  )
 }
 
-export default ProdutoPage
+export default connect()(ProdutoPage)
 
 export async function getStaticPaths() {
   const response = await api.get('/produtos')

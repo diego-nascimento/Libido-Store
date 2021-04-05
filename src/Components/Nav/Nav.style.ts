@@ -2,16 +2,80 @@ import styled from 'styled-components';
 import { styles } from '../../styles/styles';
 
 
+
 interface INavegacao{
   MenuBackground: boolean
 }
+
+export const Wrapper = styled.div`
+  width: 100vw;
+`;
+
+export const ContainerHeader = styled.header<INavegacao>`
+  height: 50px;
+  background: ${styles.componentsDest};
+  transform: ${({MenuBackground}) => MenuBackground ? `translateY(-50px)`: 'translateY(0px)' };
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  transition: .4s;
+`;
+
+export const Message = styled.div`
+  color: ${styles.fontColorInDark};
+  span{
+    font-weight: bold;
+    font-size: .7rem;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0px 20px;
+
+  svg{
+    color: ${styles.fontColorInDark};
+  }
+`;
+
+
+export const RedesSociais = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+
+
+  li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+    height: 50px;
+    transition: .3s;
+
+    a{
+      padding: 20px;
+    }
+    
+    :hover{
+      opacity: .8;
+
+      svg{
+        color: ${styles.fontColorInDark}
+      }
+    }
+  }
+`;
+
 
 export const Navegacao = styled.nav<INavegacao>`
   background-color: ${({MenuBackground}) => MenuBackground ? `${styles.componentsColor}`: 'none' };
   height: 70px;
   width: 100vw;
   position: fixed;
-  top: 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -19,10 +83,15 @@ export const Navegacao = styled.nav<INavegacao>`
   text-transform: uppercase;
   transition: .4s;
   z-index: 99;
-  padding: 20px;
+  top: 50px;
+  transform: ${({MenuBackground}) => MenuBackground ? `translateY(-50px)`: 'translateY(0px)' };
+  padding: 0px 20px;
+
 
   svg{
     color: ${styles.fontColor};
+    width: 35px;
+    height: 35px;
   }
 
   .BotaoMenu{
@@ -42,6 +111,41 @@ export const ContainerNav = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  
+  .CarrinhoButton{
+      position: relative;
+      p{
+        position: absolute;
+        bottom: -5px;
+        right: -10px;
+        color: white;
+        padding: 2px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: ${styles.fontColorInDark};
+        color: ${styles.componentsDest};
+        border-radius: 50%;
+      }
+  }
+
+  .Cart{
+    transition: .4s;
+    width: 35px;
+    height: 35px;
+
+    :hover{
+      color: ${styles.fontColorInDark};
+      
+
+      a{
+        color: ${styles.fontColorInDark};
+      }
+    }
+  }
+  
 `;
 
 interface ILista{
@@ -52,7 +156,6 @@ interface ILista{
 export const Lista = styled.ul<ILista>`
   display: flex;
   align-items: center;
-  justify-content: space-around;
   flex-direction: row;
   opacity: 1;
   transition: .5s;
@@ -61,12 +164,11 @@ export const Lista = styled.ul<ILista>`
   li{
     padding: 20px 50px;
     display: flex;
-    align-items: center;
-    justify-content: center;
     height: 70px;
     letter-spacing: 1px;
     transition: .5;
     color: ${styles.fontColor};
+   
     
     a{
       color: ${styles.fontColor};
@@ -98,35 +200,3 @@ export const Lista = styled.ul<ILista>`
   }
 `;
 
-
-export const RedesSociais = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  height: 70px;
-  flex-direction: row;
-  color: ${styles.fontColor};
-  
-
-  svg{
-    transition: .5s;
-  }
-
-  li{
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70px;
-    letter-spacing: 1px;
-    
-
-    :hover{
-      color: ${styles.fontColor};
-
-      svg{
-        color: ${styles.fontColorInDark}
-      }
-    }
-  }
-`;

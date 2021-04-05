@@ -32,7 +32,6 @@ html{
     overflow-y: scroll;
     height: 100%;
     color: ${styles.fontColor};
-    font-smooth: antial
 
     h1, h2{
       font-family: 'Khula', sans-serif;
