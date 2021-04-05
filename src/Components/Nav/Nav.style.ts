@@ -21,6 +21,14 @@ export const ContainerHeader = styled.header<INavegacao>`
   transition: .4s;
 `;
 
+export const Message = styled.div`
+  color: ${styles.fontColorInDark};
+  span{
+    font-weight: bold;
+    font-size: .7rem;
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;

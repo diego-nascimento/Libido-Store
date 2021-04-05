@@ -54,6 +54,7 @@ export const Card = styled.div`
   border-top: 1px solid ${styles.componentsDest};
   border-bottom: 1px solid ${styles.componentsDest};
   user-select: none; 
+  align-items: center;
 `;
 
 export const ImageContainer = styled.div`
@@ -61,6 +62,8 @@ export const ImageContainer = styled.div`
   height: 100%;
   border-radius: 15px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 
   img{
     width: 100%;
@@ -102,6 +105,8 @@ export const InfoContainer = styled.div`
       svg{
         margin: 10px;
         cursor: pointer;
+        width: 15px;
+        height: 15px;
       }
     }
   }
@@ -111,12 +116,7 @@ export const InfoContainer = styled.div`
   }
 
   h2{
-    font-size: 1.3rem;
     margin: 10px 0px;
-  }
-
-  p{
-    font-size: 1.1rem;
   }
 `;
 

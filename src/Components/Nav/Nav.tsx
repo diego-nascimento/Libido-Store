@@ -1,4 +1,4 @@
-import {Wrapper, ContainerHeader, Container, ContainerNav, Lista, Navegacao, RedesSociais } from './Nav.style'
+import {Wrapper, ContainerHeader, Message, Container, ContainerNav, Lista, Navegacao, RedesSociais } from './Nav.style'
 import React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { FaInstagram, FaWhatsapp, FaShoppingBag } from 'react-icons/fa'
@@ -25,7 +25,9 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
     <Wrapper>
       <ContainerHeader MenuBackground={MenuBackGround}>
         <Container className="Container">
-          <p style={{color: styles.fontColorInDark}}>Entrega gratis para: <span>Pirauba</span></p>
+          <Message>
+            <span>Entrega Gratis para Piraúba</span>
+          </Message>
           <RedesSociais >
             <li>
               <Link href="https://www.instagram.com/loveshoplibido/">
