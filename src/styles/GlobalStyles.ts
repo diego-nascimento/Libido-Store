@@ -95,7 +95,7 @@ html{
 
   .Container{
     width: 100%;
-    max-width: 1300px;
+    max-width: 1000px;
   }
 
   a{

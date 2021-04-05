@@ -42,6 +42,7 @@ p{
 
   h2{
     font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   h2, p{
