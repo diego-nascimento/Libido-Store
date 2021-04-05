@@ -61,7 +61,6 @@ export const InfoContainer = styled.div`
     .prontaEntrega{
       color: ${styles.componentsDest};
       font-size: 1.6rem;
-      margin-top: 20px;
       width: 100%;
     }
 

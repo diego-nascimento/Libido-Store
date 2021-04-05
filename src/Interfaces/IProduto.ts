@@ -10,4 +10,6 @@ export interface IProduto{
   descricao: string
   especificacao: string
   pronta: boolean
+  quantidade?: number
+  subtotal?: number
 }

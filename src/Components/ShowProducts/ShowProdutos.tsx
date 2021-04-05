@@ -6,13 +6,20 @@ import { Card, Wrapper, ProdutosContainer, Container, SideBar } from './Produtos
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import { MdExpandMore } from 'react-icons/md';
 
+
+
 interface IShowProdutos{
   produtos: Array<IProduto>
   title: string
   categorias:Array<ICategoria>
 }
 
-const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) => {
+
+
+const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) => {
+
+  
+
   return(
     <Wrapper className="Container">
       <h1>{title}</h1>
@@ -54,8 +61,8 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
                       style: 'currency',
                       currency: 'BRL',
                   }).format(produto.preco)}</b>
-                  
                   </div>
+                 
               </Card>
                 </a>
             </Link>
@@ -63,9 +70,9 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
           })}
         </Container>
       </ProdutosContainer>
-      
       </Wrapper>
   )
 }
+
 
 export default ShowProdutos
