@@ -50,7 +50,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                 return(
                   <Card style={{padding: '30px'}} key={produto._id}>
                     <ImageContainer>
-                      <img src={produto.imagem.url} alt={produto.Nome} />
+                      <img src={produto.imagens[0].url} alt={produto.Nome} />
                     </ImageContainer>
                     <InfoContainer>
                       <div className="Left">
