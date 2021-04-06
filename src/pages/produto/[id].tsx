@@ -14,6 +14,8 @@ import {connect} from 'react-redux'
 import * as CartActions from '../../store/modules/cart/actions';
 import Botao from '../../Components/BotaoComprar/BotaoComprar'
 import { Carousel } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 interface IProdutoPage{
@@ -23,13 +25,25 @@ interface IProdutoPage{
 
 const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
 
-  
   const addProduto = (produto: IProduto  ) => {
     dispatch(CartActions.AdicionarAoCarrinho(produto));
+    toast.dark('Produto Adicionado!', {
+      position: toast.POSITION.BOTTOM_CENTER 
+    })
   }
 
  return(
-     <Layout>
+   <Layout>
+     <ToastContainer
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+     />
       <Head>
         <title>Libido LoveShop- {produto && produto.Nome}</title>
      </Head>

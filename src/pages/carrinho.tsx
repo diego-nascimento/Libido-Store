@@ -8,6 +8,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import {FaArrowUp, FaArrowDown} from 'react-icons/fa'
 import { Carousel } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -25,14 +27,30 @@ const Carrinho: React.FC<CarrinhoProps> = ({
 
   const addProduto = (produto: IProduto) => {
     dispatch(CartActions.AdicionarAoCarrinho(produto));
+    toast.dark('Produto Adicionado!', {
+      position: toast.POSITION.BOTTOM_CENTER 
+    })
   }
 
   const removeProduto = (produto: IProduto) =>{
     dispatch(CartActions.RemoverDoCarrinho(produto._id));
+    toast.dark('Produto Removido!', {
+      position: toast.POSITION.BOTTOM_CENTER 
+    })
   }
 
   return(
     <Layout>
+      <ToastContainer
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+     />
       <Head>
         <title>Libido LoveShop - Carrinho </title>
       </Head>

@@ -76,6 +76,8 @@ html{
       animation: ${PBottomTop} .5s forwards;
     }
 
+    
+
     @media  (max-width: 800px){
       section{
         padding: 20px 0px;
@@ -94,6 +96,12 @@ html{
     }
   }
 
+  .carousel-control-prev-icon,
+.carousel-control-next-icon {
+  svg{
+    background: red;
+  }
+}
 
   .Container{
     width: 100%;
