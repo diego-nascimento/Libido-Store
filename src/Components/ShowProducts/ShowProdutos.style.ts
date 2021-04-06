@@ -14,6 +14,7 @@ export const Wrapper = styled.section`
     padding-bottom: 10px;
   }
 
+
   @media(max-width:800px){
     width: 100%;
     padding: 100px 10px;
@@ -86,6 +87,10 @@ export const Card = styled.div`
       height: auto;
     }
   }
+`;
+
+export const ImagemContainer = styled.div`
+
 `;
 
 

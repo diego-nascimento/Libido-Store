@@ -19,11 +19,9 @@ export const Wrapper = styled.section`
   .voltar{
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    flex-direction: center;
+    align-items: flex-start;
+    flex-direction: row;
     cursor: pointer;
-    padding: 5px 0px;
-    width: 80px;
   }
 `;
 
@@ -35,6 +33,7 @@ export const InfoContainer = styled.div`
 
   .imageContainer{
     width: 100%;
+
 
     img{
       width: 100%;

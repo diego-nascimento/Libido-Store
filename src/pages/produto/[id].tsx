@@ -13,6 +13,7 @@ import Router from 'next/router'
 import {connect} from 'react-redux'
 import * as CartActions from '../../store/modules/cart/actions';
 import Botao from '../../Components/BotaoComprar/BotaoComprar'
+import { Carousel } from 'react-bootstrap';
 
 
 interface IProdutoPage{
@@ -33,10 +34,26 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
         <title>Libido LoveShop- {produto && produto.Nome}</title>
      </Head>
      {produto && <Wrapper className="Container">
-        <div className="voltar" onClick={()=>{Router.back()}}><MdArrowBack /> <p>Voltar</p></div>
+       <div className="voltar" onClick={() => { Router.back() }}>
+         <MdArrowBack />
+         <p>Voltar</p>
+       </div>
         <InfoContainer  >
          <div className="imageContainer">
-           <img src={produto.imagem.url} alt={produto.Nome}/>
+          <Carousel
+            controls={true}
+            touch={true}
+            indicators={true}
+            fade={false}
+            slide={true}
+          >
+            {produto.imagens ? produto.imagens.map(imagem => {
+              return <Carousel.Item key={imagem._id}>
+                <img src={imagem.url} alt={produto.Nome}/>
+              </Carousel.Item>
+            }): null}
+          </Carousel>
+           
          </div>
          <div className="info">
          

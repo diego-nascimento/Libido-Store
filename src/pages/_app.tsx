@@ -4,6 +4,7 @@ import NProgress from 'nprogress'
 import Router from 'next/router'
 import {Provider} from 'react-redux'
 import store from '../store'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()

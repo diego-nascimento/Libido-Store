@@ -4,7 +4,7 @@ import {ICategoria} from './ICategoria'
 export interface IProduto{
   _id: string,
   Nome: string, 
-  imagem: IImagem
+  imagens: Array<IImagem>
   categorias: Array<ICategoria>
   preco: number
   descricao: string
