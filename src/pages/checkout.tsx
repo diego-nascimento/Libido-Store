@@ -6,8 +6,6 @@ import Head from 'next/head'
 import { useForm } from "react-hook-form";
 import Input from '../Components/Input/Input'
 import { IProduto } from '../Interfaces/IProduto'
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import { SetLocale } from '../Util/SetLocaleYup'
 import Router from 'next/router'
 import { api } from '../service/api'
@@ -74,13 +72,13 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 placeholder="Nome"
                 Register={register}
                 Error={errors.Nome}
-                Validation={{required: true}}
+                
                  />
               <Input type="text"
                 placeholder="Whatsapp"
                 Register={register}
                 Error={errors.Whatsapp}
-                Validation={{ required: true }}
+              
                  />
               <h2>Endereço:</h2>
               <div className="Endereco">
@@ -88,33 +86,33 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   placeholder="Endereco"
                   Register={register}
                   Error={errors.Endereco}
-                  Validation={{required: true}}
+                  
                    />
                 <Input type="text"
                   placeholder="Numero"
                   Register={register}
                   Error={errors.Numero}
-                  Validation={{required: true}}
+                  
                 />
               </div>  
               <Input type="text"
                 placeholder="Bairro"
                 Register={register}
                 Error={errors.Bairro}
-                Validation={{required: true}}
+                
               />
               <div className="Endereco">
                  <Input type="text"
                   placeholder="Cidade"
                   Register={register}
                   Error={errors.Cidade}
-                  Validation={{required: true}}
+                  
                    />
                 <Input type="text"
                   placeholder="Cep"
                   Register={register}
                   Error={errors.Cep}
-                  Validation={{ required: true }}
+                  
                   
                 />
               </div> 
@@ -122,7 +120,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 placeholder="Estado"
                 Register={register}
                 Error={errors.Estado}
-                Validation={{required: true}}
+                
               />
               
             </Formulario>

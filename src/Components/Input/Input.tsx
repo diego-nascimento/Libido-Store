@@ -8,15 +8,26 @@ interface IInput{
   Register: any
   placeholder: string
   Error?: DeepMap<any, any>
-  Validation: any
+
 }
 
-const Input: React.FC<IInput> = ({ type, Register, placeholder, Error, Validation }) => {
+const Input: React.FC<IInput> = ({ type, Register, placeholder, Error }) => {
+
+  const HandlePatern = () => {
+    switch (placeholder) {
+      case 'Cep':
+        return new RegExp("\d{ 5 }-?\d{ 3 }")
+    }
+  }
 
   return (
     <Container>
-      <InputComponent type={type}  placeholder={placeholder} {...Register(placeholder, Validation)} />
+      <InputComponent type={type} placeholder={placeholder}  {...Register(placeholder, {
+        required: true,
+        pattern: HandlePatern()
+      })} />
       {Error?.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
+      {Error?.type === 'pattern' && <p><GoAlert />Campo preenchido Errado</p>}
     </Container>
   )
 }
