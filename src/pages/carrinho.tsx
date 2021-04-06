@@ -7,7 +7,7 @@ import { IProduto } from '../Interfaces/IProduto'
 import Link from 'next/link'
 import Head from 'next/head'
 import {FaArrowUp, FaArrowDown} from 'react-icons/fa'
-
+import { Carousel } from 'react-bootstrap';
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -50,7 +50,26 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                 return(
                   <Card style={{padding: '30px'}} key={produto._id}>
                     <ImageContainer>
-                      <img src={produto.imagens[0].url} alt={produto.Nome} />
+                      <Carousel
+                          controls={false}
+                          touch={true}
+                          indicators={false}
+                          fade={true}
+                          slide={true}
+                      >
+                        
+                        {produto.imagens ?
+                          produto.imagens.map(imagem => {
+                            return (
+                              <Carousel.Item key={imagem._id} interval={Math.floor(Math.random() * (2500 - 1800 +1)) + 1800}>
+                                 <img src={imagem.url} alt={produto.Nome} />
+                              </Carousel.Item>
+                            )
+                          }): <Carousel.Item key={'1'} >
+                                 <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="No Image" />
+                          </Carousel.Item>
+                        }
+                        </Carousel>
                     </ImageContainer>
                     <InfoContainer>
                       <div className="Left">
