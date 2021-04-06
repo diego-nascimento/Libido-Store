@@ -39,7 +39,8 @@ export default function cart(state = [], action) {
         return state;
       }
 
-    case '@case/clean':
+    case '@cart/clean':
+      localStorage.removeItem('carrinho');
       return [];
 
     default:

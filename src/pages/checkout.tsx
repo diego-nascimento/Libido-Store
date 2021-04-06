@@ -10,22 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { SetLocale } from '../Util/SetLocaleYup'
 import Router from 'next/router'
+import { api } from '../service/api'
 import * as CartActions from '../store/modules/cart/actions'
-
-import {api} from '../service/api'
-
-
-
-const schema = yup.object().shape({
-  Nome: yup.string().required(),
-  Whatsapp: yup.string().required(),
-  Estado: yup.string().required(),
-  Cidade: yup.string().required(),
-  Endereco: yup.string().required(),
-  Numero: yup.string().required(),
-  Cep: yup.string().required(),
-  Bairro: yup.string().required()
-});
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -53,25 +39,27 @@ const Checkout: React.FC<CarrinhoProps> = ({
 }) => {
   SetLocale()
 
-  const { register, handleSubmit, formState: { errors } } = useForm<IDataForm>({
-    resolver: yupResolver(schema)
-  });
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  React.useEffect(() => {
-    tamanho_carrinho < 1 && Router.push('/produtos')
-  }, [])
-  const handleSubmitForm = async (data: IDataForm, event: any) => {
-    const response = await api.post('api/mail', {
+  
+  const handleSubmitForm = async (data: IDataForm) => {
+      api.post('api/mail', {
       data: {
         data: data,
         produtos: produtos,
         total: total
       }
     })
-    Router.push('/success')
+      dispatch(CartActions.LimparCarrinho());
+      Router.push('/success')
   }
 
+  React.useEffect(() => {
+    
+    tamanho_carrinho < 1 && Router.push('/produtos')
+  }, [])
 
+  
   return(
     <Layout>
       <Head>
@@ -80,52 +68,61 @@ const Checkout: React.FC<CarrinhoProps> = ({
        <Wrapper >
          <Container className="Container">
             <h1>Dados: </h1>
-            <ProdutosContainer>
+          <ProdutosContainer>
             <Formulario >
               <Input type="text"
                 placeholder="Nome"
                 Register={register}
-                
+                Error={errors.Nome}
+                Validation={{required: true}}
                  />
               <Input type="text"
                 placeholder="Whatsapp"
                 Register={register}
-                
+                Error={errors.Whatsapp}
+                Validation={{ required: true }}
                  />
               <h2>Endereço:</h2>
               <div className="Endereco">
                 <Input type="text"
                   placeholder="Endereco"
                   Register={register}
-                  
+                  Error={errors.Endereco}
+                  Validation={{required: true}}
                    />
                 <Input type="text"
                   placeholder="Numero"
                   Register={register}
-                 
+                  Error={errors.Numero}
+                  Validation={{required: true}}
                 />
               </div>  
               <Input type="text"
                 placeholder="Bairro"
                 Register={register}
-               
+                Error={errors.Bairro}
+                Validation={{required: true}}
               />
               <div className="Endereco">
                  <Input type="text"
                   placeholder="Cidade"
                   Register={register}
-                  
+                  Error={errors.Cidade}
+                  Validation={{required: true}}
                    />
                 <Input type="text"
                   placeholder="Cep"
                   Register={register}
+                  Error={errors.Cep}
+                  Validation={{ required: true }}
                   
                 />
               </div> 
               <Input type="text"
                 placeholder="Estado"
                 Register={register}
-               
+                Error={errors.Estado}
+                Validation={{required: true}}
               />
               
             </Formulario>

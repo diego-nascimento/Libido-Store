@@ -1,20 +1,26 @@
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
 import {Wrapper, Container} from '../PageStyles/checkout.style'
-import { connect } from 'react-redux'
-import * as CartActions from '../store/modules/cart/actions'
-
+import Head from 'next/head'
+import Router from 'next/router'
 interface ISucesso{
   dispatch: any
 }
 
-const Sucesso: React.FC<ISucesso> = ({dispatch}) => {
+const Sucesso: React.FC<ISucesso> = () => {
+  
   React.useEffect(() => {
-    dispatch(CartActions.LimparCarrinho());
-  })
+    setTimeout(() =>{
+      Router.push('/')
+    }, 10000)
+  }, [])
+
 
   return (
     <Layout>
+      <Head>
+         <title>Libido LoveShop - Sucesso</title>
+      </Head>
       <Wrapper>
         <Container className="Container">
           <h1>Seu Pedido Foi enviado para Nossos atendentes!</h1>
@@ -25,4 +31,4 @@ const Sucesso: React.FC<ISucesso> = ({dispatch}) => {
   )
 }
 
-export default connect()(Sucesso)
+export default Sucesso

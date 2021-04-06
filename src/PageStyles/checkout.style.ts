@@ -140,7 +140,7 @@ export const Formulario = styled.form`
   
   .Endereco{
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-columns: 1fr 150px;
     grid-gap: 10px;
   }
 `;

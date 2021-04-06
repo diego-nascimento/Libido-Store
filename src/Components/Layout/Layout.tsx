@@ -3,16 +3,24 @@ import Footer from '../Footer/Footer'
 import Head from 'next/head'
 import React from 'react'
 import LoadingPage from '../LoadingPage/LoadingPage'
-import {PageContainer, Main} from './Layout.style'
+import { PageContainer, Main } from './Layout.style'
+import { connect } from 'react-redux'
+import * as CartActions from '../../store/modules/cart/actions'
 
-const Layout: React.FC = ({ children }) => {
+interface ILayout {
+  children: any
+  dispatch: any
+}
+
+const Layout: React.FC<ILayout> = ({ children, dispatch }) => {
   const [Loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
+    dispatch(CartActions.PegarCarrinhoLocalStorage())
     setTimeout(() => {
       setLoading(false)
     }, Math.floor(Math.random() * (700 - 120 +1)) + 120)
-  })
+  }, [])
 
   return (
     Loading ? <LoadingPage /> :
@@ -29,5 +37,5 @@ const Layout: React.FC = ({ children }) => {
   )
 }
 
-export default Layout
+export default connect()(Layout)
 

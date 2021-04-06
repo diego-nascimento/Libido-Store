@@ -23,8 +23,12 @@ export const Container = styled.div`
   flex-direction: column;
 
   p{
-    color: ${styles.componentsDest};
-    font-size: .9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: #a00;
+    font-size: .7rem;
   }
 `;
  
