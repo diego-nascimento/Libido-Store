@@ -61,10 +61,11 @@ export const Rights = styled.div`
   display: flex;
   justify-content: center;
   color: ${styles.fontColorInDark};
+  padding: 10px;
 
   .Rights-Container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
     align-items: center;
