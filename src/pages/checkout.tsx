@@ -115,6 +115,13 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   
                   
                 />
+                <input
+                  name="Teste"
+                  id="Teste"
+                  type="text"
+                  placeholder="Teste"
+                />
+                
               </div> 
               <Input type="text"
                 placeholder="Estado"

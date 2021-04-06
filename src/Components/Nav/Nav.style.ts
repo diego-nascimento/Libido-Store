@@ -31,6 +31,7 @@ export const Message = styled.div`
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -44,20 +45,27 @@ export const Container = styled.div`
 
 export const RedesSociais = styled.ul`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-space-between;
   flex-direction: row;
-
+  align-items: center;
+  height: 100%;
+  transform: translateY(10px);  
 
   li{
+    letter-spacing: 1px;
+    transition: .3s;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    letter-spacing: 1px;
-    height: 50px;
-    transition: .3s;
+    width: 100%;
+    padding: 0px 20px;
+    
 
     a{
-      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     :hover{

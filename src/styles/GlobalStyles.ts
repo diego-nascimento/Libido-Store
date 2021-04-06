@@ -55,9 +55,13 @@ html{
       line-height: 1.2rem;
     }
 
-    p, a, span, li, b{
+    p, a, span,  b{
       font-size: 1rem;
       line-height: 1.4rem;
+    }
+
+    li{
+      font-size: 1rem;
     }
 
     button{
