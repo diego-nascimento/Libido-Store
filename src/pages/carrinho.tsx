@@ -65,7 +65,6 @@ const Carrinho: React.FC<CarrinhoProps> = ({
             <ProdutosContainer>
               <div>
                 {produtos.map(produto => {
-                console.log(produto)
                 return(
                   <Card style={{padding: '30px'}} key={produto._id}>
                     <ImageContainer>
