@@ -46,7 +46,8 @@ const Carrinho: React.FC<CarrinhoProps> = ({
             </p>: 
             <ProdutosContainer>
               <div>
-              {produtos.map(produto =>{
+                {produtos.map(produto => {
+                console.log(produto)
                 return(
                   <Card style={{padding: '30px'}} key={produto._id}>
                     <ImageContainer>
@@ -57,7 +58,6 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                           fade={true}
                           slide={true}
                       >
-                        
                         {produto.imagens ?
                           produto.imagens.map(imagem => {
                             return (
