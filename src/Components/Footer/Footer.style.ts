@@ -56,7 +56,7 @@ export const FooterContainer = styled.footer`
   }
 `;
 
-export const Rights = styled.section`
+export const Rights = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
