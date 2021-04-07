@@ -10,6 +10,21 @@ const Entrega: React.FC = () => {
       <Head>
         <title>Libido LoveShop- Entregas</title>
         
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-00GF13YP96', {
+                  page_path: window.location.pathname,
+                });
+          `,
+            }}
+        />
+        <script
+            src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
+          />
       </Head>
       <SobreContainer>
         <Container className="Container">

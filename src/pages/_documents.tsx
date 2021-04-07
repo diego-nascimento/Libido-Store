@@ -31,10 +31,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt_BR">
         <Head>
-          <script type="text/javascript" src='/static/dataunlock.js'></script>
-          <script
-            src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
-          />
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -46,6 +42,9 @@ export default class MyDocument extends Document {
                 });
           `,
             }}
+          />
+          <script
+            src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
           />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
