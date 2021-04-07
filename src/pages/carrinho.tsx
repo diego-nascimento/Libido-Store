@@ -53,6 +53,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
      />
       <Head>
         <title>Libido LoveShop - Carrinho </title>
+        
       </Head>
        <Wrapper >
          <Container className="Container">

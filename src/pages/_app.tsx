@@ -8,7 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import * as gtag from '../../lib/gtag'
+import * as gtag from '../lib/gtag'
+
 
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
@@ -21,12 +22,14 @@ Router.events.on('routeChangeError', () => NProgress.done())
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   
 const router = useRouter()
-useEffect(() => {
-    const handleRouteChange = (url:string) => {
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      console.log(url)
       gtag.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
+      console.log('aqui')
       router.events.off('routeChangeComplete', handleRouteChange)
     }
 }, [router.events])

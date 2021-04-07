@@ -62,6 +62,22 @@ const Checkout: React.FC<CarrinhoProps> = ({
     <Layout>
       <Head>
         <title>Libido LoveShop - Checkout </title>
+        <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-00GF13YP96', {
+                  page_path: window.location.pathname,
+                });
+          `,
+            }}
+          />
       </Head>
        <Wrapper >
          <Container className="Container">

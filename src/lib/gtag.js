@@ -2,7 +2,7 @@ export const GA_TRACKING_ID = 'G-00GF13YP96';
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url) => {
-  window.gtag('config', GA_TRACKING_ID, {
+  window.gtag('config', 'G-00GF13YP96', {
     page_path: url,
   });
 };
