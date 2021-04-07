@@ -31,7 +31,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt_BR">
         <Head>
-          <script src='../lib/dataunlock.js'></script>
+          <script type="text/javascript" src='/static/dataunlock.js'></script>
           <script
             src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
           />
