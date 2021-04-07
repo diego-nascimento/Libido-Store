@@ -90,7 +90,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
               <h2>Por {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                  }).format(produto.preco)}</h2>
+                  }).format(produto.preco )}</h2>
            </div>
             <div className="descricao">
               <p>
