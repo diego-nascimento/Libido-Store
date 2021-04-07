@@ -47,9 +47,10 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
      />
       <Head>
        <title>Libido LoveShop- {produto && produto.Nome}</title>
-       <meta name="description" content={produto.Nome} />
-       <meta name="keywords" content={`${produto.Nome}, ${produto.categorias[0].Nome}`}></meta>
+       <meta name="description" content={produto && produto.Nome} />
+       <meta name="keywords" content={`${produto && produto.Nome}, ${prpoduto && produto.categorias[0].Nome}`}></meta>
      </Head>
+
      {produto && <Wrapper className="Container">
        <div className="voltar" onClick={() => { Router.back() }}>
          <MdArrowBack />
