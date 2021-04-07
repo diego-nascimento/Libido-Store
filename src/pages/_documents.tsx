@@ -37,10 +37,6 @@ export default class MyDocument extends Document {
         <Head> 
           <link rel="icon" href="/favicon.ico" />
           <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
-          <script
             dangerouslySetInnerHTML={{
               __html: `
             window.dataLayer = window.dataLayer || [];
@@ -51,6 +47,10 @@ export default class MyDocument extends Document {
             });
           `,
             }}
+          />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           />
         </Head>
         <body>
