@@ -21,20 +21,17 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   
-const router = useRouter()
+  const router = useRouter()
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      console.log(url)
+    const handleRouteChange = (url:string) => {
       gtag.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
-      console.log('aqui')
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-}, [router.events])
+  }, [router.events])
   
-
   return (
     <Provider store={store}>
       <GlobalStyles />
