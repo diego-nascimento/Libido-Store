@@ -47,7 +47,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
      />
       <Head>
        <title>Libido LoveShop- {produto && produto.Nome}</title>
-       <meta name="description" content={produto.descricao} />
+       <meta name="description" content={produto.Nome} />
        <meta name="keywords" content={`${produto.Nome}, ${produto.categorias[0].Nome}`}></meta>
      </Head>
      {produto && <Wrapper className="Container">
