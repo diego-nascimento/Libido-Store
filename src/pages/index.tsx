@@ -41,7 +41,7 @@ const Home: React.FC <IHome> = ({categorias}) => {
               <Link href={`/categoria/${categoria._id}`} key={categoria._id} >
                 <a>
                 <Card >
-                  {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="" />}
+                  {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={categoria.Nome} />}
                 </Card>
                 </a>
               </Link>
