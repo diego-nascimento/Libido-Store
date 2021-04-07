@@ -30,7 +30,23 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="pt_BR">
-        <Head>  
+        <Head>
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-00GF13YP96', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link rel="stylesheet" type="text/css" href="/nprogress.css"/>
@@ -55,22 +71,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
             integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
           />
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=G-00GF13YP96`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-00GF13YP96', {
-              page_path: window.location.pathname,
-            });
-          `,
-            }}
-          />
+          
         </Head>
         <body>
           <Main />
