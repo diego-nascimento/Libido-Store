@@ -6,6 +6,10 @@ import {Provider} from 'react-redux'
 import store from '../store'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import * as gtag from '../lib/gtag'
+
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
   NProgress.set(0.4)
@@ -14,6 +18,17 @@ Router.events.on('routeChangeStart', (url) => {
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
+const router = useRouter()
+useEffect(() => {
+    const handleRouteChange = (url:string) => {
+      gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+}, [router.events])
+  
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <Provider store={store}>
