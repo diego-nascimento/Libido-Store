@@ -137,6 +137,7 @@ export const Formulario = styled.form`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  width: 100%;
   
   .Endereco{
     display: grid;

@@ -106,7 +106,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   placeholder="Cidade"
                   Register={register}
                   Error={errors.Cidade}
-                  
                    />
                 <Input type="text"
                   placeholder="Cep"
@@ -114,14 +113,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   Error={errors.Cep}
                   
                   
-                />
-                <input
-                  name="Teste"
-                  id="Teste"
-                  type="text"
-                  placeholder="Teste"
-                />
-                
+                /> 
               </div> 
               <Input type="text"
                 placeholder="Estado"
