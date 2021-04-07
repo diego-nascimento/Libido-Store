@@ -18,6 +18,8 @@ Router.events.on('routeChangeStart', (url) => {
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  
 const router = useRouter()
 useEffect(() => {
     const handleRouteChange = (url:string) => {
@@ -29,7 +31,7 @@ useEffect(() => {
     }
 }, [router.events])
   
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+
   return (
     <Provider store={store}>
       <GlobalStyles />
