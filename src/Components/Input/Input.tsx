@@ -13,6 +13,8 @@ interface IInput{
 
 const Input: React.FC<IInput> = ({ type, Register, placeholder, Error }) => {
 
+   
+
   return (
     <Container>
       <InputComponent type={type} placeholder={placeholder}  {...Register(placeholder, {

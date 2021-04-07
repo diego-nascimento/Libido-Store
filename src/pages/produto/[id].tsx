@@ -16,6 +16,7 @@ import Botao from '../../Components/BotaoComprar/BotaoComprar'
 import { Carousel } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProdutoCategoria from '../categoria/[id]'
 
 
 interface IProdutoPage{
@@ -45,7 +46,9 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
       pauseOnHover
      />
       <Head>
-        <title>Libido LoveShop- {produto && produto.Nome}</title>
+       <title>Libido LoveShop- {produto && produto.Nome}</title>
+       <meta name="description" content={produto.descricao} />
+       <meta name="keywords" content={`${produto.Nome}, ${produto.categorias[0].Nome}`}></meta>
      </Head>
      {produto && <Wrapper className="Container">
        <div className="voltar" onClick={() => { Router.back() }}>
