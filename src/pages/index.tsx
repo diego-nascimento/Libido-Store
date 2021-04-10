@@ -11,6 +11,8 @@ interface IHome{
   error?: any
 }
 
+
+
 const Home: React.FC <IHome> = ({categorias}) => {
   return (
     <Layout>
