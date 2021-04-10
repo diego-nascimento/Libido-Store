@@ -10,7 +10,6 @@ import { SetLocale } from '../Util/SetLocaleYup'
 import Router from 'next/router'
 import { api } from '../service/api'
 import * as CartActions from '../store/modules/cart/actions'
-import * as gtag from '../lib/gtag'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -48,12 +47,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
         produtos: produtos,
         total: total
       }
-    })
-     gtag.event({
-      action: 'Orçamento enviado',
-      category: 'Contato',
-       label: data.Nome + 'orçamento',
-      value: data.Whatsapp
     })
 
       dispatch(CartActions.LimparCarrinho());
