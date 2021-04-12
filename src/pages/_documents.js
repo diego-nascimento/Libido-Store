@@ -32,11 +32,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="pt_BR">
         <Head>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -54,6 +49,11 @@ export default class MyDocument extends Document {
               style="display:none;visibility:hidden"
             ></iframe>
           </noscript>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );
