@@ -5,8 +5,6 @@ import Router from 'next/router'
 import {Provider} from 'react-redux'
 import store from '../store'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import ReactGA from 'react-ga'
   
 import GoogleTagManager from '../Components/GoogleTagManager'
@@ -21,14 +19,16 @@ Router.events.on('routeChangeStart', (url) => {
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
+
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <GoogleTagManager>
+    
       <Provider store={store}>
         <GlobalStyles />
-        <Component {...pageProps} />
+        <GoogleTagManager>
+          <Component {...pageProps} />
+        </GoogleTagManager>
       </Provider>
-    </GoogleTagManager>
     
   );
 }

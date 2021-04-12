@@ -5,13 +5,7 @@ import * as gtm from '../Util/GTM'
 const GoogleTagManager = ({ children }:any) => {
   const router = useRouter()
 
-  useEffect(() => {
-    router.events.on('routeChangeComplete', gtm.pageview)
-    return () => {
-      router.events.off('routeChangeComplete', gtm.pageview)
-    }
-  }, [router.events])
-
+  console.log(gtm)
   return children
 }
 
