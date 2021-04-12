@@ -7,14 +7,15 @@ import store from '../store'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { GTM_ID, pageview } from '../Util/GTM'
+import ReactGA from 'react-ga'
   
 import GoogleTagManager from '../Components/GoogleTagManager'
-
+ReactGA.initialize('G-BBVH66MQTY');
 
 Router.events.on('routeChangeStart', (url) => {
   NProgress.start()
   NProgress.set(0.4)
+  ReactGA.pageview(window.location.pathname + window.location.search);
 })
 
 Router.events.on('routeChangeComplete', () => NProgress.done())
