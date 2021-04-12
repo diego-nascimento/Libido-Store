@@ -23,7 +23,7 @@ Router.events.on('routeChangeError', () => NProgress.done())
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   React.useEffect(() => {
-    TagManager.initialize(tagManagerArgs)
+    TagManager.initialize({gtmId: tagManagerArgs.id})
   }, [])
   return (
     
