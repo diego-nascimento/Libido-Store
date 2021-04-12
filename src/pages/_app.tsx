@@ -5,11 +5,12 @@ import Router from 'next/router'
 import {Provider} from 'react-redux'
 import store from '../store'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ReactGA from 'react-ga';
+//import ReactGA from 'react-ga';
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import {GTMPageView} from '../Util/GTM'
 
-ReactGA.initialize('G-BBVH66MQTY');
+//ReactGA.initialize('G-BBVH66MQTY')
 
 
 
@@ -25,14 +26,11 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   
   const router = useRouter()
   useEffect(() => {
-    const handleRouteChange = (url:string) => {
-      ReactGA.set({ page: location.pathname });
-      ReactGA.pageview(location.pathname)
-    }
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
+     const handleRouteChange = (url: string) => GTMPageView(url);
+        Router.events.on('routeChangeComplete', handleRouteChange);
+        return () => {
+            Router.events.off('routeChangeComplete', handleRouteChange);
+        };
   }, [router.events])
   
   return (
