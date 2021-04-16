@@ -3,6 +3,7 @@ import { styles } from '../../styles/styles';
 
 interface ICard{
   Visible: boolean
+  Loaded: boolean
 }
 
 export const Card = styled.div<ICard>`
@@ -15,9 +16,10 @@ align-items: center;
 border-radius: 15px;
 overflow: hidden;
 height: 100%;
-transform: ${props => props.Visible ? 'scale(.95) translateY(-40px)' : 'scale(.95) translateY(0px)' };
+transform: ${props => props.Visible ? 'scale(.95) translateY(0px)' : 'scale(.95) translateY(30px)' };
 opacity: ${props => props.Visible ? '1' : '0'};
 transition: .5s;
+visibility: ${props => props.Loaded ? 'visible': 'hidden' };
 
 .info{
   background: ${styles.componentsColor};

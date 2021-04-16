@@ -16,7 +16,6 @@ import Botao from '../../Components/BotaoComprar/BotaoComprar'
 import { Carousel } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ProdutoCategoria from '../categoria/[id]'
 
 
 interface IProdutoPage{

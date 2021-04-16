@@ -3,6 +3,7 @@ import { IProduto } from '../../Interfaces/IProduto'
 import {Card, ImagemContainer} from './ProdutoItem.style'
 import { Carousel } from 'react-bootstrap';
 import VisibilitySensor from 'react-visibility-sensor'
+import {FadeLoader } from 'react-spinners';
 
 interface IProdutoItem{
   produto: IProduto
@@ -10,6 +11,7 @@ interface IProdutoItem{
 
 const ProdutoItem: React.FC<IProdutoItem> = ({produto}) => {
   const [visible, setVisible] = React.useState(false)
+  const [Loaded, setLoaded] = React.useState(false)
 
   return (
     <VisibilitySensor
@@ -17,9 +19,9 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto}) => {
         setVisible(isVisible)
       }}
       partialVisibility={true}
-      minTopValue={150}
+      minTopValue={100}
     >
-      <Card  Visible={visible}>
+      <Card Visible={visible} Loaded={Loaded}>
         <ImagemContainer>
           <Carousel
             controls={false}
@@ -34,13 +36,14 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto}) => {
                   <Carousel.Item key={imagem._id}
                     interval={Math.floor(Math.random() * (2500 - 1800 + 1)) + 1800}
                   >
-                    <img src={imagem.url} alt={produto.Nome} />
+                    <img src={imagem.url} alt={produto.Nome} onLoad={() => setLoaded(true)}/>
                   </Carousel.Item>
                 )
               }) :
               <Carousel.Item key={'1'} >
                 <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png"
                   alt="No Image"
+                  onLoad={() => setLoaded(true)}
                 />
               </Carousel.Item>
             }
@@ -54,7 +57,7 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto}) => {
               }).format(produto.preco)}
               </b>
           </div> 
-      </Card>
+        </Card>
     </VisibilitySensor>
   )
 }
