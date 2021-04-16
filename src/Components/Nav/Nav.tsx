@@ -3,7 +3,6 @@ import React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { FaInstagram, FaWhatsapp, FaShoppingBag } from 'react-icons/fa'
 import Link from 'next/link'
-import { styles } from '../../styles/styles'
 import {connect} from 'react-redux'
 
 interface INav{
@@ -49,11 +48,11 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
         <ContainerNav className="Container">
           <FiMenu  onClick={()=>setMenuState(!MenuState)} className="BotaoMenu"/>
         <Lista MenuState={MenuState}>
-          <li>
+           <li>
             <Link href="/">
               <a>Inicio</a>
             </Link> 
-          </li>
+            </li>
            <li>
             <Link href="/entrega">
               <a>Entrega</a>
@@ -66,7 +65,11 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
           </li>
         </Lista>
         <Link href="/carrinho">
-          <a className="CarrinhoButton"><FaShoppingBag className="Cart"/>{tamanho_carrinho > 0? <p>{tamanho_carrinho} </p>: null}</a>
+            <a className="CarrinhoButton">
+              <FaShoppingBag className="Cart" />
+              {tamanho_carrinho > 0 ? <p>{tamanho_carrinho} </p> : null
+              }
+            </a>
         </Link>
         </ContainerNav>
       </Navegacao>

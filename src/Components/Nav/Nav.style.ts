@@ -124,6 +124,13 @@ export const ContainerNav = styled.div`
   
   .CarrinhoButton{
       position: relative;
+
+      .Cart{
+        transition: .4s;
+        width: 35px;
+        height: 35px;
+      }
+      
       p{
         position: absolute;
         bottom: -5px;
@@ -136,22 +143,25 @@ export const ContainerNav = styled.div`
         background: ${styles.fontColorInDark};
         color: ${styles.componentsDest};
         border-radius: 50%;
+        transition: .4s;
+      }
+
+      
+
+      :hover{
+        .Cart{
+          color: ${styles.fontColorInDark};
+        }
+
+        p{
+          background: ${styles.componentsDest};
+          color: ${styles.fontColorInDark};
+        }
       }
   }
 
   .Cart{
-    transition: .4s;
-    width: 35px;
-    height: 35px;
-
-    :hover{
-      color: ${styles.fontColorInDark};
-      
-
-      a{
-        color: ${styles.fontColorInDark};
-      }
-    }
+    
   }
   
 `;
