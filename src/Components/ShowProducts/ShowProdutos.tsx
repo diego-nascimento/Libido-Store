@@ -2,12 +2,10 @@ import Link from 'next/link'
 import React from 'react'
 import { ICategoria } from '../../Interfaces/ICategoria'
 import { IProduto } from '../../Interfaces/IProduto'
-import { Card, Wrapper, ImagemContainer, ProdutosContainer, Container, SideBar } from './ShowProdutos.style'
+import { Wrapper, ProdutosContainer, Container, SideBar } from './ShowProdutos.style'
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import { MdExpandMore } from 'react-icons/md';
-import { Carousel } from 'react-bootstrap';
-
-
+import Item from '../ProdutoItem/ProdutoItem'
 
 interface IShowProdutos{
   produtos: Array<IProduto>
@@ -15,12 +13,7 @@ interface IShowProdutos{
   categorias:Array<ICategoria>
 }
 
-
-
 const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) => {
-
-  
-
   return(
     <Wrapper className="Container">
       <h1>{title}</h1>
@@ -54,39 +47,7 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) =
             return (
               <Link href={`/produto/${produto._id}`} key={produto._id} >
                 <a style={{height: '100%'}}> 
-                  <Card >
-                    <ImagemContainer>
-                        <Carousel
-                          controls={false}
-                          touch={true}
-                          indicators={false}
-                          fade={true}
-                          slide={true}
-                      >
-                        
-                        {produto.imagens ?
-                          produto.imagens.map(imagem => {
-                            return (
-                              <Carousel.Item key={imagem._id} interval={Math.floor(Math.random() * (2500 - 1800 +1)) + 1800}>
-                                 <img src={imagem.url} alt={produto.Nome} />
-                              </Carousel.Item>
-                            )
-                          }): <Carousel.Item key={'1'} >
-                                 <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="No Image" />
-                          </Carousel.Item>
-                        }
-                        </Carousel>
-                    </ImagemContainer>
-                    
-                  <div className="info">
-                    <h2>{(produto.Nome.toLowerCase())}</h2>
-                    <b>Por {Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                  }).format(produto.preco)}</b>
-                  </div>
-                 
-              </Card>
+                  <Item produto={produto}/>
                 </a>
             </Link>
             )

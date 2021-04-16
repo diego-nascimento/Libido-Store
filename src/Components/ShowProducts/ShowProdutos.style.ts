@@ -45,53 +45,6 @@ export const Container = styled.div`
   }
 `
 
-export const Card = styled.div`
-  width: 100%;
-  display: flex;
-  position: relative;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 15px;
-  overflow: hidden;
-  height: 100%;
-  transform: scale(.95);
-
-  .info{
-    background: ${styles.componentsColor};
-    width: 100%;
-    padding: 20px 10px;
-    height: 100%;
-    color: ${styles.componentsDest};
-    display: flex;
-    flex-direction: column;
-  }
-
-  img{
-    width: 100%;
-  }
-
-  h2, p, b{
-    padding: 5px 0px;  
-  }
-
-  h2{
-    letter-spacing: 1px;
-    text-align: left;
-    text-transform: capitalize;
-    font-weight: 400;
-  }
-  
-  @media(max-width: 800px){
-    img{
-      height: auto;
-    }
-  }
-`;
-
-export const ImagemContainer = styled.div`
-
-`;
 
 
 export const SideBar = styled.aside`

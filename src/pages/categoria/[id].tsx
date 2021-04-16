@@ -16,6 +16,7 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categor
     <Layout>
       <Head>
         <title>Libido LoveShop - {categoria && categoria.Nome}</title>
+        <meta name="keywords" content={`${categoria && categoria.Nome}`}></meta>
       </Head>
       {categoria && <ShowProdutos produtos={produtos} title={categoria.Nome} categorias={categorias}/>}
     </Layout>

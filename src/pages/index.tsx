@@ -11,13 +11,12 @@ interface IHome{
   error?: any
 }
 
-
-
 const Home: React.FC <IHome> = ({categorias}) => {
   return (
     <Layout>
       <Head>
         <title>Libido LoveShop - Inicio</title>
+        <meta name="description" content={' A LIBIDO é uma loja especializada em produtos de love shop de bom gosto e  qualidade. Nosso principal alvo é o prazer feminino!'} />
       </Head>
       <Header>
         <h1 style={{visibility: 'hidden'}}>Libido Love Store</h1>
@@ -27,11 +26,11 @@ const Home: React.FC <IHome> = ({categorias}) => {
           <h2>Bem Vindo ao nosso espaço!</h2>
           <TextContainer>
             <p>
-            A LIBIDO é uma loja especializada em produtos de love shop de bom gosto e  qualidade. Nosso principal alvo é o prazer feminino! <br/>
-            Atuamos com vendas de produtos sensuais desde de 2019. <br/>
-            Nosso atendimento é ágil e especializado. Estamos preparados para o suporte pré venda e pós compra. Não tenha vergonha de esclarecer suas dúvidas nem de nos mandar uma mensagem!<br/>
-            A discrição para a gente é a base de tudo. Não divulgamos a identidade de nossos cliente. <br/><br/>
-            Se ame, se toque e sinta prazer estando só ou acompanhada(o).
+              A LIBIDO é uma loja especializada em produtos de love shop de bom gosto e  qualidade. Nosso principal alvo é o prazer feminino! <br/>
+              Atuamos com vendas de produtos sensuais desde de 2019. <br/>
+              Nosso atendimento é ágil e especializado. Estamos preparados para o suporte pré venda e pós compra. Não tenha vergonha de esclarecer suas dúvidas nem de nos mandar uma mensagem!<br/>
+              A discrição para a gente é a base de tudo. Não divulgamos a identidade de nossos cliente. <br/><br/>
+              Se ame, se toque e sinta prazer estando só ou acompanhada(o).
             </p>
           </TextContainer>
         </div>
@@ -47,13 +46,10 @@ const Home: React.FC <IHome> = ({categorias}) => {
                 </Card>
                 </a>
               </Link>
-              
             )
           })}
-
         </Container>
       </Categorias>
-      
     </Layout>
   );
 }
