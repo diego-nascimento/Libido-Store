@@ -193,10 +193,10 @@ export const Lista = styled.ul<ILista>`
     }
     
     :hover{
-      color: ${styles.fontColorInDark};
+      opacity: .8;
 
       a{
-        color: ${styles.fontColorInDark};
+        opacity: .7;
       }
     }
   }
@@ -218,22 +218,28 @@ export const Lista = styled.ul<ILista>`
 `;
 
 
-interface IUserCart {
-  LogoutStateMenu: boolean
-}
 
-export const UserCart = styled.div<IUserCart>`
+export const UserCart = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
+  user-select: none;
 
-  b{
+  .UserNav{
     margin-right: 10px;
   }
+`;
 
-  .LogoutButton{
-    position: absolute;
+
+interface IUserCart {
+  LogoutStateMenu: boolean
+}
+
+export const MenuUser = styled.ul<IUserCart>`
+  position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 35px;
     left: 0;
     padding: 10px 20px;
@@ -241,6 +247,18 @@ export const UserCart = styled.div<IUserCart>`
     border-radius: 15px;
     transition: .4s;
     transform: ${props => props.LogoutStateMenu ? 'translateY(0px)' : 'translateY(20px)'};
-    display: ${props => props.LogoutStateMenu ? 'flex' : 'none'}
-  }
+    display: ${props => props.LogoutStateMenu ? 'flex' : 'none'};
+
+    li{
+      padding: 10px 20px;
+
+      b{
+        font-size: 1rem;
+        color: ${styles.fontColor};
+        padding: 10px 5px;
+      }
+      :hover{
+        opacity: .7;
+      }
+   }  
 `;

@@ -1,4 +1,4 @@
-import {Wrapper, ContainerHeader, Message, Container, ContainerNav, Lista, Navegacao, RedesSociais, UserCart } from './Nav.style'
+import {Wrapper, ContainerHeader, Message, Container, ContainerNav, Lista, Navegacao, RedesSociais, UserCart, MenuUser } from './Nav.style'
 import React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { FaInstagram, FaWhatsapp, FaShoppingBag } from 'react-icons/fa'
@@ -72,16 +72,27 @@ const Nav: React.FC<INav> = ({tamanho_carrinho, userInfo, dispatch}) => {
             </Link> 
           </li>
           </Lista>
-          <UserCart LogoutStateMenu={LogoutStateMenu}>
+          <UserCart >
             {userInfo ?
-             <div>
+             <div className="UserNav">
                 <b onClick={() => setLogoutStateMenu(!LogoutStateMenu)}>Olá, {userInfo.nome}</b>
-                <b className="LogoutButton"  onClick={() => handleLogout()}>Logout</b>
+                <MenuUser LogoutStateMenu={LogoutStateMenu}>
+                  <li>
+                    <Link href="/">
+                      <a>
+                        <b>Conta</b>
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <b onClick={() => handleLogout()}>Sair
+                    </b>
+                  </li>
+                </MenuUser>
              </div>
-              
               :
               <Link href="/login">
-              <a className="CarrinhoButton">
+              <a className="CarrinhoButton" style={{marginRight: '10px'}}>
                 <b>
                   Login
                 </b>
