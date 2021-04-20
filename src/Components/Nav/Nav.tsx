@@ -1,17 +1,22 @@
-import {Wrapper, ContainerHeader, Message, Container, ContainerNav, Lista, Navegacao, RedesSociais } from './Nav.style'
+import {Wrapper, ContainerHeader, Message, Container, ContainerNav, Lista, Navegacao, RedesSociais, UserCart } from './Nav.style'
 import React from 'react'
 import { FiMenu } from 'react-icons/fi'
 import { FaInstagram, FaWhatsapp, FaShoppingBag } from 'react-icons/fa'
 import Link from 'next/link'
 import {connect} from 'react-redux'
+import {IUserInfo} from '../../Interfaces/IUserInfo'
+import * as userActions from '../../store/modules/user/actions'
 
 interface INav{
   tamanho_carrinho: number
+  userInfo: IUserInfo
+  dispatch: any
 }
 
-const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
+const Nav: React.FC<INav> = ({tamanho_carrinho, userInfo, dispatch}) => {
   const [MenuState, setMenuState] = React.useState(false)
   const [MenuBackGround, setMenuBackground] = React.useState(false)
+  const [LogoutStateMenu, setLogoutStateMenu] = React.useState(false)
 
   React.useEffect(() => {
     const checkPageOffSet = () => {
@@ -22,6 +27,9 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
     checkPageOffSet();
   })
 
+  const handleLogout = () => {
+    dispatch(userActions.Logout())
+  }
 
   return (
     <Wrapper>
@@ -63,14 +71,31 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
               <a>Produtos</a>
             </Link> 
           </li>
-        </Lista>
-        <Link href="/carrinho">
-            <a className="CarrinhoButton">
-              <FaShoppingBag className="Cart" />
-              {tamanho_carrinho > 0 ? <p>{tamanho_carrinho} </p> : null
-              }
-            </a>
-        </Link>
+          </Lista>
+          <UserCart LogoutStateMenu={LogoutStateMenu}>
+            {userInfo ?
+             <div>
+                <b onClick={() => setLogoutStateMenu(!LogoutStateMenu)}>Olá, {userInfo.nome}</b>
+                <b className="LogoutButton"  onClick={() => handleLogout()}>Logout</b>
+             </div>
+              
+              :
+              <Link href="/login">
+              <a className="CarrinhoButton">
+                <b>
+                  Login
+                </b>
+              </a>
+            </Link>}
+            <Link href="/carrinho">
+              <a className="CarrinhoButton">
+                <FaShoppingBag className="Cart" />
+                {tamanho_carrinho > 0 ? <p>{tamanho_carrinho} </p> : null
+                }
+              </a>
+            </Link>
+          </UserCart>
+          
         </ContainerNav>
       </Navegacao>
     </Wrapper>
@@ -80,6 +105,7 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
 
 const mapStateToProps = (state: any)  => ({
   tamanho_carrinho: state.cart.length,
+  userInfo: state.user
 });
 
 export default connect(mapStateToProps)(Nav);

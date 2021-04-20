@@ -36,6 +36,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   padding: 0px 20px;
+ 
 
   svg{
     color: ${styles.fontColorInDark};
@@ -121,6 +122,7 @@ export const ContainerNav = styled.div`
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
+
   
   .CarrinhoButton{
       position: relative;
@@ -158,12 +160,7 @@ export const ContainerNav = styled.div`
           color: ${styles.fontColorInDark};
         }
       }
-  }
-
-  .Cart{
-    
-  }
-  
+  }  
 `;
 
 interface ILista{
@@ -178,6 +175,7 @@ export const Lista = styled.ul<ILista>`
   opacity: 1;
   transition: .5s;
   font-weight: bold;
+  transform: translateY(8px);
 
   li{
     padding: 20px 50px;
@@ -186,6 +184,7 @@ export const Lista = styled.ul<ILista>`
     letter-spacing: 1px;
     transition: .5;
     color: ${styles.fontColor};
+    align-items: center;
    
     
     a{
@@ -204,7 +203,7 @@ export const Lista = styled.ul<ILista>`
 
   @media  (max-width: 800px){
     opacity: ${props => props.MenuState ? '1' : '0'};
-    transform: ${props => props.MenuState ? 'translateY(0px)' : 'translateY(-20px)'};
+    transform: ${props => props.MenuState ? 'translateY(0px)' : 'translateY(20px)'};
     display: ${props => props.MenuState ? 'flex' : 'none'};
     position: fixed;
     background: ${styles.componentsColor};
@@ -218,3 +217,30 @@ export const Lista = styled.ul<ILista>`
   }
 `;
 
+
+interface IUserCart {
+  LogoutStateMenu: boolean
+}
+
+export const UserCart = styled.div<IUserCart>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+
+  b{
+    margin-right: 10px;
+  }
+
+  .LogoutButton{
+    position: absolute;
+    top: 35px;
+    left: 0;
+    padding: 10px 20px;
+    background: ${styles.componentsColor};
+    border-radius: 15px;
+    transition: .4s;
+    transform: ${props => props.LogoutStateMenu ? 'translateY(0px)' : 'translateY(20px)'};
+    display: ${props => props.LogoutStateMenu ? 'flex' : 'none'}
+  }
+`;

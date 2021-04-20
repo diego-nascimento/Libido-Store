@@ -6,7 +6,7 @@ import LoadingPage from '../LoadingPage/LoadingPage'
 import { PageContainer, Main } from './Layout.style'
 import { connect } from 'react-redux'
 import * as CartActions from '../../store/modules/cart/actions'
-
+import * as userActions from '../../store/modules/user/actions'
 interface ILayout {
   children: any
   dispatch: any
@@ -20,6 +20,10 @@ const Layout: React.FC<ILayout> = ({ children, dispatch }) => {
     setTimeout(() => {
       setLoading(false)
     }, Math.floor(Math.random() * (700 - 120 +1)) + 120)
+  }, [])
+
+  React.useEffect(() => {
+    dispatch(userActions.AutoLogin())
   }, [])
 
   return (
