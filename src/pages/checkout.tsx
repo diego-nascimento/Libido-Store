@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {Wrapper, Container, ProdutosContainer, BotaoFinalizar, Formulario} from '../PageStyles/checkout.style'
+import {Wrapper, Container, ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods} from '../PageStyles/checkout.style'
 import {connect} from 'react-redux'
 import Head from 'next/head'
 import { useForm } from "react-hook-form";
@@ -10,6 +10,10 @@ import { SetLocale } from '../Util/SetLocaleYup'
 import Router from 'next/router'
 import { api } from '../service/api'
 import * as CartActions from '../store/modules/cart/actions'
+import Card from 'react-credit-cards'
+import 'react-credit-cards/es/styles-compiled.css'
+
+
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -37,8 +41,11 @@ const Checkout: React.FC<CarrinhoProps> = ({
 }) => {
   SetLocale()
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const [paymentMethod, setpaymentMethod] = React.useState(0)
+  const handleChange = (event:any, newValue: any) => {
+    setpaymentMethod(newValue);
+  };
   
   const handleSubmitForm = async (data: IDataForm) => {
       api.post('api/mail', {
@@ -68,14 +75,19 @@ const Checkout: React.FC<CarrinhoProps> = ({
        <Wrapper >
          <Container className="Container">
             <h1>Dados: </h1>
-          <ProdutosContainer>
-            <Formulario >
+            <ProdutosContainer>
+              <Formulario >
               <Input type="text"
                 placeholder="Nome"
                 Register={register}
                 Error={errors.Nome}
                 
-                 />
+              />
+              <Input type="text"
+                placeholder="CPF"
+                Register={register}
+                Error={errors.Cpf}
+              />
               <Input type="text"
                 placeholder="Whatsapp"
                 Register={register}
@@ -113,19 +125,24 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   placeholder="Cep"
                   Register={register}
                   Error={errors.Cep}
-                  
-                  
                 /> 
               </div> 
               <Input type="text"
                 placeholder="Estado"
                 Register={register}
                 Error={errors.Estado}
-                
               />
-              
+              <PaymentMethods>
+                <ListMethods>
+                  <Methods onClick={() => setpaymentMethod(0)}>Boleto</Methods>
+                  <Methods onClick={() => setpaymentMethod(1)}>Cartao de Credito</Methods>
+                </ListMethods>
+                {paymentMethod === 1 && 
+                  <h1>Dados com cartão</h1>
+              }
+              </PaymentMethods>
             </Formulario>
-                <div className="AsideTotal">
+              <div className="AsideTotal">
                   <h2>Total ({tamanho_carrinho} itens): {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
@@ -136,7 +153,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
          </Container>
        </Wrapper>
     </Layout>
-   
   )
 }
 

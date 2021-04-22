@@ -145,3 +145,36 @@ export const Formulario = styled.form`
     grid-gap: 10px;
   }
 `;
+
+export const PaymentMethods = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0px;
+
+`;
+
+export const ListMethods = styled.ul`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const Methods = styled.li`
+  width: 100%;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border: 1px solid ${styles.componentsDest};
+  background: ${styles.componentsDest};
+  color: ${styles.fontColorInDark};
+  margin: 0px 5px;
+  transition: .4s;
+
+  :hover{
+    opacity: .8;
+  }
+`
+
+
