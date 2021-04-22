@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { styles } from '../styles/styles';
+import InputMask from 'react-input-mask'
 
 export const Wrapper  = styled.div`
   width: 100%;
@@ -146,6 +147,10 @@ export const Formulario = styled.form`
   }
 `;
 
+interface IListMethods{
+  option: number
+}
+
 export const PaymentMethods = styled.div`
   width: 100%;
   display: flex;
@@ -154,12 +159,19 @@ export const PaymentMethods = styled.div`
 
 `;
 
+
 export const ListMethods = styled.ul`
   display: flex;
   flex-direction: row;
 `;
 
-export const Methods = styled.li`
+
+
+interface IMethods{
+  option: number
+}
+
+export const Methods = styled.li<IMethods>`
   width: 100%;
   background: red;
   display: flex;
@@ -171,10 +183,34 @@ export const Methods = styled.li`
   color: ${styles.fontColorInDark};
   margin: 0px 5px;
   transition: .4s;
+  cursor: pointer;
 
-  :hover{
+  :nth-child(${props => props.option + 1}){
     opacity: .8;
   }
 `
 
+
+export const CardInformations = styled.div`
+  
+`;
+
+export const FormularioCard = styled.div`
+  
+`
+export const CardData = styled.div`
+  margin: 0px 0px 10px;
+  background: ${styles.componentsDest};
+  color: ${styles.fontColorInDark};
+  padding: 10px;
+  border-radius: 15px;
+
+  input{
+    border: 1px solid ${styles.fontColorInDark};
+  }
+`;
+
+export const Aside = styled.div`
+  align-self: flex-start;
+`;
 
