@@ -3,6 +3,7 @@ import React from 'react'
 import {Wrapper, Container} from '../PageStyles/checkout.style'
 import Head from 'next/head'
 import Router from 'next/router'
+
 interface ISucesso{
   dispatch: any
 }
@@ -12,7 +13,7 @@ const Sucesso: React.FC<ISucesso> = () => {
   React.useEffect(() => {
     setTimeout(() =>{
       Router.push('/')
-    }, 10000)
+    }, 100000)
   }, [])
 
 
@@ -23,8 +24,8 @@ const Sucesso: React.FC<ISucesso> = () => {
       </Head>
       <Wrapper>
         <Container className="Container">
-          <h1>Seu Pedido Foi enviado para Nossos atendentes!</h1>
-          <h2>Entraremos em contato para Finalizarmos a Compra!</h2>
+          <h1>Sua compra foi finalizada!</h1>
+          <h2>Todas as informações são enviadas para o email cadastrado a cada nova atualização!</h2>
         </Container>
       </Wrapper>
     </Layout>

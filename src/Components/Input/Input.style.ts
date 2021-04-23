@@ -2,7 +2,11 @@ import styled from 'styled-components'
 import { styles } from '../../styles/styles'
 
 
-export const Container = styled.div`
+interface IContainer{
+  borderColor?: string | null
+}
+
+export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
 
@@ -12,7 +16,7 @@ export const Container = styled.div`
     justify-content: flex-start;
     align-items: center;
     color: #a00;
-    font-size: .7rem;
+    font-size: .7rem; 
   }
 
   input{
@@ -21,7 +25,7 @@ export const Container = styled.div`
     padding: 10px;
     border-radius: 15px;
     background-color: ${styles.componentsDest};
-    border: none;
+    border: 1px solid ${props => props.borderColor !== null? styles.fontColorInDark: 'none'};
     font-size: .9rem;
     margin: 5px 0px;
     color: ${styles.fontColorInDark};

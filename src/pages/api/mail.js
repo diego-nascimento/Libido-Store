@@ -2,7 +2,6 @@ import nodemailer from 'nodemailer';
 import sgTransport from 'nodemailer-sendgrid-transport';
 import hbs from 'nodemailer-express-handlebars';
 import path from 'path';
-import { partials } from 'handlebars';
 
 const options = {
   auth: {

@@ -1,83 +1,107 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+//@ts-ignore
 import pagarme from 'pagarme';
+import { IProduto } from '../../../Interfaces/IProduto';
+
+
+
+export interface ICardPaymentInfo{
+  Nome: string,
+  Cpf: string,
+  Whatsapp: string,
+  email: string,
+  Endereco: string,
+  Numero: string,
+  Bairro: string,
+  Cep: string
+  Cidade: string,
+  Estado: string,
+  cardInfo: {
+    CardNumber: string,
+    CardExpire: string,
+    CardName: string,
+    CardCVC: string
+  }
+}
 
 export default async function handler(
   Request: NextApiRequest,
   Response: NextApiResponse,
 ) {
 
-  const datapayment = {
-    "capture": true,
-    "amount": 21000,
-    "card_number": "4111111111111111",
-    "card_cvv": "123",
-    "card_expiration_date": "0922",
-    "card_holder_name": "Morpheus Fishburne",
-    "customer": {
-      "external_id": "#3311",
-      "name": "Morpheus Fishburne",
-      "type": "individual",
-      "country": "br",
-      "email": "mopheus@nabucodonozor.com",
-      "documents": [
-        {
-          "type": "cpf",
-          "number": "00000000000"
-        }
-      ],
-      "phone_numbers": ["+5511999998888", "+5511888889999"],
-      "birthday": "1965-01-01"
-    },
-    "billing": {
-      "name": "Trinity Moss",
-      "address": {
-        "country": "br",
-        "state": "sp",
-        "city": "Cotia",
-        "neighborhood": "Rio Cotia",
-        "street": "Rua Matrix",
-        "street_number": "9999",
-        "zipcode": "06714360"
+  if (Request.method === 'POST') {
+    try {
+      const PersonInfo: ICardPaymentInfo = Request.body.data.info
+      const Produtos: Array<IProduto> = Request.body.data.produtos
+      const total: number = Request.body.data.total
+      const datapayment = {
+        "capture": true,
+        "amount": total * 100,
+        "card_number": PersonInfo.cardInfo.CardNumber,
+        "card_cvv": PersonInfo.cardInfo.CardCVC,
+        "card_expiration_date": PersonInfo.cardInfo.CardExpire,
+        "card_holder_name": PersonInfo.cardInfo.CardName,
+        "customer": {
+          "external_id": "#3311",
+          "name": PersonInfo.Nome,
+          "type": "individual",
+          "country": "br",
+          "email": PersonInfo.email,
+          "documents": [
+            {
+              "type": "cpf",
+              "number": PersonInfo.Cpf
+            }
+          ],
+          "phone_numbers": [`+55${PersonInfo.Whatsapp}`],
+        },
+        "billing": {
+          "name": PersonInfo.Nome,
+          "address": {
+            "country": "br",
+            "state": PersonInfo.Estado,
+            "city": PersonInfo.Cidade,
+            "neighborhood": PersonInfo.Bairro,
+            "street": PersonInfo.Endereco,
+            "street_number": PersonInfo.Numero,
+            "zipcode": PersonInfo.Cep
+          }
+        },
+        "shipping": {
+          "name": PersonInfo.Nome,
+          "expedited": true,
+          "fee": 1000,
+          "address": {
+            "country": "br",
+            "state": PersonInfo.Estado,
+            "city": PersonInfo.Cidade,
+            "neighborhood": PersonInfo.Bairro,
+            "street": PersonInfo.Endereco,
+            "street_number": PersonInfo.Numero,
+            "zipcode": PersonInfo.Cep
+          }
+        },
+        "items": Produtos.map(produto => {
+          return {
+            "id": produto._id,
+            "title": produto.Nome,
+            "unit_price": produto.preco * 100,
+            "quantity": produto.quantidade,
+            "tangible": true
+          }
+        })
+
       }
-    },
-    "shipping": {
-      "name": "Neo Reeves",
-      "fee": 1000,
-      "delivery_date": "2000-12-21",
-      "expedited": true,
-      "address": {
-        "country": "br",
-        "state": "sp",
-        "city": "Cotia",
-        "neighborhood": "Rio Cotia",
-        "street": "Rua Matrix",
-        "street_number": "9999",
-        "zipcode": "06714360"
-      }
-    },
-    "items": [
-      {
-        "id": "r123",
-        "title": "Red pill",
-        "unit_price": 10000,
-        "quantity": 1,
-        "tangible": true
-      },
-      {
-        "id": "b123",
-        "title": "Blue pill",
-        "unit_price": 10000,
-        "quantity": 1,
-        "tangible": true
-      }
-    ]
+      console.log(process.env.PAGAR)
+      const response = await pagarme.client
+        .connect({ api_key: process.env.PAGARME_APIKEY})
+        .then((client: any) =>
+          client.transactions.create(datapayment),
+        )
+      return Response.json(response)
+    } catch (error) {
+      return Response.json(error)
+    
+    }
   }
-    const response = await pagarme.client
-    .connect({ api_key: 'ak_test_jerZEO3YoQe7A5oNo0Q0e20Q32msT5' })
-    .then((client: any) =>
-      client.transactions.create(datapayment),
-    )
-    return Response.json(response)
-  
-  
 }

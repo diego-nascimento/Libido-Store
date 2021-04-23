@@ -204,13 +204,23 @@ export const CardData = styled.div`
   color: ${styles.fontColorInDark};
   padding: 10px;
   border-radius: 15px;
-
-  input{
-    border: 1px solid ${styles.fontColorInDark};
-  }
 `;
 
 export const Aside = styled.div`
   align-self: flex-start;
 `;
 
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  p{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: #a00;
+    font-size: .1.2rem; 
+  }
+`;
