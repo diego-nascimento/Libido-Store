@@ -7,14 +7,15 @@ export const InputComponent = styled.input`
   height: 40px;
   padding: 10px;
   border-radius: 15px;
-  background-color: ${styles.componentsDest};
+  background-color: #ddd;
   border: none;
   font-size: .9rem;
+  font-weight: 500;
   margin: 5px 0px;
-  color: ${styles.fontColorInDark};
+  color: ${styles.componentsDest};
 
   ::placeholder{
-    color: ${styles.fontColorInDark};
+    color: ${styles.componentsDest};
   }
 `
 
