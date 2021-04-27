@@ -3,7 +3,9 @@ import Layout from "../../Components/Layout/Layout"
 import ShowProdutos from "../../Components/ShowProducts/ShowProdutos"
 import { ICategoria } from "../../Interfaces/ICategoria"
 import { IProduto } from "../../Interfaces/IProduto"
-import { api } from "../../service/api"
+import { getCategoriaParams } from "../../service/getCategoriaParams"
+import {api} from '../../service/api'
+
 
 interface IAllProdutos{
   produtos: Array<IProduto>
@@ -26,18 +28,9 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categor
 export default ProdutoCategoria
 
 export async function getStaticPaths() {
-  const response = await api.get('/categorias')
-
-  const params: { params: { id: string } }[] = []
-  response.data.forEach((element:ICategoria) => {
-    params.push({
-      params: {
-        id: element._id,
-      },
-    });
-  });
+  
   return {
-    paths: params,
+    paths: await getCategoriaParams(),
     fallback: true,
   };
 }

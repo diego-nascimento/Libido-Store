@@ -36,6 +36,7 @@ export default async function handler(
       const total: number = Request.body.data.total
       const datapayment = {
         "capture": true,
+        "postback_url": 'http://www.libidoss.com.br/api/postback',
         "amount": total * 100,
         "card_number": PersonInfo.cardInfo.CardNumber,
         "card_cvv": PersonInfo.cardInfo.CardCVC,
@@ -92,7 +93,6 @@ export default async function handler(
         })
 
       }
-      console.log(process.env.PAGAR)
       const response = await pagarme.client
         .connect({ api_key: process.env.PAGARME_APIKEY})
         .then((client: any) =>

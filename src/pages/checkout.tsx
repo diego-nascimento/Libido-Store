@@ -63,15 +63,24 @@ const Checkout: React.FC<CarrinhoProps> = ({
         case 0:
           const boletoInfo: IBoletoInfo = {
             cpf: normalize(data.Cpf),
-            nome: data.Nome
+            nome: data.Nome,
+            bairro: data.Bairro,
+            cep: normalize(data.Bairro),
+            cidade: data.Cidade,
+            estado: data.Estado,
+            numero: data.Numero,
+            rua: data.Endereco
           }
+          
           response = await api.post('api/pagamento/boleto', {
             data: {
               info: boletoInfo,
-              total: total
+              total: total,
+              Produtos: produtos
             }
           })
-          break;
+          dispatch(CartActions.LimparCarrinho())
+          return Router.replace('/success')
         default:
           const cardInfo: ICardPaymentInfo = {
             Bairro: data.Bairro,
@@ -98,9 +107,17 @@ const Checkout: React.FC<CarrinhoProps> = ({
               total: total
             }
           })
+          
           if (response.status === 200 && response.data.status === 'paid') {
-            dispatch(CartActions.LimparCarrinho)
-            Router.replace('/sucesso')
+            dispatch(CartActions.LimparCarrinho()) 
+            Router.replace(
+              {
+                pathname: '/success', 
+                query: {
+                  method: 'card'
+                }
+              }
+            )
           } else {
             setError(true)
           }
