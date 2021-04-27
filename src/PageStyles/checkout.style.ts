@@ -146,9 +146,6 @@ export const Formulario = styled.form`
   }
 `;
 
-interface IListMethods{
-  option: number
-}
 
 export const PaymentMethods = styled.div`
   width: 100%;

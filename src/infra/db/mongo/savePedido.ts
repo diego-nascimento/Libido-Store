@@ -1,0 +1,32 @@
+import { ISaveTransactionRepo } from '../../../data/protocols/ISaveTransactionRepo';
+import { IsaveTransacionEntry } from '../../../domain/useCases/saveTransaction';
+import { IProduto } from '../../../Interfaces/IProduto';
+import {MongoHelper} from './mongoCreate'
+
+export class SavePedidoRepo implements ISaveTransactionRepo{
+  async save(data: IsaveTransacionEntry): Promise<any> {
+    try {
+      const PedidoCollection = MongoHelper.getCollection('Pedido')
+      const InfoReturned = (await PedidoCollection).insertOne({
+        idTransaction: data.idTransaction,
+        method: data.method,
+        status: data.status,
+        email: data.email,
+        nome: data.nome,
+        total: data.total,
+        whatsapp: data.whatsapp,
+        produtos: data.produtos.map((produto: IProduto) => {
+          return {
+            id: produto._id,
+            nome: produto.Nome,
+            preco: produto.subtotal,
+            quantidade: produto.quantidade
+        }
+        })
+      })
+      return InfoReturned;
+    } catch (error) {
+      return error
+    }
+  }
+}

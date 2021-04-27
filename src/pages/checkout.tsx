@@ -14,7 +14,7 @@ import InputMask from 'react-input-mask'
 import { GoAlert } from 'react-icons/go'
 import {Container as ContainerInput} from '../Components/Input/Input.style'
 import { styles } from '../styles/styles'
-import { ICardPaymentInfo } from './api/pagamento/cartao'
+import { ICardPaymentInfo } from '../Interfaces/ICardInfo'
 import {normalize} from '../Util/Normalize'
 import { IBoletoInfo } from './api/pagamento/boleto'
 
@@ -71,7 +71,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
             numero: data.Numero,
             rua: data.Endereco
           }
-          
           response = await api.post('api/pagamento/boleto', {
             data: {
               info: boletoInfo,
@@ -81,6 +80,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
           })
           dispatch(CartActions.LimparCarrinho())
           return Router.replace('/success')
+        
         default:
           const cardInfo: ICardPaymentInfo = {
             Bairro: data.Bairro,
@@ -108,7 +108,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
             }
           })
           
-          if (response.status === 200 && response.data.status === 'paid') {
+          if (response.data.status === 'paid' || response.data.status === 'processing') {
             dispatch(CartActions.LimparCarrinho()) 
             Router.replace(
               {
