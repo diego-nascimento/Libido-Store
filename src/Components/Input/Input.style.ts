@@ -24,14 +24,15 @@ export const Container = styled.div<IContainer>`
     height: 40px;
     padding: 10px;
     border-radius: 15px;
-    background-color: ${styles.componentsDest};
-    border: 1px solid ${props => props.borderColor !== null? styles.fontColorInDark: 'none'};
+    background-color: #ddd;
+    border: none;
+    font-weight: 500;
     font-size: .9rem;
     margin: 5px 0px;
-    color: ${styles.fontColorInDark};
+    color: ${styles.componentsDest};
 
     ::placeholder{
-      color: ${styles.fontColorInDark};
+      color: ${styles.componentsDest};
     }
   }
 `;

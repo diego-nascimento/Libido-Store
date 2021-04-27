@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { styles } from '../styles/styles';
-import InputMask from 'react-input-mask'
 
 export const Wrapper  = styled.div`
   width: 100%;
