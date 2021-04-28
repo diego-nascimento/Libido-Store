@@ -5,6 +5,7 @@ import { IProduto } from '../../../Interfaces/IProduto';
 import {ICardPaymentInfo} from '../../../Interfaces/ICardInfo'
 import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo';
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
+import { newPedidoMail } from '../../../Factory/newPedidoEmail';
 
 
 export default async function handler(
@@ -36,6 +37,14 @@ export default async function handler(
           whatsapp: PersonInfo.Whatsapp
         }
       )
+      const PedidoMail = newPedidoMail()
+    await PedidoMail.send({
+      Produtos: Produtos,
+      email: PersonInfo.email,
+      idTransaction: response.id,
+      method: 'cartao',
+      status: response.status
+    })
       
       return Response.json(response)
     } catch (error) {

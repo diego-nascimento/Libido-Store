@@ -8,7 +8,7 @@ export class sendNewPedidoMail implements IsendNewPedidoEmail{
     from: 'libidopirauba@gmail.com',
     to: data.email,
     subject: 'Novo Pedido',
-    template: 'email',
+    template: 'newPedido',
     context: data,
   };
   const response = await transporter.sendMail(email);

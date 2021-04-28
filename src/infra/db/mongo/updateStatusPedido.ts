@@ -1,5 +1,5 @@
-import {IUpdateStatusTransactionRepo } from '../../../data/protocols/IUpdateStatusTransactionRepo';
-import { IUpdateStatusTransacionEntry } from '../../../domain/useCases/updateStatusTransaction';
+import {IUpdateStatusTransactionRepo } from '../../../data/protocols/Transactions/IUpdateStatusTransactionRepo';
+import { IUpdateStatusTransacionEntry } from '../../../domain/useCases/Transactions/updateStatusTransaction';
 import Pedido from './model/Pedido'
 import dbConnect from './mongoCreate'
 

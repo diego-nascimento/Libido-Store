@@ -1,10 +1,10 @@
 <h1>Novo Pedido: Muito Obrigado pela Compra</h1>
-<h2>Codigo: {{data.idTransaction}}</h2>
-<p>O pagamento pagamento foi realizado por {{data.method}}</p>
+<h2>Codigo: {{idTransaction}}</h2>
+<p>O pagamento pagamento foi realizado por {{method}}</p>
 <h2>Uma vez que o pagamento for concluido, será enviado um email com a confirmação e o processo de envio se iniciará!!</h2>
 
 <h2>Produtos</h2>
-    {{#each data.Produtos}}
+    {{#each Produtos}}
         <h3>Nome: {{Nome}}</h3>
         <span>Quantidade: {{quantidade}} </span>
         <p>-----------------------------------------</p>
