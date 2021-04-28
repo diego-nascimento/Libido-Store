@@ -22,7 +22,7 @@ export default async function handler(
   Request: NextApiRequest,
   Response: NextApiResponse,
 ) {
-  console.log(Request.body)
+  console.log(Request.body.data)
 
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
