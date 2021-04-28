@@ -37,8 +37,6 @@ export default async function handler(
           whatsapp: PersonInfo.Whatsapp
         }
       )
-
-      console.log(response)
       const PedidoMail = newPedidoMail()
     await PedidoMail.send({
       Produtos: Produtos,
