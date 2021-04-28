@@ -6,7 +6,6 @@ import Head from 'next/head'
 import { useForm } from "react-hook-form";
 import Input from '../Components/Input/Input'
 import { IProduto } from '../Interfaces/IProduto'
-import { SetLocale } from '../Util/SetLocaleYup'
 import Router from 'next/router'
 import { api } from '../service/api'
 import * as CartActions from '../store/modules/cart/actions'
@@ -49,7 +48,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
   total,
   dispatch
 }) => {
-  SetLocale()
 
   const { register, handleSubmit, formState: { errors }, unregister } = useForm();
   const [paymentMethod, setpaymentMethod] = React.useState(0)
