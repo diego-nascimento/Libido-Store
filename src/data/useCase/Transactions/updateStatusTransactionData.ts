@@ -1,5 +1,5 @@
-import { IUpdateStatusTransacionEntry, IUpdateStatusTransactionDomain } from "../../domain/useCases/updateStatusTransaction";
-import { IUpdateStatusTransactionRepo } from "../protocols/IUpdateStatusTransactionRepo";
+import { IUpdateStatusTransacionEntry, IUpdateStatusTransactionDomain } from "../../../domain/useCases/Transactions/updateStatusTransaction";
+import { IUpdateStatusTransactionRepo } from "../../protocols/Transactions/IUpdateStatusTransactionRepo";
 
 
 export class updateStatusTransactionData implements IUpdateStatusTransactionDomain{
