@@ -17,6 +17,7 @@ import { ICardPaymentInfo } from '../Interfaces/ICardInfo'
 import {normalize} from '../Util/Normalize'
 import { IBoletoInfo } from './api/pagamento/boleto'
 import {estados} from '../Util/Estados'
+import axios from 'axios'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -80,7 +81,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
               Produtos: produtos
             }
           })
-          console.log(response)
           if (response.data.status === 'processing') {
             dispatch(CartActions.LimparCarrinho())
             return Router.replace('/success')

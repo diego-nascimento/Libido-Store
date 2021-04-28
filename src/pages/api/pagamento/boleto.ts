@@ -22,10 +22,12 @@ export default async function handler(
   Request: NextApiRequest,
   Response: NextApiResponse,
 ) {
+  console.log(Request.body)
 
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
   const Produtos: Array<IProduto> = Request.body.data.Produtos
+  console.log(Request.body)
   try{
       const response = await pagarme.client
       .connect({ api_key: process.env.PAGARME_APIKEY})
