@@ -53,6 +53,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [paymentMethod, setpaymentMethod] = React.useState(0)
   const [loading, setloading] = React.useState(false)
   const [error, setError] = React.useState(false)
+
   const handleSubmitForm = async (data: IDataForm) => {
     try {
       setloading(true)
@@ -145,7 +146,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }, [paymentMethod])
 
   React.useEffect(() => {
-    
+
     tamanho_carrinho < 1 && Router.push('/produtos')
   }, [])
 
@@ -197,7 +198,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   Register={register}
                   Error={errors.Endereco}
                   name="Endereco"
-                   />
+                />
                 <Input type="number"
                   placeholder="Numero"
                   Register={register}

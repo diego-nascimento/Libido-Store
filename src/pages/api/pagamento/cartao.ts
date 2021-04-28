@@ -24,6 +24,7 @@ export default async function handler(
         .then((client: any) =>
           client.transactions.create(FillCardInfo(PersonInfo, Produtos, total)),
       )
+      console.log(response)
       const PedidoSave = SavePedidoFactory()
       PedidoSave.save(
         {
@@ -37,6 +38,7 @@ export default async function handler(
           whatsapp: PersonInfo.Whatsapp
         }
       )
+
       const PedidoMail = newPedidoMail()
     await PedidoMail.send({
       Produtos: Produtos,

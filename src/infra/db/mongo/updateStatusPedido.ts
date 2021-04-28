@@ -7,14 +7,17 @@ export class updateStatusPedidoRepo implements IUpdateStatusTransactionRepo{
   async update(data: IUpdateStatusTransacionEntry): Promise<any> {
     try {
       await dbConnect()
-      const pedido = await Pedido.updateOne(
+      await Pedido.updateOne(
         {
           idTransaction: data.idTransaction
         }, {
           status: data.status
         }
       )
-      return pedido
+      const pedidoUpdated = await Pedido.findOne({
+        idTransaction: data.idTransaction
+      })
+      return pedidoUpdated
     } catch (error) {
       return error
     }

@@ -7,7 +7,6 @@ export default async function handler(
   Request: NextApiRequest,
   Response: NextApiResponse,
 ) {
-  return Response.json({message: 'ok'})
   if (Request.method === 'POST') {
     const { id, current_status } = Request.body
     const updatePedido = updateStatusTransactionFactory()
@@ -16,9 +15,13 @@ export default async function handler(
       status: current_status
     }
     const response = await updatePedido.update(data)
-    console.log(response)
     const updateStatus = updateStatusMessageFactory()
-    
+    updateStatus.send({
+      email: response.email,
+      idTransaction: response.idTransaction,
+      method: response.method,
+      status: response.status
+    })
     if (response) {
       return Response.status(200).json({message: 'ok'})
     } else {
