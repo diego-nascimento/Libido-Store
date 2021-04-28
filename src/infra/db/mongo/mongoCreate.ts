@@ -1,30 +1,28 @@
-import { MongoClient, Collection } from 'mongodb'
+import mongoose from 'mongoose'
 
-export const MongoHelper = {
-  client: null as unknown as MongoClient,
-  url: null as unknown as string,
+const MONGODB_URI = process.env.MONGOURL
 
-  async connect (url: string): Promise<void>{
-    this.url = url
-    this.client = await MongoClient.connect('mongodb+srv://piro-libido:diego123456qwer@cluster0.da9st.mongodb.net/strapi-libido?retryWrites=true&w=majority', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-  },
 
-  async disconnect (): Promise<void> {
-    await this.client.close()
-    this.client = null
-  },
-
-  async  getCollection (name: string): Promise<Collection> {
-    if (!this.client.isConnected()){
-      await this.connect(this.url)
-    }
-    return this.client.db().collection(name)
-  },
-  map: (collection: any): any => {
-    const { _id, ...collectionWithOutID } = collection
-    return Object.assign({}, collectionWithOutID, { id: _id })
-  }
+async function dbConnect() {
+  
+if (!MONGODB_URI) {
+  throw new Error(
+    'Please define the MONGODB_URI environment variable inside .env.local'
+  )
 }
+  
+    const opts = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      bufferCommands: false,
+      bufferMaxEntries: 0,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    }
+
+     mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose
+    })
+}
+
+export default dbConnect

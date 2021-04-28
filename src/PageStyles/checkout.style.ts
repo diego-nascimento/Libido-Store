@@ -144,6 +144,18 @@ export const Formulario = styled.form`
     grid-template-columns: 1fr 150px;
     grid-gap: 10px;
   }
+
+  select{
+    height: 40px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #ddd;
+    border: none;
+    font-weight: 500;
+    font-size: .9rem;
+    margin: 5px 0px;
+    color: ${styles.componentsDest};
+  }
 `;
 
 

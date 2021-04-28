@@ -10,6 +10,6 @@ export class SaveTransactionData implements IsaveTransactionDomain{
   }
 
   async save(data: IsaveTransacionEntry): Promise<any>{
-    const dataSaved = await this.saveTransactionRepo.save(data)
+    return await this.saveTransactionRepo.save(data)
   }
 }

@@ -4,7 +4,7 @@ import {ICardPaymentInfo} from '../../Interfaces/ICardInfo'
 export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProduto>, total: number) => {
   const datapayment = {
     "capture": true,
-    "postback_url": 'http://www.libidoss.com.br/api/postback',
+    "postback_url": `${process.env.POSTBACK_URL}/api/pagamento/postback`,
     "amount": total * 100,
     "card_number": PersonInfo.cardInfo.CardNumber,
     "card_cvv": PersonInfo.cardInfo.CardCVC,

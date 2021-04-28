@@ -19,6 +19,6 @@ const pedidoSchema = new Schema({
   email: String
 })
 
-const Pedido = mongoose.model('Pedido', pedidoSchema)
+const Pedido = mongoose.models.Pedido || mongoose.model('Pedido', pedidoSchema)
 
 export default Pedido

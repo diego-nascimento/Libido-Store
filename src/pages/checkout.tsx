@@ -17,6 +17,7 @@ import { styles } from '../styles/styles'
 import { ICardPaymentInfo } from '../Interfaces/ICardInfo'
 import {normalize} from '../Util/Normalize'
 import { IBoletoInfo } from './api/pagamento/boleto'
+import {estados} from '../Util/Estados'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -60,16 +61,18 @@ const Checkout: React.FC<CarrinhoProps> = ({
       setError(false);
       let response
       switch (paymentMethod) {
-        case 0:
+        case 0: //Metodo de pagamentot boleto
           const boletoInfo: IBoletoInfo = {
             cpf: normalize(data.Cpf),
             nome: data.Nome,
             bairro: data.Bairro,
-            cep: normalize(data.Bairro),
+            cep: normalize(data.Cep),
             cidade: data.Cidade,
             estado: data.Estado,
             numero: data.Numero,
-            rua: data.Endereco
+            rua: data.Endereco,
+            email: data.email,
+            whatsapp: data.Whatsapp
           }
           response = await api.post('api/pagamento/boleto', {
             data: {
@@ -78,10 +81,14 @@ const Checkout: React.FC<CarrinhoProps> = ({
               Produtos: produtos
             }
           })
-          dispatch(CartActions.LimparCarrinho())
-          return Router.replace('/success')
-        
-        default:
+          if (response.data.status === 'processing') {
+            dispatch(CartActions.LimparCarrinho())
+            return Router.replace('/success')
+          } else {
+            setError(true)
+          }
+          break;
+        default: //metodo de pagamento cartao de credito
           const cardInfo: ICardPaymentInfo = {
             Bairro: data.Bairro,
             Nome: data.Nome,
@@ -110,14 +117,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
           
           if (response.data.status === 'paid' || response.data.status === 'processing') {
             dispatch(CartActions.LimparCarrinho()) 
-            Router.replace(
-              {
-                pathname: '/success', 
-                query: {
-                  method: 'card'
-                }
-              }
-            )
+            Router.replace('/success')
           } else {
             setError(true)
           }
@@ -129,6 +129,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     } finally {
       setloading(false)
     }
+    
   }
 
   React.useEffect(() => {
@@ -154,7 +155,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
     <Layout>
       <Head>
         <title>Libido LoveShop - Checkout </title>
-        
       </Head>
        <Wrapper >
          <Container className="Container">
@@ -229,12 +229,11 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   {errors && errors.Cep && errors.Cep.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
                 </ContainerInput>
               </div> 
-              <Input type="text"
-                placeholder="Estado"
-                Register={register}
-                Error={errors.Estado}
-                name={"Estado"}
-              />
+              <select placeholder="Estado"{...register('Estado', {required: true})}>
+                {estados.UF.map(estado => {
+                  return <option value={estado.sigla}>{estado.nome}</option>
+                })}
+              </select>
               <PaymentMethods>
                 <ListMethods>
                   <Methods onClick={() => setpaymentMethod(0)} option={paymentMethod}>Boleto</Methods>

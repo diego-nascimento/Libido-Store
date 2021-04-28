@@ -9,6 +9,7 @@ export interface IsaveTransacionEntry{
   nome: string
   whatsapp: string
   email: string
+  boleto?: string
 }
 
 export interface IsaveTransactionDomain{

@@ -1,13 +1,14 @@
 import { ISaveTransactionRepo } from '../../../data/protocols/ISaveTransactionRepo';
 import { IsaveTransacionEntry } from '../../../domain/useCases/saveTransaction';
 import { IProduto } from '../../../Interfaces/IProduto';
-import {MongoHelper} from './mongoCreate'
+import Pedido from './model/Pedido'
+import dbConnect from './mongoCreate'
 
 export class SavePedidoRepo implements ISaveTransactionRepo{
   async save(data: IsaveTransacionEntry): Promise<any> {
     try {
-      const PedidoCollection = MongoHelper.getCollection('Pedido')
-      const InfoReturned = (await PedidoCollection).insertOne({
+      await dbConnect()
+      const InfoReturned = await Pedido.create({
         idTransaction: data.idTransaction,
         method: data.method,
         status: data.status,
