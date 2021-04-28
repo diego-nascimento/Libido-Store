@@ -230,8 +230,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 </ContainerInput>
               </div> 
               <select placeholder="Estado"{...register('Estado', {required: true})}>
-                {estados.UF.map(estado => {
-                  return <option value={estado.sigla}>{estado.nome}</option>
+                {estados.UF.map((estado, index) => {
+                  return <option value={estado.sigla} key={index} >{estado.nome}</option>
                 })}
               </select>
               <PaymentMethods>

@@ -25,6 +25,8 @@ export class SavePedidoRepo implements ISaveTransactionRepo{
         }
         })
       })
+      console.log(process.env.MONGOURL)
+      console.log(InfoReturned)
       return InfoReturned;
     } catch (error) {
       return error
