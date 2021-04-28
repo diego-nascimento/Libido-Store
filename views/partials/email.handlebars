@@ -1,15 +1,9 @@
-<h1>Novo Pedido</h1>
-<p>Nome: {{data.Nome}}</p>
-<p>Whatsapp: {{data.Whatsapp}}</p>
-<p>Endereço: {{data.Endereco}}</p>
-<p>Numero: {{data.Numero}}</p>
-<p>Bairro: {{data.Bairro}}</p>
-<p>Cidade: {{data.Cidade}}</p>
-<p>Cep: {{data.Cep}}</p>
-<p>Estado: {{data.Estado}}</p>
+<h1>Novo Pedido: Muito Obrigado pela Compra</h1>
+<h2>Codigo: {{data.idTransaction}}</h2>
+<p>O pagamento pagamento foi realizado por {{data.method}}</p>
+<h2>Uma vez que o pagamento for concluido, será enviado um email com a confirmação e o processo de envio se iniciará!!</h2>
 
 <h2>Produtos</h2>
-  <h2>Valor Total: {{total}}</h2>
     {{#each produtos}}
         <h3>Nome: {{Nome}}</h3>
         <span>Quantidade: {{quantidade}} </span>

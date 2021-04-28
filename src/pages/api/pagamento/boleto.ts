@@ -4,7 +4,7 @@ import pagarme from 'pagarme';
 import { IProduto } from '../../../Interfaces/IProduto';
 import { FillBoletoInfo } from '../../../Util/Pagamentos/FillBoletoInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
-
+import {newPedidoMail} from '../../../Factory/newPedidoEmail'
 export interface  IBoletoInfo{
   nome: string
   cpf: string,
@@ -49,6 +49,14 @@ export default async function handler(
       produtos: Produtos,
       total: total,
       whatsapp: paymentInfo.whatsapp,
+    })
+    const PedidoMail = newPedidoMail()
+    await PedidoMail.send({
+      Produtos: Produtos,
+      email: paymentInfo.email,
+      idTransaction: response.id,
+      method: 'boleto',
+      status: response.status
     })
       return Response.json(response)  
   } catch (error) {

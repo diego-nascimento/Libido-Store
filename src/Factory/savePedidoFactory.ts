@@ -1,4 +1,4 @@
-import { SaveTransactionData } from '../data/useCase/saveTransactionData'
+import { SaveTransactionData } from '../data/useCase/Transactions/saveTransactionData'
 import { SavePedidoRepo } from '../infra/db/mongo/savePedido'
 
 export const SavePedidoFactory = () => {

@@ -1,4 +1,4 @@
-import { IProduto } from "../../Interfaces/IProduto";
+import { IProduto } from "../../../Interfaces/IProduto";
 
 export interface IsaveTransacionEntry{
   idTransaction: number

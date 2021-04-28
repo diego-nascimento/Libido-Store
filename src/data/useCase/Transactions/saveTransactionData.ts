@@ -1,5 +1,5 @@
-import { IsaveTransacionEntry, IsaveTransactionDomain } from "../../domain/useCases/saveTransaction";
-import { ISaveTransactionRepo } from "../protocols/ISaveTransactionRepo";
+import { IsaveTransacionEntry, IsaveTransactionDomain } from "../../../domain/useCases/Transactions/saveTransaction";
+import { ISaveTransactionRepo } from "../../protocols/Transactions/ISaveTransactionRepo";
 
 
 export class SaveTransactionData implements IsaveTransactionDomain{
