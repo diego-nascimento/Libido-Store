@@ -80,6 +80,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
               Produtos: produtos
             }
           })
+          console.log(response)
           if (response.data.status === 'processing') {
             dispatch(CartActions.LimparCarrinho())
             return Router.replace('/success')
