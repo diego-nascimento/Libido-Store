@@ -40,7 +40,7 @@ export default async function handler(
   }))
    */
     const savePedido = SavePedidoFactory()
-    const testes = await savePedido.save({
+    await savePedido.save({
       email: paymentInfo.email,
       idTransaction: response.id,
       method: 'boleto',
@@ -50,7 +50,6 @@ export default async function handler(
       total: total,
       whatsapp: paymentInfo.whatsapp,
     })
-      console.log(testes)
       return Response.json(response)  
   } catch (error) {
     return Response.status(500).json(error)

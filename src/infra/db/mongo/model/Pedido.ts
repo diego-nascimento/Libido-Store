@@ -16,7 +16,11 @@ const pedidoSchema = new Schema({
   total: Number,
   nome: String,
   whatsapp: String,
-  email: String
+  email: String,
+  created_at: {
+    type: Date,
+    default: Date.now()
+  }
 })
 
 const Pedido = mongoose.models.Pedido || mongoose.model('Pedido', pedidoSchema)
