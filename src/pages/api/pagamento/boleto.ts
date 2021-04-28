@@ -50,7 +50,7 @@ export default async function handler(
       total: total,
       whatsapp: paymentInfo.whatsapp,
     })
-      console.log(testes, response)
+      console.log(testes)
       return Response.json(response)  
   } catch (error) {
     return Response.status(500).json(error)

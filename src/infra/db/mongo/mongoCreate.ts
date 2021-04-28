@@ -20,7 +20,7 @@ if (!MONGODB_URI) {
       useCreateIndex: true,
     }
 
-     mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+     await mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose
     })
 }
