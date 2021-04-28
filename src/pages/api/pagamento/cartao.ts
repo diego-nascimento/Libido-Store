@@ -48,6 +48,7 @@ export default async function handler(
       
       return Response.json(response)
     } catch (error) {
+      console.log(error)
       return Response.json(error)
     
     }
