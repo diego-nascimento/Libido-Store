@@ -32,13 +32,13 @@ export default async function handler(
       .then((client: any) =>
         client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total)),
     )
-  
+  /*
    await  pagarme.client.connect({ api_key: process.env.PAGARME_APIKEY })
   .then((client:any) => client.transactions.collectPayment({
     id: response.id,
     email: paymentInfo.email,
   }))
-   
+   */
     const savePedido = SavePedidoFactory()
     const testes = await savePedido.save({
       email: paymentInfo.email,
@@ -50,10 +50,9 @@ export default async function handler(
       total: total,
       whatsapp: paymentInfo.whatsapp,
     })
-      console.log(testes)
+      console.log(testes, response)
       return Response.json(response)  
   } catch (error) {
-    console.log(error.response)
     return Response.status(500).json(error)
   }
 }
