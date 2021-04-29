@@ -26,7 +26,6 @@ export default async function handler(
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
   const Produtos: Array<IProduto> = Request.body.data.Produtos
-  console.log(FillBoletoInfo(paymentInfo, Produtos, total))
   try{
       const response = await pagarme.client
       .connect({ api_key: process.env.PAGARME_APIKEY})
@@ -50,6 +49,15 @@ export default async function handler(
       produtos: Produtos,
       total: total,
       whatsapp: paymentInfo.whatsapp,
+      cpf: paymentInfo.cpf,
+      endereco: {
+        bairro: paymentInfo.bairro,
+        cep: paymentInfo.cep,
+        cidade: paymentInfo.cidade,
+        estado: paymentInfo.estado,
+        numero: paymentInfo.numero,
+        rua: paymentInfo.rua
+      }
     })
     const PedidoMail = newPedidoMail()
     await PedidoMail.send({

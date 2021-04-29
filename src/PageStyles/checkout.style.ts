@@ -148,7 +148,7 @@ export const Formulario = styled.form`
   select{
     height: 40px;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     background-color: #ddd;
     border: none;
     font-weight: 500;
@@ -231,4 +231,23 @@ export const ErrorContainer = styled.div`
     color: #a00;
     font-size: .1.2rem; 
   }
+`;
+
+export const ContainerInfoCard = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+`;
+
+export const SelectParcelas = styled.select`
+  margin: 10px 0px;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ddd;
+  border: none;
+  font-weight: 500;
+  font-size: .9rem;
+  color: ${styles.componentsDest};
 `;

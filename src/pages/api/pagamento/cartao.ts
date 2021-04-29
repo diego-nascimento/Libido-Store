@@ -18,12 +18,12 @@ export default async function handler(
       const PersonInfo: ICardPaymentInfo = Request.body.data.info
       const Produtos: Array<IProduto> = Request.body.data.produtos
       const total: number = Request.body.data.total
-      
       const response = await pagarme.client
         .connect({ api_key: process.env.PAGARME_APIKEY})
         .then((client: any) =>
           client.transactions.create(FillCardInfo(PersonInfo, Produtos, total)),
       )
+     
       const PedidoSave = SavePedidoFactory()
       PedidoSave.save(
         {
@@ -34,7 +34,16 @@ export default async function handler(
           status: response.status,
           produtos: Produtos,
           total: total,
-          whatsapp: PersonInfo.Whatsapp
+          whatsapp: PersonInfo.Whatsapp,
+          cpf: PersonInfo.Cpf,
+          endereco: {
+            bairro: PersonInfo.Bairro,
+            cep: PersonInfo.Cep,
+            cidade: PersonInfo.Cidade,
+            estado: PersonInfo.Estado,
+            numero: PersonInfo.Numero,
+            rua: PersonInfo.Endereco
+          }
         }
       )
       const PedidoMail = newPedidoMail()
@@ -48,7 +57,6 @@ export default async function handler(
       
       return Response.json(response)
     } catch (error) {
-      console.log(error)
       return Response.json(error)
     
     }

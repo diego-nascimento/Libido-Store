@@ -14,5 +14,6 @@ export interface ICardPaymentInfo{
     CardExpire: string,
     CardName: string,
     CardCVC: string
+    parcelas: number
   }
 }

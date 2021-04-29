@@ -10,6 +10,15 @@ export interface IsaveTransacionEntry{
   whatsapp: string
   email: string
   boleto?: string
+  cpf: string
+  endereco: {
+    rua: string,
+    numero: string,
+    cep: string,
+    bairro: string,
+    cidade: string,
+    estado: string
+  }
 }
 
 export interface IsaveTransactionDomain{

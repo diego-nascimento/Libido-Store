@@ -10,6 +10,7 @@ export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProd
     "card_cvv": PersonInfo.cardInfo.CardCVC,
     "card_expiration_date": PersonInfo.cardInfo.CardExpire,
     "card_holder_name": PersonInfo.cardInfo.CardName,
+    "installments": PersonInfo.cardInfo.parcelas,
     "customer": {
       "external_id": "#3311",
       "name": PersonInfo.Nome,

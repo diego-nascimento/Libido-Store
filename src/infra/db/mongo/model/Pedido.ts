@@ -5,21 +5,38 @@ const pedidoSchema = new Schema({
   idTransaction: Number,
   status: String,
   method: String,
-  produtos: [
+  Cpf: String,
+  Endereco: [
     {
-      id: String,
-      nome: String,
-      preco: String,
-      quantidade: Number
+      kind: String,
+      ref: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'components_endereco_enderecos'
+      }
+    }
+  ],
+  Produtos: [
+    {
+      kind: String,
+      ref: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'components_pedido_produto_pedidos'
+      }
     }
   ],
   total: Number,
   nome: String,
   whatsapp: String,
   email: String,
-  created_at: {
+  createdAt: {
     type: Date,
     default: Date.now()
+  },
+  updateAt: {
+    type: Date,
+    default: Date.now()
+  },
+  publishedAt: {
+      type: Date,
+      default: Date.now()
   }
 })
 

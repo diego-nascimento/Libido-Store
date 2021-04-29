@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {Wrapper, Container, ErrorContainer,ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods, CardData, CardInformations, FormularioCard, Aside} from '../PageStyles/checkout.style'
+import {Wrapper, Container, ErrorContainer,ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods, CardData, CardInformations, FormularioCard, Aside, ContainerInfoCard, SelectParcelas} from '../PageStyles/checkout.style'
 import {connect} from 'react-redux'
 import Head from 'next/head'
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ import { ICardPaymentInfo } from '../Interfaces/ICardInfo'
 import {normalize} from '../Util/Normalize'
 import { IBoletoInfo } from './api/pagamento/boleto'
 import {estados} from '../Util/Estados'
-import axios from 'axios'
+import {Parcelas} from '../Util/Parcelas'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -41,6 +41,7 @@ interface IDataForm{
   CardExpire: string
   CardName: string
   CardCVC: string
+  parcelas: number
 }
 
 const Checkout: React.FC<CarrinhoProps> = ({
@@ -50,12 +51,28 @@ const Checkout: React.FC<CarrinhoProps> = ({
   dispatch
 }) => {
 
-  const { register, handleSubmit, formState: { errors }, unregister } = useForm();
+  const { register, handleSubmit, formState: { errors}, unregister, getValues } = useForm();
   const [paymentMethod, setpaymentMethod] = React.useState(0)
   const [loading, setloading] = React.useState(false)
   const [error, setError] = React.useState(false)
+  const [parcelas, setParcelas] = React.useState(1)
+  const [totalPagar, settotalPagar] = React.useState(total)
 
+  React.useEffect(() => {
+    if (paymentMethod === 0) {
+      setParcelas(1)
+      settotalPagar(total)
+    } else {
+      settotalPagar(total + (total * Parcelas[parcelas - 1].acrescimo/100))
+    }
+  }, [parcelas, paymentMethod])
+
+  const handleChangeParcelas = (e: any) => {
+    const indice = Number.parseInt(e.target.value)
+    setParcelas(Parcelas[indice].numero)
+  }
   const handleSubmitForm = async (data: IDataForm) => {
+    data.parcelas = parcelas
     try {
       setloading(true)
       setError(false);
@@ -77,7 +94,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
           response = await api.post('api/pagamento/boleto', {
             data: {
               info: boletoInfo,
-              total: total,
+              total: totalPagar,
               Produtos: produtos
             }
           })
@@ -104,14 +121,15 @@ const Checkout: React.FC<CarrinhoProps> = ({
               CardCVC: normalize(data.CardCVC),
               CardExpire: normalize(data.CardExpire),
               CardName: data.CardName,
-              CardNumber: normalize(data.CardNumber)
+              CardNumber: normalize(data.CardNumber),
+              parcelas: data.parcelas
             }
           }
           response = await api.post('api/pagamento/cartao', {
             data: {
               info: cardInfo,
               produtos: produtos,
-              total: total
+              total: totalPagar.toFixed(2)
             }
           })
           
@@ -265,7 +283,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
                       />
                       {errors && errors.CardNumber && errors.CardNumber.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
                     </ContainerInput>
-                    <ContainerInput borderColor={styles.fontColorInDark}>
+                    <ContainerInfoCard>
+                      <ContainerInput borderColor={styles.fontColorInDark}>
                       <InputMask
                         mask="99/99"
                         placeholder="Expira em"
@@ -282,6 +301,21 @@ const Checkout: React.FC<CarrinhoProps> = ({
                         Error={errors.CardCVC}
                         name={"CardCVC"}
                       />
+                    </ContainerInfoCard>
+                    <SelectParcelas placeholder="Parcelas" onChange={e => handleChangeParcelas(e)}>
+                      {Parcelas.map((parcela, index) => {
+                        return (
+                          <option
+                            value={index}
+                            key={index} 
+                          >
+                            {`${parcela.numero}x - ${parcela.numero === 1? 'Sem Juros': `Com ${Intl.NumberFormat('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL',
+                              }).format((parcela.acrescimo / 100) * total)} de juros`}`} 
+                          </option>)
+                      })}
+                    </SelectParcelas>
                     </FormularioCard>
                   </CardInformations>
                 </CardData>}
@@ -290,7 +324,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   <h2>Total ({tamanho_carrinho} itens): {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                  }).format(total)} </h2>
+                  }).format(totalPagar)} </h2>
                   <BotaoFinalizar  onClick={handleSubmit(handleSubmitForm)} disabled={loading}>Finalizar Pedido!</BotaoFinalizar>
                 </div>
             </Aside>
