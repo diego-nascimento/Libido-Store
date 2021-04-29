@@ -33,6 +33,7 @@ export default async function handler(
           nome: PersonInfo.Nome,
           status: response.status,
           produtos: Produtos,
+          parcelas: PersonInfo.cardInfo.parcelas,
           total: total,
           whatsapp: PersonInfo.Whatsapp,
           cpf: PersonInfo.Cpf,
@@ -42,7 +43,8 @@ export default async function handler(
             cidade: PersonInfo.Cidade,
             estado: PersonInfo.Estado,
             numero: PersonInfo.Numero,
-            rua: PersonInfo.Endereco
+            rua: PersonInfo.Endereco,
+            complemento: PersonInfo.complemento
           }
         }
       )

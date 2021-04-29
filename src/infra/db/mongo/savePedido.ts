@@ -35,17 +35,20 @@ export class SavePedidoRepo implements ISaveTransactionRepo{
         bairro: data.endereco.bairro,
         cidade: data.endereco.cidade,
         estado:data.endereco.estado,
-        cep: data.endereco.cep
+        cep: data.endereco.cep,
+        complemento: data.endereco.complemento
       })
+      
       const InfoReturned = await Pedido.create({
         idTransaction: data.idTransaction,
         method: data.method,
         status: data.status,
         email: data.email,
         nome: data.nome,
-        Cpf:data.cpf,
+        cpf:data.cpf,
         total: data.total,
         whatsapp: data.whatsapp,
+        parcelas: data.parcelas? data.parcelas: 1,
         Produtos: produtos,
         Endereco: [{
           kind: 'ComponentEnderecoEndereco',

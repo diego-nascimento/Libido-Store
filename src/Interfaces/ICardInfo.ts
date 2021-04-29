@@ -9,6 +9,7 @@ export interface ICardPaymentInfo{
   Cep: string
   Cidade: string,
   Estado: string,
+  complemento: string,
   cardInfo: {
     CardNumber: string,
     CardExpire: string,

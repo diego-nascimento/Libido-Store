@@ -17,8 +17,10 @@ export interface IsaveTransacionEntry{
     cep: string,
     bairro: string,
     cidade: string,
-    estado: string
-  }
+    estado: string,
+    complemento: string,
+  },
+  parcelas?: number
 }
 
 export interface IsaveTransactionDomain{

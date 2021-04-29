@@ -33,6 +33,7 @@ interface IDataForm{
   Estado: string,
   Cidade: string,
   Endereco: string,
+  Complemento: string,
   Numero: string,
   Cep: string,
   Bairro: string
@@ -51,7 +52,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   dispatch
 }) => {
 
-  const { register, handleSubmit, formState: { errors}, unregister, getValues } = useForm();
+  const { register, handleSubmit, formState: { errors}, unregister } = useForm();
   const [paymentMethod, setpaymentMethod] = React.useState(0)
   const [loading, setloading] = React.useState(false)
   const [error, setError] = React.useState(false)
@@ -63,7 +64,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
       setParcelas(1)
       settotalPagar(total)
     } else {
-      settotalPagar(total + (total * Parcelas[parcelas - 1].acrescimo/100))
+      if (total < 200) {
+         settotalPagar(total + (total * Parcelas[parcelas - 1].acrescimo/100))
+      }
     }
   }, [parcelas, paymentMethod])
 
@@ -89,7 +92,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
             numero: data.Numero,
             rua: data.Endereco,
             email: data.email,
-            whatsapp: data.Whatsapp
+            whatsapp: data.Whatsapp,
+            complemento: data.Complemento
           }
           response = await api.post('api/pagamento/boleto', {
             data: {
@@ -112,6 +116,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
             Cpf: normalize(data.Cpf),
             Cidade: data.Cidade,
             Endereco: data.Endereco,
+            complemento: data.Complemento,
             Estado: data.Estado,
             Numero: normalize(data.Numero),
             Whatsapp: normalize(data.Whatsapp),
@@ -156,6 +161,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
       unregister('CardName')
       unregister('CardCVC')
       unregister('CardExpire')
+      
     } else {
       register('CardNumber')
       register('CardName')
@@ -230,6 +236,12 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 Register={register}
                 Error={errors.Bairro}
                 name="Bairro"
+              />
+              <Input type="text"
+                placeholder="Complemento"
+                Register={register}
+                Error={errors.Complemento}
+                name="Complemento"
               />
               <div className="Endereco">
                  <Input type="text"
@@ -309,7 +321,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                             value={index}
                             key={index} 
                           >
-                            {`${parcela.numero}x - ${parcela.numero === 1? 'Sem Juros': `Com ${Intl.NumberFormat('pt-BR', {
+                            {`${parcela.numero}x - ${parcela.numero === 1 || total > 200 ? 'Sem Juros': `Com ${Intl.NumberFormat('pt-BR', {
                               style: 'currency',
                               currency: 'BRL',
                               }).format((parcela.acrescimo / 100) * total)} de juros`}`} 

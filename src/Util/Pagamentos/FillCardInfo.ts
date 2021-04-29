@@ -34,7 +34,8 @@ export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProd
         "neighborhood": PersonInfo.Bairro,
         "street": PersonInfo.Endereco,
         "street_number": PersonInfo.Numero,
-        "zipcode": PersonInfo.Cep
+        "zipcode": PersonInfo.Cep,
+        "complementary": PersonInfo.complemento
       }
     },
     "shipping": {
@@ -48,7 +49,8 @@ export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProd
         "neighborhood": PersonInfo.Bairro,
         "street": PersonInfo.Endereco,
         "street_number": PersonInfo.Numero,
-        "zipcode": PersonInfo.Cep
+        "zipcode": PersonInfo.Cep,
+        "complementary": PersonInfo.complemento
       }
     },
     "items": Produtos.map(produto => {

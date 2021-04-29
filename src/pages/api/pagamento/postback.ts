@@ -8,7 +8,8 @@ export default async function handler(
   Response: NextApiResponse,
 ) {
   if (Request.method === 'POST') {
-    const { id, current_status } = Request.body
+    try {
+      const { id, current_status } = Request.body
     const updatePedido = updateStatusTransactionFactory()
     const data: IUpdateStatusTransacionEntry = {
       idTransaction: id,
@@ -25,6 +26,9 @@ export default async function handler(
     if (response) {
       return Response.status(200).json({message: 'ok'})
     } else {
+      
+    }
+    } catch (error) {
       return Response.status(500).json({
         message: 'error'
       })

@@ -5,7 +5,8 @@ const pedidoSchema = new Schema({
   idTransaction: Number,
   status: String,
   method: String,
-  Cpf: String,
+  cpf: String,
+  parcelas: Number,
   Endereco: [
     {
       kind: String,

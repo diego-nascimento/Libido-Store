@@ -4,13 +4,15 @@ import pagarme from 'pagarme';
 import { IProduto } from '../../../Interfaces/IProduto';
 import { FillBoletoInfo } from '../../../Util/Pagamentos/FillBoletoInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
-import {newPedidoMail} from '../../../Factory/newPedidoEmail'
+import { newPedidoMail } from '../../../Factory/newPedidoEmail'
+
 export interface  IBoletoInfo{
   nome: string
   cpf: string,
   estado: string,
   cidade: string,
   bairro: string,
+  complemento: string,
   rua: string,
   numero: string,
   cep: string,
@@ -56,7 +58,8 @@ export default async function handler(
         cidade: paymentInfo.cidade,
         estado: paymentInfo.estado,
         numero: paymentInfo.numero,
-        rua: paymentInfo.rua
+        rua: paymentInfo.rua,
+        complemento: paymentInfo.complemento
       }
     })
     const PedidoMail = newPedidoMail()

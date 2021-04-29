@@ -28,7 +28,8 @@ export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProdut
           "neighborhood": paymentInfo.bairro,
           "street":  paymentInfo.rua,
           "street_number": paymentInfo.numero,
-          "zipcode": paymentInfo.cep
+          "zipcode": paymentInfo.cep,
+          "complementary": paymentInfo.complemento
       }
   },
     "items": Produtos.map((produto) => {
