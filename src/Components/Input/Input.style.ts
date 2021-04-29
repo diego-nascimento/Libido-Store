@@ -4,11 +4,15 @@ import { styles } from '../../styles/styles'
 
 interface IContainer{
   borderColor?: string | null
+  show?: boolean
+  readOnly?: boolean
 }
 
 export const Container = styled.div<IContainer>`
-  display: flex;
+  display: ${props => props.show === true ? 'flex' : 'none'};
   flex-direction: column;
+  width: 100%;
+   
 
   p{
     display: flex;
@@ -24,12 +28,12 @@ export const Container = styled.div<IContainer>`
     height: 40px;
     padding: 10px;
     border-radius: 15px;
-    background-color: #ddd;
+    background-color: ${props => props.readOnly === true ? styles.componentsDest: '#ddd' };
     border: none;
     font-weight: 500;
     font-size: .9rem;
     margin: 5px 0px;
-    color: ${styles.componentsDest};
+    color: ${props => props.readOnly === true ? styles.fontColorInDark: styles.componentsDest};
 
     ::placeholder{
       color: ${styles.componentsDest};

@@ -133,7 +133,11 @@ export const BotaoFinalizar = styled.button`
   border-radius: 15px;
 `;
 
-export const Formulario = styled.form`
+interface IFormulario{
+  show: boolean
+}
+
+export const Formulario = styled.form<IFormulario>`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -141,21 +145,10 @@ export const Formulario = styled.form`
   
   .Endereco{
     display: grid;
-    grid-template-columns: 1fr 150px;
+    grid-template-columns: ${props => props.show ? '1fr 150px': '1fr'};
     grid-gap: 10px;
   }
 
-  select{
-    height: 40px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #ddd;
-    border: none;
-    font-weight: 500;
-    font-size: .9rem;
-    margin: 5px 0px;
-    color: ${styles.componentsDest};
-  }
 `;
 
 
@@ -251,3 +244,41 @@ export const SelectParcelas = styled.select`
   font-size: .9rem;
   color: ${styles.componentsDest};
 `;
+
+interface ISelectEstado {
+  show: boolean
+}
+
+export const SelectEstado = styled.select<ISelectEstado>`
+  margin: 10px 0px;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ddd;
+  border: none;
+  font-weight: 500;
+  font-size: .9rem;
+  color: ${styles.componentsDest};
+  display: ${props => props.show === true ? 'flex' : 'none'};
+
+`
+
+export const ContainerCep = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  align-items: center;
+  grid-gap: 20px;
+  
+  button{
+    height: 40px;
+    border-radius: 5px;
+    background-color: #ddd;
+    border: none;
+    font-weight: 500;
+    font-size: .9rem;
+    color: ${styles.componentsDest};
+  }
+`;
+
