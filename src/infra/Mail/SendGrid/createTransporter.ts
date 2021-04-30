@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+//@ts-ignore
 import sgTransport from 'nodemailer-sendgrid-transport';
 import hbs from 'nodemailer-express-handlebars';
 import path from 'path';
@@ -24,15 +25,4 @@ transporter.use(
   }),
 );
 
-export default async function handler(Request, Response) {
-  const data = Request.body.data;
-  var email = {
-    from: 'libidopirauba@gmail.com',
-    to: 'libidopirauba@gmail.com',
-    subject: 'Novo Pedido',
-    template: 'email',
-    context: data,
-  };
-  const response = await transporter.sendMail(email);
-  return Response.status(200).json(response);
-}
+export default transporter

@@ -4,11 +4,9 @@ import {Wrapper, Container} from '../PageStyles/checkout.style'
 import Head from 'next/head'
 import Router from 'next/router'
 
-interface ISucesso{
-  dispatch: any
-}
 
-const Sucesso: React.FC<ISucesso> = () => {
+
+const Sucesso: React.FC = (props: any) => {
   
   React.useEffect(() => {
     setTimeout(() =>{
@@ -16,6 +14,7 @@ const Sucesso: React.FC<ISucesso> = () => {
     }, 100000)
   }, [])
 
+ 
 
   return (
     <Layout>

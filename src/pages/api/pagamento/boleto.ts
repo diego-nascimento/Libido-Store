@@ -1,10 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 //@ts-ignore
 import pagarme from 'pagarme';
+import { IProduto } from '../../../Interfaces/IProduto';
+import { FillBoletoInfo } from '../../../Util/Pagamentos/FillBoletoInfo'
+import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
+import { newPedidoMail } from '../../../Factory/newPedidoEmail'
 
 export interface  IBoletoInfo{
   nome: string
-  cpf: string
+  cpf: string,
+  estado: string,
+  cidade: string,
+  bairro: string,
+  complemento: string,
+  rua: string,
+  numero: string,
+  cep: string,
+  whatsapp: string,
+  email: string
 }
 
 export default async function handler(
@@ -14,31 +27,51 @@ export default async function handler(
 
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
-
-
-  const datapayment = {
-    capture: true,
-    amount: total * 100,
-    payment_method: 'boleto',
-    postback_url: 'http://www.libidoss.com.br/api/postback/pkt7pgpk',
-    customer: {
-      type: 'individual',
-      country: 'br',
-      name: paymentInfo.nome,
-      documents: [
-        {
-          type: 'cpf',
-          number: paymentInfo.cpf,
-        },
-      ],
-    }
-  }
-    const response = await pagarme.client
-    .connect({ api_key: process.env.PAGARME_APIKEY})
-    .then((client: any) =>
-      client.transactions.create(datapayment),
+  const Produtos: Array<IProduto> = Request.body.data.Produtos
+  try{
+      const response = await pagarme.client
+      .connect({ api_key: process.env.PAGARME_APIKEY})
+      .then((client: any) =>
+        client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total)),
     )
-    return Response.json(response)
-  
-  
+  /*
+   await  pagarme.client.connect({ api_key: process.env.PAGARME_APIKEY })
+  .then((client:any) => client.transactions.collectPayment({
+    id: response.id,
+    email: paymentInfo.email,
+  }))
+   */
+    const savePedido = SavePedidoFactory()
+    await savePedido.save({
+      email: paymentInfo.email,
+      idTransaction: response.id,
+      method: 'boleto',
+      nome: paymentInfo.nome,
+      status: response.status,
+      produtos: Produtos,
+      total: total,
+      whatsapp: paymentInfo.whatsapp,
+      cpf: paymentInfo.cpf,
+      endereco: {
+        bairro: paymentInfo.bairro,
+        cep: paymentInfo.cep,
+        cidade: paymentInfo.cidade,
+        estado: paymentInfo.estado,
+        numero: paymentInfo.numero,
+        rua: paymentInfo.rua,
+        complemento: paymentInfo.complemento
+      }
+    })
+    const PedidoMail = newPedidoMail()
+    await PedidoMail.send({
+      Produtos: Produtos,
+      email: paymentInfo.email,
+      idTransaction: response.id,
+      method: 'boleto',
+      status: response.status
+    })
+      return Response.json(response)  
+  } catch (error) {
+    return Response.status(500).json(error)
+  }
 }
