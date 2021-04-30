@@ -21,7 +21,7 @@ import { Parcelas } from '../Util/Parcelas'
 import { requiredFields } from '../Util/EnderecoRequiredFields'
 import { GetFactory } from '../Factory/http/GetFactory'
 import { IValues } from '../typing/types/ICheckoutValues'
-import {IDataForm} from '../typing/Interfaces/IReactHookDataForm'
+import { IDataForm } from '../typing/Interfaces/IReactHookDataForm'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -43,17 +43,27 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [error, setError] = React.useState(false)
   const [parcelas, setParcelas] = React.useState(1)
   const [totalPagar, settotalPagar] = React.useState(total)
-  const [Frete, setFrete] = React.useState(10)
+  const [Frete, setFrete] = React.useState(0)
   const [cepValido, setcepValido] = React.useState(false)
-  
-
   const [addressEditable, setAddressEditable] = React.useState({ //State se campos estão editaveis ou não
     Cidade: true,
     Estado: true,
     Bairro: true,
     Endereco: true
   })
+  const [fretes, setFretes] = React.useState([
+    {
+      valor: 0,
+      prazo: 0
+    }, {
+      valor: 0,
+      prazo: 0
+    }
+  ])
+
+
   const [showAddress, setShowAddress] = React.useState(false) //State se deve ou não mostrar os campos de endereço
+
 
   React.useEffect(() => { //calcula o valor atualizado baseado no numero de parcelas
     if (paymentMethod === 0) { //se o metodo for boleto
@@ -61,7 +71,11 @@ const Checkout: React.FC<CarrinhoProps> = ({
       settotalPagar(total + Frete) //e o valor vai ser sempre o inicial
     } else {
       if (total < 200) { //acima de 200 reais sem juros
-        settotalPagar((total + Frete) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
+        console.log(fretes[Frete].valor)
+        if (Frete === 0) {
+          settotalPagar((total + fretes[Frete].valor) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
+        }
+        
         /*
           calculando o valor atualizado baseado na parcela -
           (valor dos produtos + valor do frete) + ((valor dos produtos + frete) * a porcentagem de acrescimo do parcelamento))
@@ -71,7 +85,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
         */
       }
     }
-  }, [parcelas, paymentMethod, Frete])
+  }, [parcelas, paymentMethod, Frete, fretes])
 
   
   const handleChangeParcelas = (e: any) => { //seta o numero de parcelas
@@ -207,15 +221,51 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }, [])
 
 
-  const handleFrete = () => {
-    switch (normalize(getValues().Cep)){
-      case '36170000':
+  const handleFrete = async () => {
+    if(normalize(getValues().Cep) === '36170000'){
         setFrete(0)
-        break;
-      default:
-        setFrete(20)
-        break;
     }
+  }
+
+  interface IFreteInfo{
+    servico: string,
+    valor: number,
+    prazoDeEntrega: string
+  }
+  const getFreteValues = async () => {
+    let response = await api.post('api/correios', {
+          cep: getValues().Cep,
+          servico: '04510'
+        })
+        let ValorStr: string = response.data.Servicos.cServico.Valor._text
+        const PAC: IFreteInfo = {
+          servico: 'PAC',
+          prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
+          valor: Number.parseFloat(ValorStr.replace(',', '.'))
+    }
+    
+     response = await api.post('api/correios', {
+          cep: getValues().Cep,
+          servico: '04014'
+        })
+         ValorStr = response.data.Servicos.cServico.Valor._text
+        const SEDEX: IFreteInfo = {
+          servico: 'Sedex',
+          prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
+          valor: Number.parseFloat(ValorStr.replace(',', '.'))
+    }
+    
+    setFretes([
+      {
+        valor: PAC.valor,
+        prazo: Number.parseInt(PAC.prazoDeEntrega)
+      },
+      {
+        valor: SEDEX.valor,
+        prazo: Number.parseInt(SEDEX.prazoDeEntrega)
+      }
+    ])
+        
   }
 
   const handleCepClick = async () => { //FUnction que lida com a consulta do cep
@@ -236,6 +286,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
       requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
         if (response.body[field.response] !== '') { // Se essa condição for verdadeira, entao o frete é valido
           setShowAddress(true)  //Seta para mostrar os campos de endereço
+          getFreteValues()
           handleFrete() //Hora de Calcular o frete baseado no Cep valido inserido
           setcepValido(true) //Seta o Cep como valido
           
@@ -364,7 +415,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   show={showAddress}
                   readonly={addressEditable.Estado}
                 /> :
-                <SelectEstado placeholder="Estado"{...register('Estado', {required: true})} show={showAddress}>
+                <SelectEstado placeholder="Estado"{...register('Estado', {required: true})} show={true}>
                   {estados.UF.map((estado, index) => {
                     return <option value={estado.sigla} key={index} >{estado.nome}</option>
                   })}
@@ -385,9 +436,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   />
                 </ContainerInput>
                   :
-                <SelectEstado placeholder="Frete"{...register('Frete', {required: true})} show={true}>
-                <option value='PAC'  >PAC</option>
-                <option value='Sedex' >Sedex</option>
+                <SelectEstado placeholder="Frete" onChange={(e) => setFrete(Number.parseInt(e.target.value))}  show={showAddress}>
+                <option value={0}  >PAC</option>
+                <option value={1} >Sedex</option>
               </SelectEstado>
             }
               
@@ -468,7 +519,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   <h2>Frete: {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                  }).format(Frete)} +</h2>
+                  }).format(fretes[Frete].valor)} +</h2>
                   {(total + Frete) * Parcelas[parcelas - 1].acrescimo / 100 === 0 ? null : 
                     <h2>Juros: {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
