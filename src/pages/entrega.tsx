@@ -9,7 +9,6 @@ const Entrega: React.FC = () => {
     <Layout>
       <Head>
         <title>Libido LoveShop- Entregas</title>
-        
       </Head>
       <SobreContainer>
         <Container className="Container">
@@ -50,7 +49,6 @@ const Entrega: React.FC = () => {
             </p>
           </InfoContainer>
         </Container>
-
       </SobreContainer>
     </Layout>
     

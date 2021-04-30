@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {Wrapper, Container, ErrorContainer,ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods, CardData, CardInformations, FormularioCard, Aside, ContainerInfoCard, SelectParcelas, SelectEstado, ContainerCep} from '../styles/PageStyles/checkout.style'
+import {Wrapper, Container, ErrorContainer,ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods, CardData, CardInformations, FormularioCard, Aside, ContainerInfoCard, SelectParcelas, SelectEstado, ContainerCep, TotalsInfo} from '../styles/PageStyles/checkout.style'
 import {connect} from 'react-redux'
 import Head from 'next/head'
 import { useForm } from "react-hook-form";
@@ -43,7 +43,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [error, setError] = React.useState(false)
   const [parcelas, setParcelas] = React.useState(1)
   const [totalPagar, settotalPagar] = React.useState(total)
-  const [Frete, setFrete] = React.useState(0)
+  const [Frete, setFrete] = React.useState(10)
   const [cepValido, setcepValido] = React.useState(false)
   
 
@@ -61,14 +61,29 @@ const Checkout: React.FC<CarrinhoProps> = ({
       settotalPagar(total + Frete) //e o valor vai ser sempre o inicial
     } else {
       if (total < 200) { //acima de 200 reais sem juros
-         settotalPagar(total + (total * Parcelas[parcelas - 1].acrescimo/100) + Frete) //calculando o valor atualizado baseado na parcela
+        settotalPagar((total + Frete) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
+        /*
+          calculando o valor atualizado baseado na parcela -
+          (valor dos produtos + valor do frete) + ((valor dos produtos + frete) * a porcentagem de acrescimo do parcelamento))
+
+          Parcelas = Array com as quantidades de parcelas e os seus acrescimos
+          parcelas = numero de parcelas selecionada pelo usuario
+        */
       }
     }
-  }, [parcelas, paymentMethod])
+  }, [parcelas, paymentMethod, Frete])
+
+  
+  const handleChangeParcelas = (e: any) => { //seta o numero de parcelas
+    const indice = Number.parseInt(e.target.value) //transforma o valor em numero
+    setParcelas(Parcelas[indice].numero) //pega da tabela de parcelas o numero dela baseado no indice do select
+  }
+  
 
   
   React.useEffect(() => {
     if (!cepValido) {
+      setFrete(0)
       unregister('Cidade')
       unregister('Estado')
       unregister('Bairro')
@@ -102,10 +117,6 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }, [paymentMethod])
 
 
-  const handleChangeParcelas = (e: any) => { //seta o numero de parcelas
-    const indice = Number.parseInt(e.target.value) //transforma o valor em numero
-    setParcelas(Parcelas[indice].numero) //pega da tabela de parcelas o numero dela baseado no indice do select
-  }
   const handleSubmitForm = async (data: IDataForm) => {
     if (!cepValido) {
       setError(true)
@@ -134,7 +145,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
           response = await api.post('api/pagamento/boleto', { //chamado para realizar o pedido pelo boleto
             data: {
               info: boletoInfo,
-              total: totalPagar,
+              total: totalPagar.toFixed(2),
               Produtos: produtos
             }
           })
@@ -196,6 +207,17 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }, [])
 
 
+  const handleFrete = () => {
+    switch (normalize(getValues().Cep)){
+      case '36170000':
+        setFrete(0)
+        break;
+      default:
+        setFrete(20)
+        break;
+    }
+  }
+
   const handleCepClick = async () => { //FUnction que lida com a consulta do cep
     const Get = GetFactory()
     const response = await Get.handle({ body: {}, url: `https://ws.apicep.com/cep/${getValues().Cep}.json` })
@@ -212,9 +234,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
     
     if (response.body.status === 200) { //Se A consulta der certo
       requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
-        if (response.body[field.response] !== '') {
+        if (response.body[field.response] !== '') { // Se essa condição for verdadeira, entao o frete é valido
           setShowAddress(true)  //Seta para mostrar os campos de endereço
-          setcepValido(true)
+          handleFrete() //Hora de Calcular o frete baseado no Cep valido inserido
+          setcepValido(true) //Seta o Cep como valido
           
           setValue(field.field as keyof IValues, response.body[field.response], {shouldValidate: true})
         } else {  //Se uma informção não esta disponivel, o campo fica editavel
@@ -222,13 +245,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
         }
       });
       
-    } if (response.body.status === 400 || response.body.status === 404) { //Se a consulta falhou, todos sao editaveis
-      requiredFields.forEach(field => {
-          Temporary[field.field] = false
-      });
     }
     setAddressEditable(Temporary) //Seta os Campos selecionados
-    
   }  
 
 
@@ -352,6 +370,27 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   })}
                 </SelectEstado>
               }
+              {cepValido && normalize(getValues().Cep) === '36170000' ? 
+                <ContainerInput borderColor={styles.fontColorInDark} show={true}>
+                  <input type="text"
+                    value="Entregamos na sua casa"
+                    disabled
+                    style={
+                      {
+                        cursor: 'default',
+                        background: styles.componentsDest,
+                        color: styles.fontColorInDark
+                      }
+                    }
+                  />
+                </ContainerInput>
+                  :
+                <SelectEstado placeholder="Frete"{...register('Frete', {required: true})} show={true}>
+                <option value='PAC'  >PAC</option>
+                <option value='Sedex' >Sedex</option>
+              </SelectEstado>
+            }
+              
               
               <PaymentMethods>
                 <ListMethods>
@@ -375,7 +414,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                       Error={errors.CardName}
                       name="CardName"
                       />
-                    <ContainerInput borderColor={styles.fontColorInDark}>
+                    <ContainerInput borderColor={styles.fontColorInDark} show={true}>
                       <InputMask
                         mask="9999 9999 9999 9999"
                         placeholder="Numero do Cartão"
@@ -385,7 +424,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                       {errors && errors.CardNumber && errors.CardNumber.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
                     </ContainerInput>
                     <ContainerInfoCard>
-                      <ContainerInput borderColor={styles.fontColorInDark}>
+                      <ContainerInput borderColor={styles.fontColorInDark} show={true}>
                       <InputMask
                         mask="99/99"
                         placeholder="Expira em"
@@ -413,7 +452,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                             {`${parcela.numero}x - ${parcela.numero === 1 || total > 200 ? 'Sem Juros': `Com ${Intl.NumberFormat('pt-BR', {
                               style: 'currency',
                               currency: 'BRL',
-                              }).format((parcela.acrescimo / 100) * total)} de juros`}`} 
+                              }).format((total + Frete) * parcela.acrescimo/100)} de juros`}`} 
                           </option>)
                       })}
                     </SelectParcelas>
@@ -421,12 +460,27 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   </CardInformations>
                 </CardData>}
               <div className="AsideTotal">
-             
-                  <h2>Total ({tamanho_carrinho} itens): {Intl.NumberFormat('pt-BR', {
+                <TotalsInfo>
+                  <h2>SubTotal: {Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                  }).format(total)}  +   </h2>
+                  <h2>Frete: {Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                  }).format(Frete)} +</h2>
+                  {(total + Frete) * Parcelas[parcelas - 1].acrescimo / 100 === 0 ? null : 
+                    <h2>Juros: {Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                  }).format((total + Frete) * Parcelas[parcelas - 1].acrescimo/100)} </h2>
+                  }
+                  <h2>Total ({tamanho_carrinho} {tamanho_carrinho === 1? 'Item': 'Itens'}): {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
                   }).format(totalPagar)} </h2>
-                  <BotaoFinalizar  onClick={handleSubmit(handleSubmitForm)} disabled={loading}>Finalizar Pedido!</BotaoFinalizar>
+                </TotalsInfo>
+                <BotaoFinalizar onClick={handleSubmit(handleSubmitForm)} disabled={loading}>Finalizar Pedido!</BotaoFinalizar>
                 </div>
             </Aside>
             </ProdutosContainer>

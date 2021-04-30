@@ -23,7 +23,7 @@ export const ProdutosContainer = styled.div`
   grid-template-columns: 1fr 400px;
   grid-gap: 20px;
   justify-content: center;
-  align-items: center;
+  margin-top: 30px;
   
   .AsideTotal{
     background: ${styles.componentsDest};
@@ -280,5 +280,24 @@ export const ContainerCep = styled.div`
     font-size: .9rem;
     color: ${styles.componentsDest};
   }
+`;
+
+export const TotalsInfo = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h2{
+    margin: 10px 0px;
+    
+    :nth-child(4){
+      font-size: 1.6rem;
+      border-top: 1px solid ${styles.fontColorInDark};
+      padding: 20px 0px 0px;
+
+    }
+  }
+
+  
 `;
 
