@@ -1,4 +1,4 @@
-import { HttpResponse } from "../../Domain/protocols/IHttpHelpers";
+import { HttpResponse } from "../../../domain/protocols/IHttpHelpers";
 
 export interface IPostEntry{
   body: any

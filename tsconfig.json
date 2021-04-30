@@ -26,7 +26,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/Components/Products-List/Product-List.tsx", "src/Components/CardProduto/CardProduto.", "src/pages/api/mail.js", "src/Util/PageViews.js", "src/pages/api/pagamento.js", "src/Util/createSiteMap.js"  ],
+, "src/Components/Products-List/Product-List.tsx", "src/Components/CardProduto/CardProduto.", "src/pages/api/mail.js", "src/pages/_documents.js", "src/pages/_documents.js"  ],
   "exclude": [
     "node_modules"
   ]
