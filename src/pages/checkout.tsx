@@ -1,11 +1,11 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {Wrapper, Container, ErrorContainer,ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods, CardData, CardInformations, FormularioCard, Aside, ContainerInfoCard, SelectParcelas, SelectEstado, ContainerCep} from '../PageStyles/checkout.style'
+import {Wrapper, Container, ErrorContainer,ProdutosContainer, BotaoFinalizar, Formulario, Methods, ListMethods, PaymentMethods, CardData, CardInformations, FormularioCard, Aside, ContainerInfoCard, SelectParcelas, SelectEstado, ContainerCep} from '../styles/PageStyles/checkout.style'
 import {connect} from 'react-redux'
 import Head from 'next/head'
 import { useForm } from "react-hook-form";
 import Input from '../Components/Input/Input'
-import { IProduto } from '../Interfaces/IProduto'
+import { IProduto } from '../typing/Interfaces/IProduto'
 import Router from 'next/router'
 import { api } from '../service/api'
 import * as CartActions from '../store/modules/cart/actions'
@@ -13,57 +13,21 @@ import InputMask from 'react-input-mask'
 import { GoAlert } from 'react-icons/go'
 import {Container as ContainerInput} from '../Components/Input/Input.style'
 import { styles } from '../styles/styles'
-import { ICardPaymentInfo } from '../Interfaces/ICardInfo'
+import { ICardPaymentInfo } from '../typing/Interfaces/ICardInfo'
 import {normalize} from '../Util/Normalize'
 import { IBoletoInfo } from './api/pagamento/boleto'
 import {estados} from '../Util/Estados'
 import { Parcelas } from '../Util/Parcelas'
 import { requiredFields } from '../Util/EnderecoRequiredFields'
-import {GetFactory} from '../Factory/http/GetFactory'
+import { GetFactory } from '../Factory/http/GetFactory'
+import { IValues } from '../typing/types/ICheckoutValues'
+import {IDataForm} from '../typing/Interfaces/IReactHookDataForm'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
   tamanho_carrinho: number
   total: number
   dispatch: any
-}
-
-interface IDataForm{
-  Nome: string,
-  Cpf: string
-  Whatsapp: string,
-  Estado: string,
-  Cidade: string,
-  Endereco: string,
-  Complemento: string,
-  Numero: string,
-  Cep: string,
-  Bairro: string
-  email: string
-  CardNumber: string
-  CardExpire: string
-  CardName: string
-  CardCVC: string
-  parcelas: number
-}
-
-type IValues = {
-  Nome: string,
-  Cpf: string
-  Whatsapp: string,
-  Estado: string,
-  Cidade: string,
-  Endereco: string,
-  Complemento: string,
-  Numero: string,
-  Cep: string,
-  Bairro: string
-  email: string
-  CardNumber: string
-  CardExpire: string
-  CardName: string
-  CardCVC: string
-  parcelas: number
 }
 
 const Checkout: React.FC<CarrinhoProps> = ({
@@ -81,7 +45,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [totalPagar, settotalPagar] = React.useState(total)
   const [Frete, setFrete] = React.useState(0)
   const [cepValido, setcepValido] = React.useState(false)
-  const [errorMessage, setErrorMessage] = React.useState('Algo deu errado! Verifique as informações e tente novamente')
+  
 
   const [addressEditable, setAddressEditable] = React.useState({ //State se campos estão editaveis ou não
     Cidade: true,

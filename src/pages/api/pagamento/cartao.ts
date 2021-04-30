@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 //@ts-ignore
 import pagarme from 'pagarme';
-import { IProduto } from '../../../Interfaces/IProduto';
-import {ICardPaymentInfo} from '../../../Interfaces/ICardInfo'
+import { IProduto } from '../../../typing/Interfaces/IProduto';
+import {ICardPaymentInfo} from '../../../typing/Interfaces/ICardInfo'
 import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo';
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail';

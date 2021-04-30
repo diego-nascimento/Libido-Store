@@ -1,4 +1,4 @@
-import { IProduto } from '../../Interfaces/IProduto'
+import { IProduto } from '../../typing/Interfaces/IProduto'
 import { IBoletoInfo } from '../../pages/api/pagamento/boleto'
 
 

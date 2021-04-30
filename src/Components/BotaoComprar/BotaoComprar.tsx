@@ -1,5 +1,5 @@
 import React from 'react';
-import { IProduto } from '../../Interfaces/IProduto';
+import { IProduto } from '../../typing/Interfaces/IProduto';
 import {Botao} from './BotaoComprar.style'
 
 interface Botao{

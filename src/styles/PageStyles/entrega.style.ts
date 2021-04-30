@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { styles } from '../styles/styles';
-import {ImageShowUp} from '../styles/Keyframes'
+import { styles } from '../styles';
+import {ImageShowUp} from '../Keyframes'
 
 
 export const SobreContainer = styled.section`

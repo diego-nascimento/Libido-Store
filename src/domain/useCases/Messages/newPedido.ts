@@ -1,4 +1,4 @@
-import { IProduto } from "../../../Interfaces/IProduto";
+import { IProduto } from "../../../typing/Interfaces/IProduto";
 
 export interface IemailNewPedidoEntry{
   idTransaction: string,

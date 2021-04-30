@@ -1,6 +1,6 @@
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
-import {Wrapper, Container} from '../PageStyles/checkout.style'
+import {Wrapper, Container} from '../styles/PageStyles/checkout.style'
 import Head from 'next/head'
 import Router from 'next/router'
 

@@ -1,8 +1,8 @@
 import Head from "next/head"
 import Layout from "../../Components/Layout/Layout"
 import ShowProdutos from "../../Components/ShowProducts/ShowProdutos"
-import { ICategoria } from "../../Interfaces/ICategoria"
-import { IProduto } from "../../Interfaces/IProduto"
+import { ICategoria } from "../../typing/Interfaces/ICategoria"
+import { IProduto } from "../../typing/Interfaces/IProduto"
 import { getCategoriaParams } from "../../service/getCategoriaParams"
 import {api} from '../../service/api'
 

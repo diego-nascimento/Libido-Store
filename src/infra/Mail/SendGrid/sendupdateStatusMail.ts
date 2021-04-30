@@ -1,7 +1,8 @@
 import { IsendupdateStatusMessage } from "../../../data/protocols/Message/IsendupdateStatusMessage";
 import { IemailupdateStatusEntry } from "../../../domain/useCases/Messages/updateStatusPedido";
 import transporter from './createTransporter'
-import { messages, IMessages } from '../../../Util/setMessageStateToMail'
+import { messages} from '../../../Util/setMessageStateToMail'
+import { IMessages } from "../../../typing/types/ITranslatedMessages";
 
 
 export class sendUpdateStatusMail implements IsendupdateStatusMessage{

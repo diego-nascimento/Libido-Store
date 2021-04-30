@@ -1,5 +1,5 @@
-import { IProduto } from "../../Interfaces/IProduto"
-import {ICardPaymentInfo} from '../../Interfaces/ICardInfo'
+import { IProduto } from "../../typing/Interfaces/IProduto"
+import {ICardPaymentInfo} from '../../typing/Interfaces/ICardInfo'
 
 export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProduto>, total: number) => {
   const datapayment = {

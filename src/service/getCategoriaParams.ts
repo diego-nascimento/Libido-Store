@@ -1,4 +1,4 @@
-import { ICategoria } from '../Interfaces/ICategoria';
+import { ICategoria } from '../typing/Interfaces/ICategoria';
 import { api } from './api'
 
 export const getCategoriaParams = async () => {

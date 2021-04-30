@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {SobreContainer, Container, InfoContainer} from '../PageStyles/entrega.style'
+import {SobreContainer, Container, InfoContainer} from '../styles/PageStyles/entrega.style'
 
 
 const Entrega: React.FC = () => {

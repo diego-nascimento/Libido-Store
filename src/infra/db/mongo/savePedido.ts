@@ -1,6 +1,6 @@
 import { ISaveTransactionRepo } from '../../../data/protocols/Transactions/ISaveTransactionRepo';
 import { IsaveTransacionEntry } from '../../../domain/useCases/Transactions/saveTransaction';
-import { IProduto } from '../../../Interfaces/IProduto';
+import { IProduto } from '../../../typing/Interfaces/IProduto';
 import Pedido from './model/Pedido'
 import Produto from './model/Produtos'
 import dbConnect from './mongoCreate'

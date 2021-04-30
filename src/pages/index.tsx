@@ -1,8 +1,8 @@
-import {Banner, TextContainer, Card, Header, Categorias, Container} from '../PageStyles/index.style'
+import {Banner, TextContainer, Card, Header, Categorias, Container} from '../styles/PageStyles/index.style'
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
 import {api} from '../service/api'
-import {ICategoria} from '../Interfaces/ICategoria'
+import {ICategoria} from '../typing/Interfaces/ICategoria'
 import Link from 'next/link'
 import Head from 'next/head'
 

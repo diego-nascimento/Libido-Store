@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {Container} from '../PageStyles/404.style'
+import {Container} from '../styles/PageStyles/404.style'
 
 const Page404: React.FC = () =>{
   return(

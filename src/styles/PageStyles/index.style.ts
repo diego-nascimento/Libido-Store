@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { styles } from '../styles/styles'
+import { styles } from '../styles'
 
 
 export const Header = styled.header`

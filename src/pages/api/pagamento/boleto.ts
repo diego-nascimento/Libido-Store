@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 //@ts-ignore
 import pagarme from 'pagarme';
-import { IProduto } from '../../../Interfaces/IProduto';
+import { IProduto } from '../../../typing/Interfaces/IProduto';
 import { FillBoletoInfo } from '../../../Util/Pagamentos/FillBoletoInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail'

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
-import { ICategoria } from '../../Interfaces/ICategoria'
-import { IProduto } from '../../Interfaces/IProduto'
+import { ICategoria } from '../../typing/Interfaces/ICategoria'
+import { IProduto } from '../../typing/Interfaces/IProduto'
 import { Wrapper, ProdutosContainer, Container, SideBar } from './ShowProdutos.style'
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import { MdExpandMore } from 'react-icons/md';
