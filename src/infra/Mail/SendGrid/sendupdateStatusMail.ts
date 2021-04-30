@@ -1,10 +1,14 @@
 import { IsendupdateStatusMessage } from "../../../data/protocols/Message/IsendupdateStatusMessage";
 import { IemailupdateStatusEntry } from "../../../domain/useCases/Messages/updateStatusPedido";
 import transporter from './createTransporter'
+import { messages, IMessages } from '../../../Util/setMessageStateToMail'
+
 
 export class sendUpdateStatusMail implements IsendupdateStatusMessage{
   async send(data: IemailupdateStatusEntry): Promise<any>{
-    data.idTransaction
+    
+    data.status = messages[data.status as keyof IMessages]
+    
   var email = {
     from: 'libidopirauba@gmail.com',
     to: data.email,

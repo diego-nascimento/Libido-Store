@@ -1,4 +1,4 @@
-
+import {IMessages} from '../../../Util/setMessageStateToMail'
 
 export interface IemailupdateStatusEntry{
   idTransaction: string,

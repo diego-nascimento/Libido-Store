@@ -33,7 +33,8 @@ export const Container = styled.div<IContainer>`
     font-weight: 500;
     font-size: .9rem;
     margin: 5px 0px;
-    color: ${props => props.readOnly === true ? styles.fontColorInDark: styles.componentsDest};
+    color: ${props => props.readOnly === true ? styles.fontColorInDark : styles.componentsDest};
+    cursor: ${props => props.readOnly === true ? 'default' : 'text'};
 
     ::placeholder{
       color: ${styles.componentsDest};

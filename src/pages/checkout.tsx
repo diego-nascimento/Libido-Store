@@ -47,6 +47,25 @@ interface IDataForm{
   parcelas: number
 }
 
+type IValues = {
+  Nome: string,
+  Cpf: string
+  Whatsapp: string,
+  Estado: string,
+  Cidade: string,
+  Endereco: string,
+  Complemento: string,
+  Numero: string,
+  Cep: string,
+  Bairro: string
+  email: string
+  CardNumber: string
+  CardExpire: string
+  CardName: string
+  CardCVC: string
+  parcelas: number
+}
+
 const Checkout: React.FC<CarrinhoProps> = ({
   produtos,
   tamanho_carrinho,
@@ -61,6 +80,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [parcelas, setParcelas] = React.useState(1)
   const [totalPagar, settotalPagar] = React.useState(total)
   const [Frete, setFrete] = React.useState(0)
+  const [cepValido, setcepValido] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('Algo deu errado! Verifique as informações e tente novamente')
 
   const [addressEditable, setAddressEditable] = React.useState({ //State se campos estão editaveis ou não
     Cidade: true,
@@ -70,19 +91,19 @@ const Checkout: React.FC<CarrinhoProps> = ({
   })
   const [showAddress, setShowAddress] = React.useState(false) //State se deve ou não mostrar os campos de endereço
 
-  React.useEffect(() => {
-    if (paymentMethod === 0) {
-      setParcelas(1)
-      settotalPagar(total + Frete)
+  React.useEffect(() => { //calcula o valor atualizado baseado no numero de parcelas
+    if (paymentMethod === 0) { //se o metodo for boleto
+      setParcelas(1) //vai ser sempre apenas uma parcela
+      settotalPagar(total + Frete) //e o valor vai ser sempre o inicial
     } else {
-      if (total < 200) {
-         settotalPagar(total + (total * Parcelas[parcelas - 1].acrescimo/100) + Frete)
+      if (total < 200) { //acima de 200 reais sem juros
+         settotalPagar(total + (total * Parcelas[parcelas - 1].acrescimo/100) + Frete) //calculando o valor atualizado baseado na parcela
       }
     }
   }, [parcelas, paymentMethod])
 
   
-  React.useEffect(() => {
+  React.useEffect(() => { //se eh boleto, nao registrar no react hook form os campos de cartao
     if (paymentMethod === 0) {
       unregister('CardNumber')
       unregister('CardName')
@@ -98,11 +119,15 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }, [paymentMethod])
 
 
-  const handleChangeParcelas = (e: any) => {
-    const indice = Number.parseInt(e.target.value)
-    setParcelas(Parcelas[indice].numero)
+  const handleChangeParcelas = (e: any) => { //seta o numero de parcelas
+    const indice = Number.parseInt(e.target.value) //transforma o valor em numero
+    setParcelas(Parcelas[indice].numero) //pega da tabela de parcelas o numero dela baseado no indice do select
   }
   const handleSubmitForm = async (data: IDataForm) => {
+    if (!cepValido) {
+      setError(true)
+      return
+    }
     data.parcelas = parcelas
     try {
       setloading(true)
@@ -110,7 +135,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
       let response
       switch (paymentMethod) {
         case 0: //Metodo de pagamentot boleto
-          const boletoInfo: IBoletoInfo = {
+          const boletoInfo: IBoletoInfo = { //preenchendo as informações de comprador do boleto
             cpf: normalize(data.Cpf),
             nome: data.Nome,
             bairro: data.Bairro,
@@ -123,22 +148,22 @@ const Checkout: React.FC<CarrinhoProps> = ({
             whatsapp: data.Whatsapp,
             complemento: data.Complemento
           }
-          response = await api.post('api/pagamento/boleto', {
+          response = await api.post('api/pagamento/boleto', { //chamado para realizar o pedido pelo boleto
             data: {
               info: boletoInfo,
               total: totalPagar,
               Produtos: produtos
             }
           })
-          if (response.data.status === 'processing') {
-            dispatch(CartActions.LimparCarrinho())
-            return Router.replace('/success')
+          if (response.data.status === 'processing') { //se o estado esta como processing, quer dizer que deu certo
+            dispatch(CartActions.LimparCarrinho()) //limpa carrinho
+            return Router.replace('/success') //vai pra pagina de sucesso
           } else {
-            setError(true)
+            setError(true) //caso contrario, deu error
           }
           break;
         default: //metodo de pagamento cartao de credito
-          const cardInfo: ICardPaymentInfo = {
+          const cardInfo: ICardPaymentInfo = { //preenche informações do comprador para compra com cartao
             Bairro: data.Bairro,
             Nome: data.Nome,
             Cpf: normalize(data.Cpf),
@@ -158,15 +183,15 @@ const Checkout: React.FC<CarrinhoProps> = ({
               parcelas: data.parcelas
             }
           }
-          response = await api.post('api/pagamento/cartao', {
+          response = await api.post('api/pagamento/cartao', { //realiza chamada na api para compra com cartao
             data: {
-              info: cardInfo,
-              produtos: produtos,
-              total: totalPagar.toFixed(2)
+              info: cardInfo, //informaçoes do comprador e do cartao
+              produtos: produtos, //lista de produtos
+              total: totalPagar.toFixed(2) //valor total a se pagar
             }
           })
           
-          if (response.data.status === 'paid' || response.data.status === 'processing') {
+          if (response.data.status === 'paid' || response.data.status === 'processing') { //se retornar paid or processing, quer dizer q parece q vai dar certo
             dispatch(CartActions.LimparCarrinho()) 
             Router.replace('/success')
           } else {
@@ -175,7 +200,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
           break;
       }
 
-    } catch (error) {
+    } catch (error) { //se algo der errado, set o erro
       setError(true)
     } finally {
       setloading(false)
@@ -183,7 +208,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     
   }
 
-  React.useEffect(() => {
+  React.useEffect(() => { //se nao tiver produtos no carrinho, vai pra pagina de produtos
     tamanho_carrinho < 1 && Router.push('/produtos')
   }, [])
 
@@ -191,17 +216,24 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const handleCepClick = async () => { //FUnction que lida com a consulta do cep
     const Get = GetFactory()
     const response = await Get.handle({ body: {}, url: `https://ws.apicep.com/cep/${getValues().Cep}.json` })
-    let Temporary: any = {...addressEditable} //Copiando o State de Editaveis
+    if (response.StatusCode !== 200) { //se der erro na busca do cep, deu erro
+      return
+    }
+    let Temporary: any = { ...addressEditable } //Copiando o State de Editaveis
+    setcepValido(false)
     
     requiredFields.forEach(field => { //Reseta todos os campos antes da consulta
       Temporary[field.field] = true
     });
 
+    
     if (response.body.status === 200) { //Se A consulta der certo
       requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
-        if (response.body[field.response]) {
-          //@ts-ignore
-          setValue(field.field, response.body[field.response], {shouldValidate: true})
+        if (response.body[field.response] !== '') {
+          setShowAddress(true)  //Seta para mostrar os campos de endereço
+          setcepValido(true)
+          
+          setValue(field.field as keyof IValues, response.body[field.response], {shouldValidate: true})
         } else {  //Se uma informção não esta disponivel, o campo fica editavel
           Temporary[field.field] = false
         }
@@ -213,7 +245,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
       });
     }
     setAddressEditable(Temporary) //Seta os Campos selecionados
-    setShowAddress(true)  //Seta para mostrar os campos de endereço
+    
   }  
 
 
@@ -261,18 +293,26 @@ const Checkout: React.FC<CarrinhoProps> = ({
              
               <h2>Endereço de Entrega:</h2>
               <ContainerCep >
-                  <ContainerInput show={true}>
+                  <ContainerInput show={true} readOnly={cepValido}>
                     <InputMask
                       mask="99999-999"
                       placeholder="Cep"
-                      {...register('Cep', {required: true})}
+                    {...register('Cep', { required: true })}
+                    disabled={cepValido}
                     />
                     {errors && errors.Cep && errors.Cep.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
-                  </ContainerInput>
+                </ContainerInput>
+                {cepValido ? 
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    setcepValido(false)
+                  }}>Trocar</button>
+                :
                   <button onClick={(e) => {
                     e.preventDefault()
                     handleCepClick()
-                  }}>Buscar</button>
+                  }}>Buscar</button>}
+                  
                 </ContainerCep>
               <div className="Endereco">
                 <Input type="text"
@@ -313,12 +353,23 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   name="Cidade"
                   show={showAddress}
                   readonly={addressEditable.Cidade}
-                /> 
-              <SelectEstado placeholder="Estado"{...register('Estado', {required: true})} show={showAddress}>
-                {estados.UF.map((estado, index) => {
-                  return <option value={estado.sigla} key={index} >{estado.nome}</option>
-                })}
-              </SelectEstado>
+              />
+              {addressEditable.Estado ?
+                <Input type="text"
+                  placeholder="Estado"
+                  Register={register}
+                  Error={errors.Estado}
+                  name="Estado"
+                  show={showAddress}
+                  readonly={addressEditable.Estado}
+                /> :
+                <SelectEstado placeholder="Estado"{...register('Estado', {required: true})} show={showAddress}>
+                  {estados.UF.map((estado, index) => {
+                    return <option value={estado.sigla} key={index} >{estado.nome}</option>
+                  })}
+                </SelectEstado>
+              }
+              
               <PaymentMethods>
                 <ListMethods>
                   <Methods onClick={() => setpaymentMethod(0)} option={paymentMethod}>Boleto</Methods>
