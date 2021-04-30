@@ -200,6 +200,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     if (response.body.status === 200) { //Se A consulta der certo
       requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
         if (response.body[field.response]) {
+          //@ts-ignore
           setValue(field.field, response.body[field.response], {shouldValidate: true})
         } else {  //Se uma informção não esta disponivel, o campo fica editavel
           Temporary[field.field] = false
