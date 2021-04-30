@@ -67,6 +67,25 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }, [parcelas, paymentMethod])
 
   
+  React.useEffect(() => {
+    if (!cepValido) {
+      unregister('Cidade')
+      unregister('Estado')
+      unregister('Bairro')
+      unregister('Numero')
+      unregister('Endereco')
+      unregister('Complemento')
+      setShowAddress(false)
+    } else {
+      register('Cidade')
+      register('Estado')
+      register('Bairro')
+      register('Numero')
+      register('Endereco')
+      register('Complemento')
+    }
+  }, [cepValido])
+
   React.useEffect(() => { //se eh boleto, nao registrar no react hook form os campos de cartao
     if (paymentMethod === 0) {
       unregister('CardNumber')
