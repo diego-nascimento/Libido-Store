@@ -191,9 +191,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const handleCepClick = async () => { //FUnction que lida com a consulta do cep
     const Get = GetFactory()
     const response = await Get.handle({ body: {}, url: `https://ws.apicep.com/cep/${getValues().Cep}.json` })
-    let Temporary: any = Object.assign({}, addressEditable) //Copiando o State de Editaveis
+    let Temporary: any = {...addressEditable} //Copiando o State de Editaveis
     
-    console.log(response)
     requiredFields.forEach(field => { //Reseta todos os campos antes da consulta
       Temporary[field.field] = true
     });
