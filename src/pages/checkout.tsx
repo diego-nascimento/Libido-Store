@@ -22,7 +22,6 @@ import { requiredFields } from '../Util/EnderecoRequiredFields'
 import { GetFactory } from '../Factory/http/GetFactory'
 import { IValues } from '../typing/types/ICheckoutValues'
 import { IDataForm } from '../typing/Interfaces/IReactHookDataForm'
-import {IFreteInfo} from './api/pagamento/boleto'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -170,6 +169,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
               info: boletoInfo,
               total: totalPagar.toFixed(2),
               Produtos: produtos,
+              FreteInfo: {
+                FreteServico: FreteServico,
+                FreteValor: fretes[Frete].valor
+              }
             }
           })
           if (response.data.status === 'processing') { //se o estado esta como processing, quer dizer que deu certo

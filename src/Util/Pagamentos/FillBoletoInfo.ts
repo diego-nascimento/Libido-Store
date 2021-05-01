@@ -1,5 +1,6 @@
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import { IBoletoInfo, IFreteInfo } from '../../pages/api/pagamento/boleto'
+import { IBoletoInfo } from '../../pages/api/pagamento/boleto'
+import {IFreteInfo} from '../../typing/Interfaces/IFreteInfo'
 
 
 export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProduto>, total: number, FreteInfo: IFreteInfo) => {
@@ -18,6 +19,20 @@ export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProdut
           number: paymentInfo.cpf,
         },
       ],
+    },
+    "shipping": {
+      "name": paymentInfo.nome,
+      "fee": FreteInfo.FreteValor * 100,
+      "expedited": true,
+      "address": {
+        "country": "br",
+        "state": paymentInfo.estado,
+        "city": paymentInfo.cidade,
+        "neighborhood": paymentInfo.bairro,
+        "street": paymentInfo.rua,
+        "street_number": paymentInfo.numero,
+        "zipcode": "06714360"
+      }
     },
     "billing": {
       "name": paymentInfo.nome,

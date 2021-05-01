@@ -5,6 +5,7 @@ import { IProduto } from '../../../typing/Interfaces/IProduto';
 import { FillBoletoInfo } from '../../../Util/Pagamentos/FillBoletoInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail'
+import {IFreteInfo} from '../../../typing/Interfaces/IFreteInfo'
 
 export interface  IBoletoInfo{
   nome: string
@@ -20,10 +21,6 @@ export interface  IBoletoInfo{
   email: string
 }
 
-export interface IFreteInfo{
-  FreteServico: string,
-  FreteValor: number
-}
 
 export default async function handler(
   Request: NextApiRequest,
