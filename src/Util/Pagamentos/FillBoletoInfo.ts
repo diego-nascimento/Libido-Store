@@ -1,8 +1,8 @@
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import { IBoletoInfo } from '../../pages/api/pagamento/boleto'
+import { IBoletoInfo, IFreteInfo } from '../../pages/api/pagamento/boleto'
 
 
-export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProduto>, total: number) => {
+export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProduto>, total: number, FreteInfo: IFreteInfo) => {
   const datapayment = {
     capture: true,
     amount: total * 100,

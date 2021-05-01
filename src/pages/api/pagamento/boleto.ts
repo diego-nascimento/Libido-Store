@@ -20,6 +20,11 @@ export interface  IBoletoInfo{
   email: string
 }
 
+export interface IFreteInfo{
+  FreteServico: string,
+  FreteValor: number
+}
+
 export default async function handler(
   Request: NextApiRequest,
   Response: NextApiResponse,
@@ -28,11 +33,12 @@ export default async function handler(
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
   const Produtos: Array<IProduto> = Request.body.data.Produtos
+  const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
   try{
       const response = await pagarme.client
       .connect({ api_key: process.env.PAGARME_APIKEY})
       .then((client: any) =>
-        client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total)),
+        client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo)),
     )
   /*
    await  pagarme.client.connect({ api_key: process.env.PAGARME_APIKEY })

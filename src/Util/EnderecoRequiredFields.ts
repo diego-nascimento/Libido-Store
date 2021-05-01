@@ -1,5 +1,11 @@
 
-export const  requiredFields = [{
+interface IRequiredFields{
+    field: string,
+    response: string
+}
+
+export const  requiredFields: Array<IRequiredFields> = [
+  {
   field: 'Endereco',
   response: 'address'
   },
