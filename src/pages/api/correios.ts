@@ -13,7 +13,7 @@ export default async function handler(
     const servico: string = Request.body.servico
     
 
-    const response = await api.post(`http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=&sDsSenha=&sCepOrigem=36170000&sCepDestino=${normalize(cep)}&nVlPeso=1&nCdFormato=1&nVlComprimento=15&nVlAltura=10&nVlLargura=10&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=${servico}&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3`)
+    const response = await api.post(`http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=&sDsSenha=&sCepOrigem=36170000&sCepDestino=${normalize(cep)}&nVlPeso=1&nCdFormato=1&nVlComprimento=15&nVlAltura=10&nVlLargura=10&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=${servico}&nVlDiametro=30&StrRetorno=xml&nIndicaCalculo=3`)
     
     const frete = convert.xml2json(response.data, { compact: true })
   

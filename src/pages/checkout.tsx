@@ -400,7 +400,11 @@ const Checkout: React.FC<CarrinhoProps> = ({
                     />
                     {errors && errors.Cep && errors.Cep.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
                 </ContainerInput>
-                {cepValido ? 
+                {
+                  loading ?
+                    <button onClick={(e) => {
+                    }}>Carregando</button> :
+                    cepValido ? 
                   <button onClick={(e) => {
                     e.preventDefault()
                     setcepValido(false)
@@ -409,8 +413,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   <button onClick={(e) => {
                     e.preventDefault()
                     handleCepClick()
-                  }}>Buscar</button>}
-                  
+                  }}>Buscar</button>}  
                 </ContainerCep>
               <div className="Endereco">
                 <Input type="text"
