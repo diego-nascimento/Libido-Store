@@ -53,7 +53,9 @@ export class SavePedidoRepo implements ISaveTransactionRepo{
         Endereco: [{
           kind: 'ComponentEnderecoEndereco',
           ref: endereco._id
-        }]
+        }],
+        freteServico: data.freteInfo.FreteServico,
+        freteValor: data.freteInfo.FreteValor
       })
       return InfoReturned;
     } catch (error) {

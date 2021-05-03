@@ -63,6 +63,11 @@ export default async function handler(
         numero: paymentInfo.numero,
         rua: paymentInfo.rua,
         complemento: paymentInfo.complemento
+      },
+      freteInfo: {
+        FreteServico: FreteInfo.FreteServico,
+        FreteValor: FreteInfo.FreteValor,
+        prazo: FreteInfo.prazo
       }
     })
     const PedidoMail = newPedidoMail()
@@ -71,7 +76,8 @@ export default async function handler(
       email: paymentInfo.email,
       idTransaction: response.id,
       method: 'boleto',
-      status: response.status
+      status: response.status,
+      freteInfo: FreteInfo
     })
       return Response.json(response)  
   } catch (error) {

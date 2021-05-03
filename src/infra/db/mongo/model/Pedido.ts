@@ -23,6 +23,8 @@ const pedidoSchema = new Schema({
       }
     }
   ],
+  freteServico: String,
+  freteValor: String,
   total: Number,
   nome: String,
   whatsapp: String,

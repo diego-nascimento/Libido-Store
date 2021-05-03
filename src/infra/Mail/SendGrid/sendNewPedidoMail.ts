@@ -7,7 +7,7 @@ export class sendNewPedidoMail implements IsendNewPedidoEmail{
   var email = {
     from: 'libidopirauba@gmail.com',
     to: data.email,
-    subject: 'Novo Pedido',
+    subject: 'Libido Love Shop - Novo Pedido',
     template: 'newPedido',
     context: data,
   };

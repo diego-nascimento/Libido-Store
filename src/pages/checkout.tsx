@@ -94,6 +94,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
       unregister('Numero')
       unregister('Endereco')
       unregister('Complemento')
+      requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
+        setValue(field.field as keyof IValues, '')
+      });
+      setValue('Cep', '')
       setShowAddress(false)
       setFretes([
         {
@@ -171,7 +175,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
               Produtos: produtos,
               FreteInfo: {
                 FreteServico: FreteServico,
-                FreteValor: fretes[Frete].valor
+                FreteValor: fretes[Frete].valor,
+                prazo: fretes[Frete].prazo
               }
             }
           })
@@ -207,7 +212,12 @@ const Checkout: React.FC<CarrinhoProps> = ({
             data: {
               info: cardInfo, //informaçoes do comprador e do cartao
               produtos: produtos, //lista de produtos
-              total: totalPagar.toFixed(2) //valor total a se pagar
+              total: totalPagar.toFixed(2), //valor total a se pagar
+              FreteInfo: {
+                FreteServico: FreteServico,
+                FreteValor: fretes[Frete].valor,
+                prazo: fretes[Frete].prazo
+              },
             }
           })
           
@@ -240,8 +250,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
   }
   const getFreteValues = async () => {
     setloading(true)
-    if(normalize(getValues().Cep) === '36170000' || !cepValido){
-      setFretes([
+    if (normalize(getValues().Cep) === '36170000' || !cepValido) {
+      setloading(false)
+      return setFretes([
         {
           valor: 0,
           prazo: 2
@@ -256,11 +267,12 @@ const Checkout: React.FC<CarrinhoProps> = ({
         cep: getValues().Cep,
         servico: '04510'
       })
-      if(response.data.Servicos.cServico.MsgErro._cdata){
+      console.log(response)
+      let ValorStr: string = response.data.Servicos.cServico.Valor._text
+      if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) {
         setloading(false)
         return setcepValido(false)
       }
-      let ValorStr: string = response.data.Servicos.cServico.Valor._text
       const PAC: IFreteInfo = {
         servico: 'PAC',
         prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
@@ -270,7 +282,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
         cep: getValues().Cep,
         servico: '04014'
       })
-       ValorStr = response.data.Servicos.cServico.Valor._text
+      ValorStr = response.data.Servicos.cServico.Valor._text
       const SEDEX: IFreteInfo = {
         servico: 'Sedex',
         prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
@@ -348,10 +360,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
                    />
               <ContainerInput show={true}>
                 <InputMask
-                          mask="999.999.999-99"
-                          placeholder="CPF"
-                          {...register('Cpf', {required: true})}
-                        />
+                  mask="999.999.999-99"
+                  placeholder="CPF"
+                  {...register('Cpf', { required: true })}
+                />
                 {errors && errors.Cpf && errors.Cpf.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
               </ContainerInput>
               <ContainerInput show={true} >
@@ -542,7 +554,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
                     <h2>Frete: {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                  }).format(fretes[Frete].valor)} +
+                    }).format(fretes[Frete].valor)} +
+                      <p style={{ padding: '0px', margin: '0px'}}>Prazo de entrega: {fretes[Frete].prazo} dias</p>
                   </h2>
                   }
 

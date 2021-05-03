@@ -6,6 +6,7 @@ import {ICardPaymentInfo} from '../../../typing/Interfaces/ICardInfo'
 import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo';
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail';
+import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo';
 
 
 export default async function handler(
@@ -18,10 +19,12 @@ export default async function handler(
       const PersonInfo: ICardPaymentInfo = Request.body.data.info
       const Produtos: Array<IProduto> = Request.body.data.produtos
       const total: number = Request.body.data.total
+      const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
+
       const response = await pagarme.client
         .connect({ api_key: process.env.PAGARME_APIKEY})
         .then((client: any) =>
-          client.transactions.create(FillCardInfo(PersonInfo, Produtos, total)),
+          client.transactions.create(FillCardInfo(PersonInfo, Produtos, total, FreteInfo)),
       )
      
       const PedidoSave = SavePedidoFactory()
@@ -45,16 +48,22 @@ export default async function handler(
             numero: PersonInfo.Numero,
             rua: PersonInfo.Endereco,
             complemento: PersonInfo.complemento
+          },
+          freteInfo: {
+            FreteServico: FreteInfo.FreteServico,
+            FreteValor: FreteInfo.FreteValor,
+            prazo: FreteInfo.prazo
           }
         }
       )
       const PedidoMail = newPedidoMail()
-    await PedidoMail.send({
+      await PedidoMail.send({
       Produtos: Produtos,
       email: PersonInfo.email,
       idTransaction: response.id,
       method: 'cartao',
-      status: response.status
+      status: response.status,
+      freteInfo: FreteInfo
     })
       
       return Response.json(response)

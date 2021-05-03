@@ -1,7 +1,8 @@
 import { IProduto } from "../../typing/Interfaces/IProduto"
 import {ICardPaymentInfo} from '../../typing/Interfaces/ICardInfo'
+import { IFreteInfo } from "../../typing/Interfaces/IFreteInfo"
 
-export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProduto>, total: number) => {
+export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProduto>, total: number, FreteInfo: IFreteInfo) => {
   const datapayment = {
     "capture": true,
     "postback_url": `${process.env.POSTBACK_URL}/api/pagamento/postback`,
@@ -25,8 +26,10 @@ export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProd
       ],
       "phone_numbers": [`+55${PersonInfo.Whatsapp}`],
     },
-    "billing": {
+    "shipping": {
       "name": PersonInfo.Nome,
+      "fee": FreteInfo.FreteValor * 100,
+      "expedited": true,
       "address": {
         "country": "br",
         "state": PersonInfo.Estado,
@@ -34,14 +37,11 @@ export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProd
         "neighborhood": PersonInfo.Bairro,
         "street": PersonInfo.Endereco,
         "street_number": PersonInfo.Numero,
-        "zipcode": PersonInfo.Cep,
-        "complementary": PersonInfo.complemento
+        "zipcode": "06714360"
       }
     },
-    "shipping": {
+    "billing": {
       "name": PersonInfo.Nome,
-      "expedited": true,
-      "fee": 1000,
       "address": {
         "country": "br",
         "state": PersonInfo.Estado,
