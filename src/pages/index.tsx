@@ -1,10 +1,10 @@
 import {Banner, TextContainer, Card, Header, Categorias, Container} from '../styles/PageStyles/index.style'
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
-import {api} from '../service/api'
 import {ICategoria} from '../typing/Interfaces/ICategoria'
 import Link from 'next/link'
 import Head from 'next/head'
+import {GetFactory} from '../Factory/http/GetFactory'
 
 interface IHome{
   categorias?: Array<ICategoria>
@@ -59,11 +59,15 @@ export default Home
 
 
 export async function getStaticProps() {
-  const response = await api.get('/categorias')
-  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+  const api = GetFactory()
+  const response = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+ })
+  const revalidateTime: string | undefined = process.env.REVALIDATETIME
     return {
       props: {
-        categorias: response.data
+        categorias: response.body
       },
     }
 }

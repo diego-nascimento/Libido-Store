@@ -3,7 +3,7 @@ import Layout from '../Components/Layout/Layout'
 import ShowProdutos from '../Components/ShowProducts/ShowProdutos'
 import { ICategoria } from '../typing/Interfaces/ICategoria'
 import { IProduto } from '../typing/Interfaces/IProduto'
-import { api } from '../service/api'
+import { GetFactory } from '../Factory/http/GetFactory'
 
 interface IAllProdutos{
   produtos: Array<IProduto>
@@ -25,14 +25,23 @@ const Produtos: React.FC<IAllProdutos> = ({ produtos, categorias }) => {
 export default Produtos
 
 export async function getStaticProps() {
-  const responseProdutos = await api.get('/produtos')
-  const responseCategorias = await api.get('/categorias')
+  const api = GetFactory()
+  const responseProdutos = await api.handle(
+    {
+      url: `${process.env.APIURL}/produtos`,
+      body: null
+    })
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
+  
   
   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
-      categorias: responseCategorias.data,
-      produtos: responseProdutos.data
+      categorias: responseCategorias.body,
+      produtos: responseProdutos.body
     },
   }
 }

@@ -2,7 +2,6 @@ import Head from 'next/head'
 import React from 'react'
 import Layout from '../../Components/Layout/Layout'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import { api } from '../../service/api'
 import {Wrapper, InfoContainer, DescricaoContainer} from '../../styles/PageStyles/produto.style'
 import Link from 'next/link'
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
@@ -16,6 +15,7 @@ import Botao from '../../Components/BotaoComprar/BotaoComprar'
 import { Carousel } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GetFactory } from '../../Factory/http/GetFactory'
 
 
 interface IProdutoPage{
@@ -127,10 +127,15 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
 export default connect()(ProdutoPage)
 
 export async function getStaticPaths() {
-  const response = await api.get('/produtos')
+  const api = GetFactory()
+
+  const response = await api.handle({
+    url: `${process.env.APIURL}/produtos`,
+    body: null
+  })
 
   const params: { params: { id: string } }[] = []
-  response.data.forEach((element:IProduto) => {
+  response.body.forEach((element:IProduto) => {
     params.push({
       params: {
         id: element._id,
@@ -145,11 +150,15 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params }: any) {
-  const responseProdutos = await api.get(`/produtos/${params.id}`)
+  const api = GetFactory()
+  const responseProdutos = await api.handle({
+    url: `${process.env.APIURL}/produtos/${params.id}`,
+    body: null
+  })
   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
-      produto: responseProdutos.data
+      produto: responseProdutos.body
     },
   }
 }

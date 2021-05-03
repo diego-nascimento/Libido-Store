@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import Input from '../Components/Input/Input'
 import { IProduto } from '../typing/Interfaces/IProduto'
 import Router from 'next/router'
-import { api } from '../service/api'
 import * as CartActions from '../store/modules/cart/actions'
 import InputMask from 'react-input-mask'
 import { GoAlert } from 'react-icons/go'
@@ -22,6 +21,7 @@ import { requiredFields } from '../Util/EnderecoRequiredFields'
 import { GetFactory } from '../Factory/http/GetFactory'
 import { IValues } from '../typing/types/ICheckoutValues'
 import { IDataForm } from '../typing/Interfaces/IReactHookDataForm'
+import { PostFactory } from '../Factory/http/PostFactory'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -196,29 +196,37 @@ const Checkout: React.FC<CarrinhoProps> = ({
           prazo: 2
         }
       ])
-    }else{
-      let response = await api.post('api/correios', { //chama a rota de api que vai consultar os correios com as informações do PAC
-        cep: getValues().Cep,
-        servico: '04510'
+    } else {
+      const postApi = PostFactory()
+      let response = await postApi.handle({
+        url: 'api/correios',
+        body: {
+          cep: getValues().Cep,
+          servico: '04510'
+        }
       })
-      let ValorStr: string = response.data.Servicos.cServico.Valor._text //a informação vem em xml e como texto
+      
+      let ValorStr: string = response.body.Servicos.cServico.Valor._text //a informação vem em xml e como texto
       if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) { //se o valor do serviço retornado, quer dizer que algo esta errado nas informações do correio
         setloading(false)  //finaliza o esado de carregamento
         return setcepValido(false) //com isso o cep fica invalido
       }
       const PAC: IFreteInfo = { //organiza as informações do PAC
         servico: 'PAC',
-        prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
+        prazoDeEntrega: response.body.Servicos.cServico.PrazoEntrega._text,
         valor: Number.parseFloat(ValorStr.replace(',', '.'))
       }
-      response = await api.post('api/correios', { //faz a pesquisa na api do correio com as informações do SEDEX
-        cep: getValues().Cep,
-        servico: '04014'
+      response = await postApi.handle({
+        url: 'api/correios',
+        body: {
+          cep: getValues().Cep,
+          servico: '04014'
+        }
       })
-      ValorStr = response.data.Servicos.cServico.Valor._text //xml em texto
+      ValorStr = response.body.Servicos.cServico.Valor._text //xml em texto
       const SEDEX: IFreteInfo = {
         servico: 'Sedex',
-        prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
+        prazoDeEntrega: response.body.Servicos.cServico.PrazoEntrega._text,
         valor: Number.parseFloat(ValorStr.replace(',', '.'))
       }
   
@@ -248,6 +256,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
       setError(true)
       return
     }
+    const postApi = PostFactory()
     let FreteServico: string
     if(normalize(data.Cep) === '36170000'){ //se o frete é para o cep 36170000, iremos entregar na casa
       FreteServico = 'Entregaremos em sua casa'
@@ -274,8 +283,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
             whatsapp: data.Whatsapp,
             complemento: data.Complemento
           }
-          response = await api.post('api/pagamento/boleto', { //chamado para realizar o pedido pelo boleto
-            data: {
+          response = await postApi.handle({
+            url: 'api/pagamento/boleto',
+            body: {
+              data: {
               info: boletoInfo,
               total: totalPagar.toFixed(2),
               Produtos: produtos,
@@ -285,8 +296,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 prazo: fretes[Frete].prazo
               }
             }
-          })
-          if (response.data.status === 'processing') { //se o estado esta como processing, quer dizer que deu certo
+            }
+          }) 
+          if (response.body.status === 'processing') { //se o estado esta como processing, quer dizer que deu certo
             dispatch(CartActions.LimparCarrinho()) //limpa carrinho
             return Router.replace('/success') //vai pra pagina de sucesso
           } else {
@@ -314,8 +326,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
               parcelas: data.parcelas
             }
           }
-          response = await api.post('api/pagamento/cartao', { //realiza chamada na api para compra com cartao
-            data: {
+          response = await postApi.handle({
+            url: 'api/pagamento/cartao',
+            body: {
+              data: {
               info: cardInfo, //informaçoes do comprador e do cartao
               produtos: produtos, //lista de produtos
               total: totalPagar.toFixed(2), //valor total a se pagar
@@ -325,9 +339,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 prazo: fretes[Frete].prazo
               },
             }
+            }
           })
           
-          if (response.data.status === 'paid' || response.data.status === 'processing') { //se retornar paid or processing, quer dizer q deu certo, a menos que o algo errado aconteça. 
+          if (response.body.status === 'paid' || response.body.status === 'processing') { //se retornar paid or processing, quer dizer q deu certo, a menos que o algo errado aconteça. 
             dispatch(CartActions.LimparCarrinho()) 
             Router.replace('/success')
           } else {
