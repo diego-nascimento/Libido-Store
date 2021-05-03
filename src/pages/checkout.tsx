@@ -30,6 +30,12 @@ interface CarrinhoProps{
   dispatch: any
 }
 
+interface IFreteInfo{
+    servico: string,
+    valor: number,
+    prazoDeEntrega: string
+  }
+
 const Checkout: React.FC<CarrinhoProps> = ({
   produtos,
   tamanho_carrinho,
@@ -49,9 +55,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
     Bairro: true,
     Endereco: true
   })
-  const [Frete, setFrete] = React.useState(0)
-  const [cepValido, setcepValido] = React.useState(false)
-  const [fretes, setFretes] = React.useState([
+  const [Frete, setFrete] = React.useState(0) //Qual frete foi selecionado, 0 para boleto, 1 para cartao
+  const [cepValido, setcepValido] = React.useState(false) //estado que define se um cep valido foi inserido ou nao
+  const [fretes, setFretes] = React.useState([ //estado onde sao salvos as informações sobre os serviços de frete
     {
       valor: 0,
       prazo: 0
@@ -62,18 +68,26 @@ const Checkout: React.FC<CarrinhoProps> = ({
   ])
   const [showAddress, setShowAddress] = React.useState(false) //State se deve ou não mostrar os campos de endereço
 
+  
+  React.useEffect(() => { //se nao tiver produtos no carrinho, vai pra pagina de produtos
+    tamanho_carrinho < 1 && Router.push('/produtos')
+  }, [])
+
   React.useEffect(() => { //calcula o valor atualizado baseado no numero de parcelas
     if (paymentMethod === 0) { //se o metodo for boleto
       setParcelas(1) //vai ser sempre apenas uma parcela
       settotalPagar(total + fretes[Frete].valor) //e o valor vai ser sempre o inicial
     } else {
       if (total < 200) { //acima de 200 reais sem juros
-          settotalPagar((total + fretes[Frete].valor) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
+        settotalPagar((total + fretes[Frete].valor) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
+        
         
         /*
           calculando o valor atualizado baseado na parcela -
           (valor dos produtos + valor do frete) + ((valor dos produtos + frete) * a porcentagem de acrescimo do parcelamento))
 
+          fretes = estado onde estao salvos as informações referente aos serviços de frete
+          Frete = Qual serviço esta selecionado, PAC ou sedex
           Parcelas = Array com as quantidades de parcelas e os seus acrescimos
           parcelas = numero de parcelas selecionada pelo usuario
         */
@@ -81,25 +95,22 @@ const Checkout: React.FC<CarrinhoProps> = ({
     }
   }, [parcelas, paymentMethod, Frete, fretes])
 
-  const handleChangeParcelas = (e: any) => { //seta o numero de parcelas
-    const indice = Number.parseInt(e.target.value) //transforma o valor em numero
-    setParcelas(Parcelas[indice].numero) //pega da tabela de parcelas o numero dela baseado no indice do select
-  }
+
   
-  React.useEffect(() => {
+  React.useEffect(() => { //atualiza os campos de endereço se o estado de cep valido alterar
     if (!cepValido) {
-      unregister('Cidade')
+      unregister('Cidade') //faz com q o react hook form nao registre os valores de endereço 
       unregister('Estado')
       unregister('Bairro')
       unregister('Numero')
       unregister('Endereco')
       unregister('Complemento')
-      requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
+      requiredFields.forEach(field => { //Limpa os campos de Endereço quando um Cep valido nao esta inserido
         setValue(field.field as keyof IValues, '')
       });
       setValue('Cep', '')
       setShowAddress(false)
-      setFretes([
+      setFretes([ //reseta valores de frete
         {
           valor: 0,
           prazo: 2
@@ -137,18 +148,113 @@ const Checkout: React.FC<CarrinhoProps> = ({
     }
   }, [paymentMethod])
 
+
+
+  
+  const handleCepClick = async () => { //FUnction que lida com a consulta de informações do cep
+    const Get = GetFactory()
+    const response = await Get.handle({ body: {}, url: `https://ws.apicep.com/cep/${getValues().Cep}.json` })
+    if (response.StatusCode !== 200) { //se der erro na busca do cep, deu erro
+      return
+    }
+    let Temporary: any = { ...addressEditable } //Copiando o State de Editaveis
+    setcepValido(false)
+    
+    requiredFields.forEach(field => { //Reseta todos os campos antes da consulta
+      Temporary[field.field] = true
+    });
+
+    
+    if (response.body.status === 200) { //Se A consulta der certo
+      requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
+        if (response.body[field.response] !== null && response.body[field.response] !== '') { // Se essa condição for verdadeira, entao o cep é valido
+          setcepValido(true) //Seta o Cep como valido
+          setShowAddress(true)  //Seta para mostrar os campos de endereço
+          setValue(field.field as keyof IValues, response.body[field.response], {shouldValidate: true}) //inseri o valor no campo e faz a validação atrasves do reacthookform
+        } else {  //Se uma informção não esta disponivel, o campo fica editavel
+          Temporary[field.field] = false 
+        }
+      });
+      
+    }
+    setAddressEditable(Temporary) //Altera o estado com os campos editaveis
+  }  
+
+  
+  
+  const getFreteValues = async () => { //função que conslta no correio os valores e serviços de frete
+    setloading(true)
+    if (normalize(getValues().Cep) === '36170000' || !cepValido) { // se o cep é de pirauba, prazo é de 2 dias e o valor é 0
+      setloading(false)
+      return setFretes([
+        {
+          valor: 0,
+          prazo: 2
+        },
+        {
+          valor: 0,
+          prazo: 2
+        }
+      ])
+    }else{
+      let response = await api.post('api/correios', { //chama a rota de api que vai consultar os correios com as informações do PAC
+        cep: getValues().Cep,
+        servico: '04510'
+      })
+      let ValorStr: string = response.data.Servicos.cServico.Valor._text //a informação vem em xml e como texto
+      if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) { //se o valor do serviço retornado, quer dizer que algo esta errado nas informações do correio
+        setloading(false)  //finaliza o esado de carregamento
+        return setcepValido(false) //com isso o cep fica invalido
+      }
+      const PAC: IFreteInfo = { //organiza as informações do PAC
+        servico: 'PAC',
+        prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
+        valor: Number.parseFloat(ValorStr.replace(',', '.'))
+      }
+      response = await api.post('api/correios', { //faz a pesquisa na api do correio com as informações do SEDEX
+        cep: getValues().Cep,
+        servico: '04014'
+      })
+      ValorStr = response.data.Servicos.cServico.Valor._text //xml em texto
+      const SEDEX: IFreteInfo = {
+        servico: 'Sedex',
+        prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
+        valor: Number.parseFloat(ValorStr.replace(',', '.'))
+      }
+  
+      setFretes([ //seta o estado com os novos valores dos serviços de frete
+        {
+          valor: PAC.valor,
+          prazo: Number.parseInt(PAC.prazoDeEntrega)
+        },
+        {
+          valor: SEDEX.valor,
+          prazo: Number.parseInt(SEDEX.prazoDeEntrega)
+        }
+      ])
+    }   
+    setloading(false)
+  }
+
+
+
+  const handleChangeParcelas = (e: any) => { //seta o numero de parcelas
+    const indice = Number.parseInt(e.target.value) //transforma o valor em numero
+    setParcelas(Parcelas[indice].numero) //pega da tabela de parcelas o numero dela baseado no indice do select
+  }
+  
   const handleSubmitForm = async (data: IDataForm) => {
-    if (!cepValido) {
+    if (!cepValido) { //se ao apertar em finalizar pedido, o cep estiver invalido. Setar como error
       setError(true)
       return
     }
     let FreteServico: string
-    if(normalize(data.Cep) === '36170000'){
+    if(normalize(data.Cep) === '36170000'){ //se o frete é para o cep 36170000, iremos entregar na casa
       FreteServico = 'Entregaremos em sua casa'
     }else{
       FreteServico = Frete === 0 ? 'PAC': 'SEDEX';
     }
-    data.parcelas = parcelas
+    data.parcelas = parcelas //recupera o numero de parcelas
     try {
       setloading(true)
       setError(false);
@@ -221,7 +327,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
             }
           })
           
-          if (response.data.status === 'paid' || response.data.status === 'processing') { //se retornar paid or processing, quer dizer q parece q vai dar certo
+          if (response.data.status === 'paid' || response.data.status === 'processing') { //se retornar paid or processing, quer dizer q deu certo, a menos que o algo errado aconteça. 
             dispatch(CartActions.LimparCarrinho()) 
             Router.replace('/success')
           } else {
@@ -238,99 +344,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     
   }
 
-  React.useEffect(() => { //se nao tiver produtos no carrinho, vai pra pagina de produtos
-    tamanho_carrinho < 1 && Router.push('/produtos')
-  }, [])
 
-
-  interface IFreteInfo{
-    servico: string,
-    valor: number,
-    prazoDeEntrega: string
-  }
-  const getFreteValues = async () => {
-    setloading(true)
-    if (normalize(getValues().Cep) === '36170000' || !cepValido) {
-      setloading(false)
-      return setFretes([
-        {
-          valor: 0,
-          prazo: 2
-        },
-        {
-          valor: 0,
-          prazo: 2
-        }
-      ])
-    }else{
-      let response = await api.post('api/correios', {
-        cep: getValues().Cep,
-        servico: '04510'
-      })
-      console.log(response)
-      let ValorStr: string = response.data.Servicos.cServico.Valor._text
-      if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) {
-        setloading(false)
-        return setcepValido(false)
-      }
-      const PAC: IFreteInfo = {
-        servico: 'PAC',
-        prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
-        valor: Number.parseFloat(ValorStr.replace(',', '.'))
-      }
-      response = await api.post('api/correios', {
-        cep: getValues().Cep,
-        servico: '04014'
-      })
-      ValorStr = response.data.Servicos.cServico.Valor._text
-      const SEDEX: IFreteInfo = {
-        servico: 'Sedex',
-        prazoDeEntrega: response.data.Servicos.cServico.PrazoEntrega._text,
-        valor: Number.parseFloat(ValorStr.replace(',', '.'))
-      }
-  
-      setFretes([
-        {
-          valor: PAC.valor,
-          prazo: Number.parseInt(PAC.prazoDeEntrega)
-        },
-        {
-          valor: SEDEX.valor,
-          prazo: Number.parseInt(SEDEX.prazoDeEntrega)
-        }
-      ])
-    }   
-    setloading(false)
-  }
-
-  const handleCepClick = async () => { //FUnction que lida com a consulta do cep
-    const Get = GetFactory()
-    const response = await Get.handle({ body: {}, url: `https://ws.apicep.com/cep/${getValues().Cep}.json` })
-    if (response.StatusCode !== 200) { //se der erro na busca do cep, deu erro
-      return
-    }
-    let Temporary: any = { ...addressEditable } //Copiando o State de Editaveis
-    setcepValido(false)
-    
-    requiredFields.forEach(field => { //Reseta todos os campos antes da consulta
-      Temporary[field.field] = true
-    });
-
-    
-    if (response.body.status === 200) { //Se A consulta der certo
-      requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
-        if (response.body[field.response] !== null && response.body[field.response] !== '') { // Se essa condição for verdadeira, entao o frete é valido
-          setcepValido(true) //Seta o Cep como valido
-          setShowAddress(true)  //Seta para mostrar os campos de endereço
-          setValue(field.field as keyof IValues, response.body[field.response], {shouldValidate: true})
-        } else {  //Se uma informção não esta disponivel, o campo fica editavel
-          Temporary[field.field] = false
-        }
-      });
-      
-    }
-    setAddressEditable(Temporary) //Seta os Campos selecionados
-  }  
 
 
   return(
