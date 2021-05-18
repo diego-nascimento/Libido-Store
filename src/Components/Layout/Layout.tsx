@@ -10,9 +10,10 @@ import * as CartActions from '../../store/modules/cart/actions'
 interface ILayout {
   children: any
   dispatch: any
+  carrinho?: boolean
 }
 
-const Layout: React.FC<ILayout> = ({ children, dispatch }) => {
+const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho }) => {
   const [Loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
@@ -28,7 +29,7 @@ const Layout: React.FC<ILayout> = ({ children, dispatch }) => {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Nav />
+      <Nav carrinho={carrinho}/>
       <Main >
         {children}
       </Main>

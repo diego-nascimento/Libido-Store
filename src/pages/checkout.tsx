@@ -359,11 +359,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
     
   }
 
-
-
-
   return(
-    <Layout>
+    <Layout carrinho={true}>
       <Head>
         <title>Libido LoveShop - Checkout </title>
       </Head>
@@ -579,7 +576,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   <h2>SubTotal: {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                    }).format(total)}  +   
+                    }).format(total)}  {fretes[Frete].valor === 0 ? null: '+'}   
                   </h2>
                   
                   {fretes[Frete].valor === 0 ? null: 
