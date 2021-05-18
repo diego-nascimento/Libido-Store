@@ -31,7 +31,7 @@ export async function getStaticPaths() {
   const api = GetFactory()
 
   const response = await api.handle({
-    url: `${process.env.APIURL}categorias`,
+    url: `${process.env.APIURL}/categorias`,
     body: null
   })
 

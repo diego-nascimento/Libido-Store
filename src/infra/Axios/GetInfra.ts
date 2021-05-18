@@ -25,7 +25,9 @@ export class GetInfra implements IGetInfra{
         body: response.data
       }
     } catch (error) {
+      console.log(error)
       return {
+        
         StatusCode: 500,
         body: 'Algo deu Errado, Tente mais tarde'
       }

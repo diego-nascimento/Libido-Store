@@ -62,7 +62,7 @@ export async function getStaticProps() {
   const api = GetFactory()
   const response = await api.handle({
     body: null,
-    url: `${process.env.APIURL}categorias`
+    url: `${process.env.APIURL}/categorias`
  })
   const revalidateTime: string | undefined = process.env.REVALIDATETIME
     return {
