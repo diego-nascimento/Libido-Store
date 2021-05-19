@@ -8,6 +8,7 @@ export interface IemailNewPedidoEntry{
   email: string
   status: string
   freteInfo: IFreteInfo
+  boletoURL?: string
 }
 
 export interface emailNewPedido{

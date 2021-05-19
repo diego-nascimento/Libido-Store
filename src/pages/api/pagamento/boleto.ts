@@ -77,7 +77,8 @@ export default async function handler(
       idTransaction: response.id,
       method: 'boleto',
       status: response.status,
-      freteInfo: FreteInfo
+      freteInfo: FreteInfo,
+      boletoURL: response.boleto_url + '?format=pdf'
     })
       return Response.json(response)  
   } catch (error) {

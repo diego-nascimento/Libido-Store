@@ -26,8 +26,6 @@ export default async function handler(
         .then((client: any) =>
           client.transactions.create(FillCardInfo(PersonInfo, Produtos, total, FreteInfo)),
       )
-
-      console.log(response)
      
       const PedidoSave = SavePedidoFactory()
       PedidoSave.save(
@@ -71,7 +69,6 @@ export default async function handler(
       return Response.json(response)
     } catch (error) {
       return Response.json(error)
-    
     }
   }
 }
