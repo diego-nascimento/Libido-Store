@@ -26,6 +26,8 @@ export default async function handler(
         .then((client: any) =>
           client.transactions.create(FillCardInfo(PersonInfo, Produtos, total, FreteInfo)),
       )
+
+      console.log(response)
      
       const PedidoSave = SavePedidoFactory()
       PedidoSave.save(
