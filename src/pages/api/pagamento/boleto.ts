@@ -26,7 +26,6 @@ export default async function handler(
   Request: NextApiRequest,
   Response: NextApiResponse,
 ) {
-
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
   const Produtos: Array<IProduto> = Request.body.data.Produtos
@@ -37,13 +36,14 @@ export default async function handler(
       .then((client: any) =>
         client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo)),
     )
-  
+
+  /*
    await  pagarme.client.connect({ api_key: process.env.PAGARME_APIKEY })
   .then((client:any) => client.transactions.collectPayment({
     id: response.id,
     email: paymentInfo.email,
   }))
-   
+   */
     const savePedido = SavePedidoFactory()
     await savePedido.save({
       email: paymentInfo.email,

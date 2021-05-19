@@ -14,7 +14,6 @@ interface IShowProdutos{
 }
 
 const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) => {
-  console.log(produtos, categorias)
   return(
     <Wrapper className="Container">
       <h1>{title}</h1>
