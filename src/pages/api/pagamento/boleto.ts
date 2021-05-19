@@ -44,6 +44,7 @@ export default async function handler(
     email: paymentInfo.email,
   }))
    */
+    console.log(response)
     const savePedido = SavePedidoFactory()
     await savePedido.save({
       email: paymentInfo.email,
