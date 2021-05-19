@@ -37,13 +37,13 @@ export default async function handler(
       .then((client: any) =>
         client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo)),
     )
-  /*
+  
    await  pagarme.client.connect({ api_key: process.env.PAGARME_APIKEY })
   .then((client:any) => client.transactions.collectPayment({
     id: response.id,
     email: paymentInfo.email,
   }))
-   */
+   
     const savePedido = SavePedidoFactory()
     await savePedido.save({
       email: paymentInfo.email,
