@@ -32,7 +32,7 @@ export default async function handler(
   const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
   try{
       const response = await pagarme.client
-      .connect({ encryption_key: process.env.PAGARME_APIKEY})
+      .connect({ encryption_key: process.env.PAGARME_ENCRYPTIONKEY})
       .then((client: any) =>
         client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo)),
     )
