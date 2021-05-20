@@ -1,5 +1,5 @@
 import React from 'react'
-import { IProduto } from '../../Interfaces/IProduto'
+import { IProduto } from '../../typing/Interfaces/IProduto'
 import {Card, ImagemContainer} from './ProdutoItem.style'
 import { Carousel } from 'react-bootstrap';
 import VisibilitySensor from 'react-visibility-sensor'

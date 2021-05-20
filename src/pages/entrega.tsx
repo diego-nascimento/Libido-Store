@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import {SobreContainer, Container, InfoContainer} from '../PageStyles/entrega.style'
+import {SobreContainer, Container, InfoContainer} from '../styles/PageStyles/entrega.style'
 
 
 const Entrega: React.FC = () => {
@@ -9,7 +9,6 @@ const Entrega: React.FC = () => {
     <Layout>
       <Head>
         <title>Libido LoveShop- Entregas</title>
-        
       </Head>
       <SobreContainer>
         <Container className="Container">
@@ -50,7 +49,6 @@ const Entrega: React.FC = () => {
             </p>
           </InfoContainer>
         </Container>
-
       </SobreContainer>
     </Layout>
     

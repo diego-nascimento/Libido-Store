@@ -7,9 +7,10 @@ import {connect} from 'react-redux'
 
 interface INav{
   tamanho_carrinho: number
+  carrinho?: boolean
 }
 
-const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
+const Nav: React.FC<INav> = ({tamanho_carrinho, carrinho}) => {
   const [MenuState, setMenuState] = React.useState(false)
   const [MenuBackGround, setMenuBackground] = React.useState(false)
 
@@ -64,13 +65,13 @@ const Nav: React.FC<INav> = ({tamanho_carrinho}) => {
             </Link> 
           </li>
         </Lista>
-        <Link href="/carrinho">
+        {!carrinho ? <Link href="/carrinho">
             <a className="CarrinhoButton">
               <FaShoppingBag className="Cart" />
               {tamanho_carrinho > 0 ? <p>{tamanho_carrinho} </p> : null
               }
             </a>
-        </Link>
+        </Link>: null}
         </ContainerNav>
       </Navegacao>
     </Wrapper>

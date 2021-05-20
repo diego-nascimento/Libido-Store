@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { GTM_ID } from '../Util/GTM';
+import { GA_TRACKING_ID } from '../Util/GTM';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -35,6 +35,22 @@ export default class MyDocument extends Document {
         <Head>
           <meta charset="UTF-8"></meta>
           <link rel="icon" href="/favicon.ico" />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                page_path: window.location.pathname,
+              });
+          `,
+            }}
+          />
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0"

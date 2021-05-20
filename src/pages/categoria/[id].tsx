@@ -1,9 +1,11 @@
 import Head from "next/head"
 import Layout from "../../Components/Layout/Layout"
 import ShowProdutos from "../../Components/ShowProducts/ShowProdutos"
-import { ICategoria } from "../../Interfaces/ICategoria"
-import { IProduto } from "../../Interfaces/IProduto"
-import { api } from "../../service/api"
+import { GetFactory } from "../../Factory/http/GetFactory"
+import { ICategoria } from "../../typing/Interfaces/ICategoria"
+import { IProduto } from "../../typing/Interfaces/IProduto"
+
+
 
 interface IAllProdutos{
   produtos: Array<IProduto>
@@ -26,10 +28,15 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categor
 export default ProdutoCategoria
 
 export async function getStaticPaths() {
-  const response = await api.get('/categorias')
+  const api = GetFactory()
+
+  const response = await api.handle({
+    url: `${process.env.APIURL}/categorias`,
+    body: null
+  })
 
   const params: { params: { id: string } }[] = []
-  response.data.forEach((element:ICategoria) => {
+  response.body.forEach((element:IProduto) => {
     params.push({
       params: {
         id: element._id,
@@ -43,16 +50,26 @@ export async function getStaticPaths() {
 }
 
 
-export async function getStaticProps({params}:any) {
-  const responseProdutos = await api.get( `/produtos?categorias._id=${params.id}`)
-  const responseCategorias = await api.get('/categorias')
-  const responseCategoriaAtual = await api.get(`/categorias/${params.id}`)
+export async function getStaticProps({ params }: any) {
+  const api = GetFactory()
+  const responseProdutos = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/produtos?categorias._id=${params.id}`
+  })
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
+  const responseCategoriaAtual = await api.handle({
+    url: `${process.env.APIURL}/categorias/${params.id}`,
+    body: null
+  })
    const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
-      categorias: responseCategorias.data,
-      produtos: responseProdutos.data,
-      categoria: responseCategoriaAtual.data
+      categorias: responseCategorias.body,
+      produtos: responseProdutos.body,
+      categoria: responseCategoriaAtual.body
     },
   }
 }
