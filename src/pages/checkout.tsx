@@ -12,7 +12,6 @@ import InputMask from 'react-input-mask'
 import { GoAlert } from 'react-icons/go'
 import {Container as ContainerInput} from '../Components/Input/Input.style'
 import { styles } from '../styles/styles'
-import { ICardPaymentInfo } from '../typing/Interfaces/ICardInfo'
 import {normalize} from '../Util/Normalize'
 import { IBoletoInfo } from './api/pagamento/boleto'
 import {estados} from '../Util/Estados'
@@ -22,6 +21,9 @@ import { GetFactory } from '../Factory/http/GetFactory'
 import { IValues } from '../typing/types/ICheckoutValues'
 import { IDataForm } from '../typing/Interfaces/IReactHookDataForm'
 import { PostFactory } from '../Factory/http/PostFactory'
+import { PagamentoCard } from '../Util/Pagamentos/PagamentoCard'
+import { IFreteInfo } from '../typing/Interfaces/IFreteInfo'
+import { PagamentoBoleto } from '../Util/Pagamentos/PagamentoBoleto'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
@@ -30,11 +32,6 @@ interface CarrinhoProps{
   dispatch: any
 }
 
-interface IFreteInfo{
-    servico: string,
-    valor: number,
-    prazoDeEntrega: string
-  }
 
 const Checkout: React.FC<CarrinhoProps> = ({
   produtos,
@@ -47,6 +44,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [paymentMethod, setpaymentMethod] = React.useState(0)
   const [loading, setloading] = React.useState(false)
   const [error, setError] = React.useState(false)
+  const [errorsMessages, setErrorsMessages] = React.useState<string[]>([])
   const [parcelas, setParcelas] = React.useState(1)
   const [totalPagar, settotalPagar] = React.useState(total)
   const [addressEditable, setAddressEditable] = React.useState({ //State se campos estão editaveis ou não
@@ -59,10 +57,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const [cepValido, setcepValido] = React.useState(false) //estado que define se um cep valido foi inserido ou nao
   const [fretes, setFretes] = React.useState([ //estado onde sao salvos as informações sobre os serviços de frete
     {
-      valor: 0,
+      FreteValor: 0,
       prazo: 0
     }, {
-      valor: 0,
+      FreteValor: 0,
       prazo: 0
     }
   ])
@@ -76,10 +74,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
   React.useEffect(() => { //calcula o valor atualizado baseado no numero de parcelas
     if (paymentMethod === 0) { //se o metodo for boleto
       setParcelas(1) //vai ser sempre apenas uma parcela
-      settotalPagar(total + fretes[Frete].valor) //e o valor vai ser sempre o inicial
+      settotalPagar(total + fretes[Frete].FreteValor) //e o valor vai ser sempre o inicial
     } else {
       if (total < 200) { //acima de 200 reais sem juros
-        settotalPagar((total + fretes[Frete].valor) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
+        settotalPagar((total + fretes[Frete].FreteValor) + ((total + Frete) * Parcelas[parcelas - 1].acrescimo / 100))
         
         
         /*
@@ -112,11 +110,11 @@ const Checkout: React.FC<CarrinhoProps> = ({
       setShowAddress(false)
       setFretes([ //reseta valores de frete
         {
-          valor: 0,
+          FreteValor: 0,
           prazo: 2
         },
         {
-          valor: 0,
+          FreteValor: 0,
           prazo: 2
         }
       ])
@@ -155,8 +153,13 @@ const Checkout: React.FC<CarrinhoProps> = ({
     const Get = GetFactory()
     const response = await Get.handle({ body: {}, url: `https://api.pagar.me/1/zipcodes/${getValues().Cep}` })
     if (response.StatusCode !== 200) { //se der erro na busca do cep, deu erro
+      setError(true)
+      if(!errorsMessages.find(error => error === 'Por favor, insira um CEP valido' )){
+        setErrorsMessages([...errorsMessages, 'Por favor, insira um CEP valido'])
+      }
       return
     }
+    setErrorsMessages(errorsMessages.filter(error => error !== 'Por favor, insira um CEP valido'))
     let Temporary: any = { ...addressEditable } //Copiando o State de Editaveis
     setcepValido(false)
     
@@ -178,6 +181,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
       
     }
     setAddressEditable(Temporary) //Altera o estado com os campos editaveis
+    setError(false)
   }  
 
   
@@ -188,11 +192,11 @@ const Checkout: React.FC<CarrinhoProps> = ({
       setloading(false)
       return setFretes([
         {
-          valor: 0,
+          FreteValor: 0,
           prazo: 2
         },
         {
-          valor: 0,
+          FreteValor: 0,
           prazo: 2
         }
       ])
@@ -212,9 +216,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
         return setcepValido(false) //com isso o cep fica invalido
       }
       const PAC: IFreteInfo = { //organiza as informações do PAC
-        servico: 'PAC',
-        prazoDeEntrega: response.body.Servicos.cServico.PrazoEntrega._text,
-        valor: Number.parseFloat(ValorStr.replace(',', '.'))
+        FreteServico: 'PAC',
+        prazo: Number.parseInt(response.body.Servicos.cServico.PrazoEntrega._text),
+        FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
       }
       response = await postApi.handle({
         url: 'api/correios',
@@ -225,19 +229,19 @@ const Checkout: React.FC<CarrinhoProps> = ({
       })
       ValorStr = response.body.Servicos.cServico.Valor._text //xml em texto
       const SEDEX: IFreteInfo = {
-        servico: 'Sedex',
-        prazoDeEntrega: response.body.Servicos.cServico.PrazoEntrega._text,
-        valor: Number.parseFloat(ValorStr.replace(',', '.'))
+        FreteServico: 'Sedex',
+        prazo: Number.parseInt(response.body.Servicos.cServico.PrazoEntrega._text),
+        FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
       }
   
       setFretes([ //seta o estado com os novos valores dos serviços de frete
         {
-          valor: PAC.valor,
-          prazo: Number.parseInt(PAC.prazoDeEntrega)
+          FreteValor: PAC.FreteValor,
+          prazo: PAC.prazo
         },
         {
-          valor: SEDEX.valor,
-          prazo: Number.parseInt(SEDEX.prazoDeEntrega)
+          FreteValor: SEDEX.FreteValor,
+          prazo: SEDEX.prazo
         }
       ])
     }   
@@ -254,9 +258,13 @@ const Checkout: React.FC<CarrinhoProps> = ({
   const handleSubmitForm = async (data: IDataForm) => {
     if (!cepValido) { //se ao apertar em finalizar pedido, o cep estiver invalido. Setar como error
       setError(true)
+      if(!errorsMessages.find(error => error === 'Um CEP valido deve ser buscado' )){
+        setErrorsMessages([...errorsMessages, 'Um CEP valido deve ser buscado'])
+      }
       return
     }
-    const postApi = PostFactory()
+    setErrorsMessages(errorsMessages.filter(error => error !== 'Um CEP valido deve ser buscado'))
+    
     let FreteServico: string
     if(normalize(data.Cep) === '36170000'){ //se o frete é para o cep 36170000, iremos entregar na casa
       FreteServico = 'Entregaremos em sua casa'
@@ -267,96 +275,53 @@ const Checkout: React.FC<CarrinhoProps> = ({
     try {
       setloading(true)
       setError(false);
-      let response
       switch (paymentMethod) {
         case 0: //Metodo de pagamentot boleto
-          const boletoInfo: IBoletoInfo = { //preenchendo as informações de comprador do boleto
-            cpf: normalize(data.Cpf),
-            nome: data.Nome,
-            bairro: data.Bairro,
-            cep: normalize(data.Cep),
-            cidade: data.Cidade,
-            estado: data.Estado,
-            numero: data.Numero,
-            rua: data.Endereco,
-            email: data.email,
-            whatsapp: data.Whatsapp,
-            complemento: data.Complemento
-          }
-          response = await postApi.handle({
-            url: 'api/pagamento/boleto',
-            body: {
-              data: {
-              info: boletoInfo,
-              total: totalPagar.toFixed(2),
-              Produtos: produtos,
-              FreteInfo: {
-                FreteServico: FreteServico,
-                FreteValor: fretes[Frete].valor,
-                prazo: fretes[Frete].prazo
-              }
-            }
-            }
-          }) 
-          if (response.body.status === 'waiting_payment') { //se o estado esta como processing, quer dizer que deu certo
+          const boletoPaymentResponse = await PagamentoBoleto({
+            produtos,
+            data, 
+            FreteServico,
+            Frete: fretes[Frete],
+            totalPagar
+          })
+          if (boletoPaymentResponse.body.status === 'waiting_payment') { //se o estado esta como processing, quer dizer que deu certo
             dispatch(CartActions.LimparCarrinho()) //limpa carrinho
             return Router.replace('/success') //vai pra pagina de sucesso
           } else {
-            setError(true) //caso contrario, deu error
+            setError(true)
+            if(!errorsMessages.find(error => error === 'Algo deu Errado, por favor verifique as informações e tente novamente' )){
+              setErrorsMessages([...errorsMessages, 'Algo deu Errado, por favor verifique as informações e tente novamente'])
+            }
           }
           break;
         default: //metodo de pagamento cartao de credito
-          const cardInfo: ICardPaymentInfo = { //preenche informações do comprador para compra com cartao
-            Bairro: data.Bairro,
-            Nome: data.Nome,
-            Cpf: normalize(data.Cpf),
-            Cidade: data.Cidade,
-            Endereco: data.Endereco,
-            complemento: data.Complemento,
-            Estado: data.Estado,
-            Numero: normalize(data.Numero),
-            Whatsapp: normalize(data.Whatsapp),
-            Cep: normalize(data.Cep),
-            email: data.email,
-            cardInfo: {
-              CardCVC: normalize(data.CardCVC),
-              CardExpire: normalize(data.CardExpire),
-              CardName: data.CardName,
-              CardNumber: normalize(data.CardNumber),
-              parcelas: data.parcelas
-            }
-          }
-          response = await postApi.handle({
-            url: 'api/pagamento/cartao',
-            body: {
-              data: {
-              info: cardInfo, //informaçoes do comprador e do cartao
-              produtos: produtos, //lista de produtos
-              total: totalPagar.toFixed(2), //valor total a se pagar
-              FreteInfo: {
-                FreteServico: FreteServico,
-                FreteValor: fretes[Frete].valor,
-                prazo: fretes[Frete].prazo
-              },
-            }
-            }
+          const cardPaymentResponse = await PagamentoCard({
+            produtos,
+            data,
+            FreteServico,
+            Frete: fretes[Frete],
+            totalPagar
           })
-          
-          if (response.body.status === 'paid' || response.body.status === 'processing') { //se retornar paid or processing, quer dizer q deu certo, a menos que o algo errado aconteça. 
+          if (cardPaymentResponse.body.status === 'paid' || cardPaymentResponse.body.status === 'processing') { //se retornar paid or processing, quer dizer q deu certo, a menos que o algo errado aconteça. 
             dispatch(CartActions.LimparCarrinho()) 
             Router.replace('/success')
           } else {
             setError(true)
+            if(!errorsMessages.find(error => error === 'Algo deu Errado, por favor verifique as informações e tente novamente' )){
+              setErrorsMessages([...errorsMessages, 'Algo deu Errado, por favor verifique as informações e tente novamente'])
+            }
           }
           break;
       }
 
     } catch (error) { //se algo der errado, set o erro
       setError(true)
+      if(!errorsMessages.find(error => error === 'Algo deu errado, verifique as informações e tente novamente!' )){
+        setErrorsMessages([...errorsMessages, 'Algo deu errado, verifique as informações e tente novamente!'])
+      }
     } finally {
       setloading(false)
     }
-    
   }
 
   return(
@@ -367,7 +332,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
        <Wrapper >
          <Container className="Container">
           <h1>Checkout </h1>
-          {error? <ErrorContainer><p><GoAlert/> Algo deu errado! Verifique as informações e tente novamente</p></ErrorContainer>: null}
+          {error? errorsMessages.map((error, index) => {
+            return <ErrorContainer key={index}><p><GoAlert/>{error}</p></ErrorContainer>
+          }): null}
             <ProdutosContainer>
             <Formulario show={showAddress}>
               <h2>Informações do Comprador:</h2>
@@ -401,7 +368,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 {errors && errors.Whatsapp && errors.Whatsapp.type === "required" && <p><GoAlert />Esse Campo é Obrigatorio</p>}
               </ContainerInput>
              
-              <h2>Endereço de Entrega:</h2>
+              <h2 style={{marginTop: '10px'}}>Endereço de Entrega:</h2>
               <ContainerCep >
                   <ContainerInput show={true} readOnly={cepValido}>
                     <InputMask
@@ -502,19 +469,17 @@ const Checkout: React.FC<CarrinhoProps> = ({
                 <option value={1} >Sedex</option>
               </SelectEstado>
             }
-              
-              
               <PaymentMethods>
+              <h2>Metodo de Pagamento:</h2>
                 <ListMethods>
                   <Methods onClick={() => setpaymentMethod(0)} option={paymentMethod}>Boleto</Methods>
-                  <Methods onClick={() => setpaymentMethod(1)} option={paymentMethod}>Cartao de Credito</Methods>
+                  <Methods onClick={() => setpaymentMethod(1)} option={paymentMethod}>Cartão de Credito</Methods>
                 </ListMethods>
               </PaymentMethods>
             </Formulario>
             <Aside>
                 
               {paymentMethod === 1 &&
-                
                 <CardData>
                 <h1>Cartão de Credito</h1>
                   <CardInformations>
@@ -576,14 +541,14 @@ const Checkout: React.FC<CarrinhoProps> = ({
                   <h2>SubTotal: {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                    }).format(total)}  {fretes[Frete].valor === 0 ? null: '+'}   
+                    }).format(total)}  {fretes[Frete].FreteValor === 0 ? null: '+'}   
                   </h2>
                   
-                  {fretes[Frete].valor === 0 ? null: 
+                  {fretes[Frete].FreteValor === 0 ? null: 
                     <h2>Frete: {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                    }).format(fretes[Frete].valor)} +
+                    }).format(fretes[Frete].FreteValor)} +
                       <p style={{ padding: '0px', margin: '0px'}}>Prazo de entrega: {fretes[Frete].prazo} dias</p>
                   </h2>
                   }

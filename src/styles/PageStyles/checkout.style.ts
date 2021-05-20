@@ -142,6 +142,8 @@ export const Formulario = styled.form<IFormulario>`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 0px;
+  padding: 0px;
   
   .Endereco{
     display: grid;
@@ -156,8 +158,7 @@ export const PaymentMethods = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 30px 0px;
-
+  margin-top: 10px;
 `;
 
 
@@ -215,6 +216,8 @@ export const Aside = styled.div`
 export const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0px;
+  margin: 0px;
 
   p{
     display: flex;
@@ -223,6 +226,8 @@ export const ErrorContainer = styled.div`
     align-items: center;
     color: #a00;
     font-size: .1.2rem; 
+    padding-bottom: 0px;
+    margin-bottom: 0px;
   }
 `;
 

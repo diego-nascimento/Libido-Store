@@ -40,7 +40,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
   }
 
   return(
-    <Layout>
+    <Layout carrinho={true}>
       <ToastContainer
       autoClose={2000}
       hideProgressBar={false}
