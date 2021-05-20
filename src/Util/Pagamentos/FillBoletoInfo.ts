@@ -5,8 +5,8 @@ import {IFreteInfo} from '../../typing/Interfaces/IFreteInfo'
 
 export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProduto>, total: number, FreteInfo: IFreteInfo) => {
   const datapayment = {
-    capture: true,
     amount: total * 100,
+    async: false,
     payment_method: 'boleto',
     postback_url: `${process.env.POSTBACK_URL}/api/pagamento/postback`,
     customer: {
@@ -14,7 +14,7 @@ export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProdut
       country: 'br',
       name: paymentInfo.nome,
       documents: [
-        {
+        { 
           type: 'cpf',
           number: paymentInfo.cpf,
         },

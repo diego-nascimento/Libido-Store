@@ -7,7 +7,7 @@ interface IRequiredFields{
 export const  requiredFields: Array<IRequiredFields> = [
   {
   field: 'Endereco',
-  response: 'address'
+  response: 'street'
   },
   {
     field: 'Estado',
@@ -19,7 +19,7 @@ export const  requiredFields: Array<IRequiredFields> = [
   },
   {
     field: 'Bairro',
-    response: 'district'
+    response: 'neighborhood'
   },
   
 ]

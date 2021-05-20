@@ -31,20 +31,13 @@ export default async function handler(
   const Produtos: Array<IProduto> = Request.body.data.Produtos
   const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
   try{
+
       const response = await pagarme.client
-      .connect({ encryption_key: process.env.PAGARME_ENCRYPTIONKEY})
+      .connect({ api_key: process.env.PAGARME_APIKEY})
       .then((client: any) =>
         client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo)),
-    )
-
-  /*
-   await  pagarme.client.connect({ api_key: process.env.PAGARME_APIKEY })
-  .then((client:any) => client.transactions.collectPayment({
-    id: response.id,
-    email: paymentInfo.email,
-  }))
-   */
-    console.log(response)
+      )
+  
     const savePedido = SavePedidoFactory()
     await savePedido.save({
       email: paymentInfo.email,

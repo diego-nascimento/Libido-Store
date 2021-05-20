@@ -153,7 +153,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
   
   const handleCepClick = async () => { //FUnction que lida com a consulta de informações do cep
     const Get = GetFactory()
-    const response = await Get.handle({ body: {}, url: `https://ws.apicep.com/cep/${getValues().Cep}.json` })
+    const response = await Get.handle({ body: {}, url: `https://api.pagar.me/1/zipcodes/${getValues().Cep}` })
     if (response.StatusCode !== 200) { //se der erro na busca do cep, deu erro
       return
     }
@@ -165,9 +165,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
     });
 
     
-    if (response.body.status === 200) { //Se A consulta der certo
+    if (response.StatusCode === 200) { //Se A consulta der certo
       requiredFields.forEach(field => { //Prenche os campos Inserindo os valores
-        if (response.body[field.response] !== null && response.body[field.response] !== '') { // Se essa condição for verdadeira, entao o cep é valido
+        if (response.body[field.response] && response.body[field.response] !== null && response.body[field.response] !== '') { // Se essa condição for verdadeira, entao o cep é valido
           setcepValido(true) //Seta o Cep como valido
           setShowAddress(true)  //Seta para mostrar os campos de endereço
           setValue(field.field as keyof IValues, response.body[field.response], {shouldValidate: true}) //inseri o valor no campo e faz a validação atrasves do reacthookform
@@ -298,7 +298,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
             }
             }
           }) 
-          if (response.body.status === 'processing') { //se o estado esta como processing, quer dizer que deu certo
+          if (response.body.status === 'waiting_payment') { //se o estado esta como processing, quer dizer que deu certo
             dispatch(CartActions.LimparCarrinho()) //limpa carrinho
             return Router.replace('/success') //vai pra pagina de sucesso
           } else {

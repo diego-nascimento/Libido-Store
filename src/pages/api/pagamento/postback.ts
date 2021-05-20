@@ -23,7 +23,6 @@ export default async function handler(
         method: response.method,
         status: response.status
       })
-      console.log(response)
       if (response) {
         return Response.status(200).json({message: 'ok'})
       }

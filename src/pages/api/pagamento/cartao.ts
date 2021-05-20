@@ -26,6 +26,10 @@ export default async function handler(
         .then((client: any) =>
           client.transactions.create(FillCardInfo(PersonInfo, Produtos, total, FreteInfo)),
       )
+
+      if(response.status === 'refused'){
+        throw new Error('Pagamento Recusado')
+      }
      
       const PedidoSave = SavePedidoFactory()
       PedidoSave.save(
