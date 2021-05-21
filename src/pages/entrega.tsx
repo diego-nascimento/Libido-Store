@@ -1,12 +1,18 @@
 import Head from 'next/head'
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
+import { GetFactory } from '../Factory/http/GetFactory'
 import {SobreContainer, Container, InfoContainer} from '../styles/PageStyles/entrega.style'
+import { ICategoria } from '../typing/Interfaces/ICategoria'
 
 
-const Entrega: React.FC = () => {
+interface IEntrega{
+  categorias: Array<ICategoria>
+}
+
+const Entrega: React.FC<IEntrega> = ({categorias}) => {
   return (
-    <Layout>
+    <Layout categorias={categorias}>
       <Head>
         <title>Libido LoveShop- Entregas</title>
       </Head>
@@ -56,3 +62,19 @@ const Entrega: React.FC = () => {
 }
 
 export default Entrega
+
+export async function getStaticProps({ params }: any) {
+  const api = GetFactory()
+ 
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
+  
+   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+  return {
+    props: {
+      categorias: responseCategorias.body,
+    },
+  }
+}

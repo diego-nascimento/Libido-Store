@@ -3,13 +3,13 @@ import { IProduto } from '../../typing/Interfaces/IProduto'
 import {Card, ImagemContainer} from './ProdutoItem.style'
 import { Carousel } from 'react-bootstrap';
 import VisibilitySensor from 'react-visibility-sensor'
-import {FadeLoader } from 'react-spinners';
 
 interface IProdutoItem{
   produto: IProduto
+  width?: string
 }
 
-const ProdutoItem: React.FC<IProdutoItem> = ({produto}) => {
+const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
   const [visible, setVisible] = React.useState(false)
   const [Loaded, setLoaded] = React.useState(false)
 
@@ -21,7 +21,7 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto}) => {
       partialVisibility={true}
       minTopValue={100}
     >
-      <Card Visible={visible} Loaded={Loaded}>
+      <Card Visible={visible} Loaded={Loaded} width={width}>
         <ImagemContainer>
           <Carousel
             controls={false}

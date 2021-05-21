@@ -1,4 +1,6 @@
 import { GlobalStyles } from '../styles/GlobalStyles';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import { AppProps } from 'next/app'
 import  { useRouter } from 'next/router'
 import {Provider} from 'react-redux'
@@ -6,6 +8,7 @@ import store from '../store'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import * as gtag from "../Util/GTM";
+
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();

@@ -6,20 +6,18 @@ export const Header = styled.header`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   letter-spacing: 1px;
   background-size: center;
-  height: 100vh;
   overflow-y: hidden;
   background-image: url('MainPanel.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  
-  @media  (max-width: 800px){
-    height: 500px;
-  }
+  background-color: ${styles.bgColor};
+  position: relative;
+  margin-top: 10px;
+  padding-bottom: 10px;
 `;
 
 

@@ -15,7 +15,7 @@ interface IAllProdutos{
 
 const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categoria}) => {
   return (
-    <Layout>
+    <Layout categorias={categorias}>
       <Head>
         <title>Libido LoveShop - {categoria && categoria.Nome}</title>
         <meta name="keywords" content={`${categoria && categoria.Nome}`}></meta>

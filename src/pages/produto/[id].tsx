@@ -16,14 +16,16 @@ import { Carousel } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetFactory } from '../../Factory/http/GetFactory'
+import { ICategoria } from '../../typing/Interfaces/ICategoria'
 
 
 interface IProdutoPage{
   produto: IProduto 
   dispatch: any
+  categorias: Array<ICategoria>
 }
 
-const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
+const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) => {
 
   const addProduto = (produto: IProduto  ) => {
     dispatch(CartActions.AdicionarAoCarrinho(produto));
@@ -33,7 +35,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch }) => {
   }
 
  return(
-   <Layout>
+   <Layout categorias={categorias}>
      <ToastContainer
       autoClose={2000}
       hideProgressBar={false}
@@ -155,10 +157,15 @@ export async function getStaticProps({ params }: any) {
     url: `${process.env.APIURL}/produtos/${params.id}`,
     body: null
   })
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
   return {
     props: {
-      produto: responseProdutos.body
+      produto: responseProdutos.body,
+      categorias: responseCategorias.body
     },
   }
 }

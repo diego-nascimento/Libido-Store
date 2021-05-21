@@ -24,12 +24,14 @@ import { PostFactory } from '../Factory/http/PostFactory'
 import { PagamentoCard } from '../Util/Pagamentos/PagamentoCard'
 import { IFreteInfo } from '../typing/Interfaces/IFreteInfo'
 import { PagamentoBoleto } from '../Util/Pagamentos/PagamentoBoleto'
+import { ICategoria } from '../typing/Interfaces/ICategoria'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
   tamanho_carrinho: number
   total: number
   dispatch: any
+  categorias: Array<ICategoria>
 }
 
 
@@ -37,7 +39,8 @@ const Checkout: React.FC<CarrinhoProps> = ({
   produtos,
   tamanho_carrinho,
   total,
-  dispatch
+  dispatch,
+  categorias
 }) => {
 
   const { register, handleSubmit, formState: { errors}, unregister, setValue, getValues } = useForm();
@@ -324,8 +327,9 @@ const Checkout: React.FC<CarrinhoProps> = ({
     }
   }
 
+
   return(
-    <Layout carrinho={true}>
+    <Layout carrinho={true} categorias={categorias}>
       <Head>
         <title>Libido LoveShop - Checkout </title>
       </Head>
@@ -589,4 +593,20 @@ const mapStateToProps = (state: any)  => ({
 });
 
 export default connect(mapStateToProps)(Checkout);
+
+export async function getStaticProps({ params }: any) {
+  const api = GetFactory()
+ 
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
+  
+   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+  return {
+    props: {
+      categorias: responseCategorias.body,
+    },
+  }
+}
 

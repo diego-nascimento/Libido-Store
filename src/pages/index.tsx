@@ -5,21 +5,30 @@ import {ICategoria} from '../typing/Interfaces/ICategoria'
 import Link from 'next/link'
 import Head from 'next/head'
 import {GetFactory} from '../Factory/http/GetFactory'
+import BannerIndex from '../Components/Banner/Banner'
+import ListingProductH from '../Components/ListingProductH/ListingProductH'
+import { IProduto } from '../typing/Interfaces/IProduto'
 
 interface IHome{
-  categorias?: Array<ICategoria>
+  categorias: Array<ICategoria>
+  produtos: Array<IProduto>
   error?: any
+  destaques: Array<IProduto>
+  novidades: Array<IProduto>
 }
 
-const Home: React.FC <IHome> = ({categorias}) => {
+
+
+const Home: React.FC <IHome> = ({categorias, produtos, destaques, novidades}) => {
+
   return (
-    <Layout>
+    <Layout categorias={categorias}>
       <Head>
         <title>Libido LoveShop - Inicio</title>
         <meta name="description" content={' A LIBIDO é uma loja especializada em produtos de love shop de bom gosto e  qualidade. Nosso principal alvo é o prazer feminino!'} />
       </Head>
-      <Header>
-        <h1 style={{visibility: 'hidden'}}>Libido Love Store</h1>
+      <Header style={{background: 'none'}}>
+        <BannerIndex />
       </Header>
       <Banner >
         <div className="Container">
@@ -35,7 +44,10 @@ const Home: React.FC <IHome> = ({categorias}) => {
           </TextContainer>
         </div>
       </Banner>
+        <ListingProductH produtos={destaques} title={'Destaques'}/>
+        <ListingProductH produtos={novidades} title={'Novidades'}/>
       <Categorias>
+        <h1>Categorias</h1>
         <Container className="Container">
           {categorias && categorias !== undefined && categorias.map(categoria => {
             return (
@@ -60,14 +72,31 @@ export default Home
 
 export async function getStaticProps() {
   const api = GetFactory()
-  const response = await api.handle({
+  const categorias = await api.handle({
     body: null,
     url: `${process.env.APIURL}/categorias`
- })
+  })
+  const produtos = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/produtos`
+  })
+
+  const destaques = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/produtos?destaque=true`
+  })
+  const novidades = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/produtos?_limit=10`
+  })
+
   const revalidateTime: string | undefined = process.env.REVALIDATETIME
     return {
       props: {
-        categorias: response.body
+        categorias: categorias.body,
+        produtos: produtos.body,
+        destaques: destaques.body,
+        novidades: novidades.body
       },
     }
 }

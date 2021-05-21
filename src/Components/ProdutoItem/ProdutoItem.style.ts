@@ -6,20 +6,22 @@ interface ICard{
   Loaded: boolean
 }
 
+interface ICard{
+  width?: string
+}
+
 export const Card = styled.div<ICard>`
-width: 100%;
 display: flex;
 position: relative;
 justify-content: center;
 flex-direction: column;
+width: ${props => props.width? props.width: '100%'};
 align-items: center;
 border-radius: 15px;
 overflow: hidden;
 height: 100%;
-transform: ${props => props.Visible ? 'scale(.95) translateY(0px)' : 'scale(.95) translateY(30px)' };
-opacity: ${props => props.Visible ? '1' : '0'};
 transition: .5s;
-visibility: ${props => props.Loaded ? 'visible': 'hidden' };
+margin: 0 auto;
 
 .info{
   background: ${styles.componentsColor};

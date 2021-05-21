@@ -3,10 +3,16 @@ import React from 'react'
 import {Wrapper, Container} from '../styles/PageStyles/checkout.style'
 import Head from 'next/head'
 import Router from 'next/router'
+import { ICategoria } from '../typing/Interfaces/ICategoria'
+import { GetFactory } from '../Factory/http/GetFactory'
 
 
+interface ISucesso {
+  categorias: Array<ICategoria>
+}
 
-const Sucesso: React.FC = (props: any) => {
+
+const Sucesso: React.FC<ISucesso> = ({categorias}) => {
   
   React.useEffect(() => {
     setTimeout(() =>{
@@ -17,7 +23,7 @@ const Sucesso: React.FC = (props: any) => {
  
 
   return (
-    <Layout>
+    <Layout categorias={categorias}>
       <Head>
          <title>Libido LoveShop - Sucesso</title>
       </Head>
@@ -32,3 +38,21 @@ const Sucesso: React.FC = (props: any) => {
 }
 
 export default Sucesso
+
+
+
+export async function getStaticProps({ params }: any) {
+  const api = GetFactory()
+ 
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
+  
+   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+  return {
+    props: {
+      categorias: responseCategorias.body,
+    },
+  }
+}

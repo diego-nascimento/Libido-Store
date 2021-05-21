@@ -4,6 +4,8 @@ import ShowProdutos from '../Components/ShowProducts/ShowProdutos'
 import { ICategoria } from '../typing/Interfaces/ICategoria'
 import { IProduto } from '../typing/Interfaces/IProduto'
 import { GetFactory } from '../Factory/http/GetFactory'
+import ListingProductH from '../Components/ListingProductH/ListingProductH'
+
 
 interface IAllProdutos{
   produtos: Array<IProduto>
@@ -13,7 +15,7 @@ interface IAllProdutos{
 const Produtos: React.FC<IAllProdutos> = ({ produtos, categorias }) => {
 
   return (
-    <Layout>
+    <Layout categorias={categorias}>
       <Head>
         <title>Libido LoveShop - Produtos</title>
       </Head>

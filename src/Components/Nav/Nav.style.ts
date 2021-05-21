@@ -14,11 +14,9 @@ export const Wrapper = styled.div`
 export const ContainerHeader = styled.header<INavegacao>`
   height: 50px;
   background: ${styles.componentsDest};
-  transform: ${({MenuBackground}) => MenuBackground ? `translateY(-50px)`: 'translateY(0px)' };
-  display: flex;
+  display: ${({MenuBackground}) => MenuBackground ? `none`: 'flex' };
   justify-content: center;
   width: 100%;
-  transition: .4s;
 `;
 
 export const Message = styled.div`
@@ -45,7 +43,7 @@ export const Container = styled.div`
 
 export const RedesSociais = styled.ul`
   display: flex;
-  justify-content: space-space-between;
+  justify-content: space-between;
   flex-direction: row;
   align-items: center;
   height: 100%;
@@ -80,22 +78,19 @@ export const RedesSociais = styled.ul`
 
 
 export const Navegacao = styled.nav<INavegacao>`
-  background-color: ${({MenuBackground}) => MenuBackground ? `${styles.componentsColor}`: 'none' };
-  height: 70px;
+  background-color: ${styles.componentsColor};
   width: 100vw;
-  position: fixed;
+  position:  ${({MenuBackground}) => MenuBackground ? `fixed`: 'relative' };
   display: flex;
-  flex-direction: row;
+  top: 0px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
   transition: .4s;
   z-index: 99;
-  top: 50px;
-  transform: ${({MenuBackground}) => MenuBackground ? `translateY(-50px)`: 'translateY(0px)' };
-  padding: 0px 20px;
 
-
+  
   svg{
     color: ${styles.fontColor};
     width: 35px;
@@ -104,12 +99,14 @@ export const Navegacao = styled.nav<INavegacao>`
 
   .BotaoMenu{
     display: none;
-    z-index: 99;
+    z-index: 2;
   }
 
   @media  (max-width: 800px){
+    flex-direction: row;
     .BotaoMenu{
       display: block;
+
     }
   }
 `;
@@ -121,6 +118,8 @@ export const ContainerNav = styled.div`
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
+  max-height: 60px;
+  padding: 10px 20px;
   
   .CarrinhoButton{
       position: relative;
@@ -182,12 +181,15 @@ export const Lista = styled.ul<ILista>`
   li{
     padding: 20px 50px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     height: 70px;
     letter-spacing: 1px;
     transition: .5;
     color: ${styles.fontColor};
+    position: relative;
+    top: 8px;
    
-    
     a{
       color: ${styles.fontColor};
       transition: .5s;
@@ -203,18 +205,62 @@ export const Lista = styled.ul<ILista>`
   }
 
   @media  (max-width: 800px){
-    opacity: ${props => props.MenuState ? '1' : '0'};
-    transform: ${props => props.MenuState ? 'translateY(0px)' : 'translateY(-20px)'};
-    display: ${props => props.MenuState ? 'flex' : 'none'};
-    position: fixed;
-    background: ${styles.componentsColor};
-    color: ${styles.fontColor};
-    top: 55px;
-    left: 30px;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0px;
-    border-radius: 7px;
+    display: none;
+  }
+`;
+
+export const Categorias = styled.section`
+  height: 50px;
+  width: 100vw;
+  margin: 0px auto;
+  padding: 0px;
+  display: flex;
+  background-color: #ddd;
+  justify-content: center;
+
+  @media(max-width: 800px){
+    display: none;
+  }
+`;
+
+export const ListaCategorias = styled.ul`
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+`;
+
+export const CategoriaItem = styled.li`
+  height: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  flex-direction: column;
+  top: 8px;
+  letter-spacing: px;
+  transition: .5;
+  color: ${styles.fontColor};
+  position: relative;
+  font-weight: bold;
+
+  p{
+    font-size: .8rem;
+  }
+
+  a{
+      color: ${styles.fontColor};
+      transition: .5s;
+  }
+
+  :hover{
+    p{
+      text-decoration: underline;
+    }
   }
 `;
 

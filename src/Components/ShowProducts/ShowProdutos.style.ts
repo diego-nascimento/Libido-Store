@@ -3,7 +3,7 @@ import { styles } from '../../styles/styles';
 
 
 export const Wrapper = styled.section`
-  padding: 100px 20px;
+  padding: 20px 20px;
   width: calc(100% - 20px);
 
   h1{

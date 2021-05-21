@@ -3,7 +3,7 @@ import { styles } from '../styles';
 
 
 export const Wrapper = styled.section`
-  padding: 100px 10px;
+  padding: 10px 10px;
   width: calc(100% - 20px);
   display: flex;
   justify-content: center;

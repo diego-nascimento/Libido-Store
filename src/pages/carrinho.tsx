@@ -10,19 +10,23 @@ import {FaArrowUp, FaArrowDown} from 'react-icons/fa'
 import { Carousel } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ICategoria } from '../typing/Interfaces/ICategoria'
+import { GetFactory } from '../Factory/http/GetFactory'
 
 interface CarrinhoProps{
   produtos: Array<IProduto>
   tamanho_carrinho: number
   total: number
   dispatch: any
+  categorias: Array<ICategoria>
 }
 
 const Carrinho: React.FC<CarrinhoProps> = ({
   produtos, 
   tamanho_carrinho,
   total,
-  dispatch
+  dispatch,
+  categorias
 })=>{
 
   const addProduto = (produto: IProduto) => {
@@ -40,7 +44,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
   }
 
   return(
-    <Layout carrinho={true}>
+    <Layout carrinho={true} categorias={categorias}>
       <ToastContainer
       autoClose={2000}
       hideProgressBar={false}
@@ -155,4 +159,20 @@ const mapStateToProps = (state: any)  => ({
 });
 
 export default connect(mapStateToProps)(Carrinho);
+
+export async function getStaticProps({ params }: any) {
+  const api = GetFactory()
+ 
+  const responseCategorias = await api.handle({
+    body: null,
+    url: `${process.env.APIURL}/categorias`
+  })
+  
+   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+  return {
+    props: {
+      categorias: responseCategorias.body,
+    },
+  }
+}
 

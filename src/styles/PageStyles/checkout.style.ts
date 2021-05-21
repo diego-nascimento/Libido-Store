@@ -5,7 +5,7 @@ export const Wrapper  = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 100px 10px;
+  padding: 10px 10px;
 
   h1{
     font-size: 1.8rem;
