@@ -26,7 +26,6 @@ export const Container = styled.nav<IContainer>`
     justify-content: flex-end;
     padding: 10px 5px;
 
-
     p{
       margin: 0px;
       padding: 0px;
@@ -42,9 +41,10 @@ export const Container = styled.nav<IContainer>`
       cursor: pointer;
       padding: 10px;
       margin: 0px;
+      transition: .1s;
 
       :hover{
-        text-decoration: underline;
+        transform: scale(1.1);
       }
     }
   }
@@ -62,17 +62,12 @@ export const Item = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
-  justify-content: flex-end;
-
+  justify-content: flex-start;
   padding: 10px 5px;
 
   p{
     margin: 0px;
     padding: 0px;
-  }
-
-  :last-child{
-    border-bottom: 1px solid #111;
   }
 
   :hover{

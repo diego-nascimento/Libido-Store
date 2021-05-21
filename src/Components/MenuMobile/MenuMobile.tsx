@@ -32,15 +32,22 @@ const MenuMobile: React.FC<IMenuMobile> = ({MenuState, SetMenuState, categorias}
         </Link>
         <Link href={`/entrega`}>
               <a onClick={() => SetMenuState(!MenuState)}>
-                <Item>
+                <Item style={{borderBottom: '1px solid #111'}}>
                 <p>Entrega</p>
-              </Item>
+              </Item >
               </a>
         </Link>
 
         <Accordion style={{background: 'transparent', border: 'none', margin: '0px', padding: '0px', height: '100%'}}> 
-              <AccordionSummary style={{width: '100%', padding: '0px'}} expandIcon={<MdExpandMore />}>
-                  <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: ' 0px 5px'}}>
+              <AccordionSummary 
+                style={{width: '100%', padding: '0px'}} 
+                expandIcon={
+                  <MdExpandMore style={{width: '20px', height: '20px'}}/>
+                }
+              >
+                  <div 
+                    style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: ' 0px 5px'}}
+                    >
                     <p style={{margin: '0px', padding: '0px'}}>Categorias</p>
                   </div>
               </AccordionSummary>
