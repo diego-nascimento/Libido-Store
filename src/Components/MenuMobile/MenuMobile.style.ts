@@ -20,18 +20,17 @@ export const Container = styled.nav<IContainer>`
 
   .ContainerLabel{
     width: 100%;
-    border-top: 1px solid #111;
     display: flex;
     align-items: center;
     cursor: default;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    padding: 10px 5px;
 
-  padding: 10px 5px;
 
-  p{
-    margin: 0px;
-    padding: 0px;
-  }
+    p{
+      margin: 0px;
+      padding: 0px;
+    }
   }
 
   @media(max-width: 800px){
