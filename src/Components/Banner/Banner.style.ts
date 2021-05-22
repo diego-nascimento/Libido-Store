@@ -11,8 +11,7 @@ export const Container  = styled.div`
   }
 
   a img{
-    width: 80%;
-    border-radius: 15px;
+    width: 100%;
     max-height: 600px;
   }
 `;

@@ -24,6 +24,7 @@ export const Message = styled.div`
   span{
     font-weight: bold;
     font-size: .7rem;
+    text-transform: uppercase;
   }
 `;
 
@@ -217,6 +218,7 @@ export const Categorias = styled.section`
   display: flex;
   background-color: #ddd;
   justify-content: center;
+  border-bottom: 1px solid #bbb;
 
   @media(max-width: 800px){
     display: none;

@@ -16,8 +16,6 @@ export const Header = styled.header`
   background-position: center center;
   background-color: ${styles.bgColor};
   position: relative;
-  margin-top: 10px;
-  padding-bottom: 10px;
 `;
 
 
@@ -83,7 +81,8 @@ export const Categorias = styled.section`
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
   grid-gap: 20px;
   width: calc(100% - 20px);
 
@@ -98,7 +97,7 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
-  width: 80%;
+  width: 100%;
   background: white;
   display: flex;
   position: relative;
