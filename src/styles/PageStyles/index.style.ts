@@ -24,12 +24,7 @@ export const Banner = styled.section`
   background: #311F2B;
   display: flex;
   justify-content: center;
-  padding: 50px 20px;
-
-  @media  (max-width: 800px){
-      padding: 30px 20px;
-  }
-
+  padding: 10px 20px;
 
   p{
       text-align: left;
@@ -81,8 +76,7 @@ export const Categorias = styled.section`
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   width: calc(100% - 20px);
 

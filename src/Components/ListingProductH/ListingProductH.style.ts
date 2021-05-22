@@ -11,6 +11,10 @@ export const Container = styled.div`
     text-align: center;
     padding: 20px;
   }
+
+  @media(max-width: 800px){
+    margin-top: 0px;
+  }
 `;
 
 export const ContainerCard = styled.div`

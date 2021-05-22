@@ -17,6 +17,12 @@ const Banner: React.FC= () => {
                   <img src="/namorados_banner.png" alt="Dia dos Namorados na Libido" />
                 </a>
             </Carousel.Item>
+            <Carousel.Item >
+                <a style={{width: '100%', cursor: 'default'}}>
+                  <img src="/fretegratis_libido.png" alt="Frete Gratis Libido LoveShop" />
+                </a>
+            </Carousel.Item>
+            
       </Carousel>
     </Container>
     

@@ -22,9 +22,10 @@ overflow: hidden;
 height: 100%;
 transition: .5s;
 margin: 0 auto;
+border: 1px solid #aaa;
 
 .info{
-  background: ${styles.componentsColor};
+  background: #eee;
   width: 100%;
   padding: 20px 10px;
   height: 100%;

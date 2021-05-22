@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Container  = styled.div`
   width: 100%;
   position: relative;
-  max-height: 600px;
 
   a{
     display: flex;
@@ -12,6 +11,5 @@ export const Container  = styled.div`
 
   a img{
     width: 100%;
-    max-height: 600px;
   }
 `;
