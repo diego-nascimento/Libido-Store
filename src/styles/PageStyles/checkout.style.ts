@@ -26,8 +26,8 @@ export const ProdutosContainer = styled.div`
   margin-top: 30px;
   
   .AsideTotal{
-    background: ${styles.componentsDest};
-    color: ${styles.fontColorInDark};
+    background: ${styles.componentsColor};
+    color: ${styles.componentsDest};
     padding: 20px;
     border-radius: 15px;
     justify-self: center;
@@ -124,9 +124,9 @@ export const BotaoFinalizar = styled.button`
   width: 100%;
   padding: 15px 50px;
   text-transform: uppercase;
-  background: ${styles.componentsColor};
+  background: ${styles.componentsDest};
   border: none;
-  color: ${styles.fontColorDest};
+  color: #eee;
   font-weight: 700;
   margin: 20px 0px;
   letter-spacing: 1px;
@@ -297,7 +297,7 @@ export const TotalsInfo = styled.div`
     
     :nth-child(4){
       font-size: 1.6rem;
-      border-top: 1px solid ${styles.fontColorInDark};
+      border-top: 1px solid #ddd;
       padding: 20px 0px 0px;
 
     }

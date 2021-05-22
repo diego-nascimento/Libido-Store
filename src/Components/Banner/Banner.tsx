@@ -11,6 +11,7 @@ const Banner: React.FC= () => {
             touch={true}
             indicators={false}
             slide={true}
+            interval={5000}
           >                
             <Carousel.Item >
                 <a style={{width: '100%', cursor: 'default'}}>
