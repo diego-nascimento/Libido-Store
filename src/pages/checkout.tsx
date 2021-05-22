@@ -218,6 +218,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
         setloading(false)  //finaliza o esado de carregamento
         return setcepValido(false) //com isso o cep fica invalido
       }
+
       const PAC: IFreteInfo = { //organiza as informações do PAC
         FreteServico: 'PAC',
         prazo: Number.parseInt(response.body.Servicos.cServico.PrazoEntrega._text),
@@ -236,7 +237,19 @@ const Checkout: React.FC<CarrinhoProps> = ({
         prazo: Number.parseInt(response.body.Servicos.cServico.PrazoEntrega._text),
         FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
       }
-  
+      if(total > 250){
+        setloading(false)
+        return setFretes([
+          {
+            FreteValor: 0,
+            prazo: PAC.prazo
+          },
+          {
+            FreteValor: 0,
+            prazo: SEDEX.prazo
+          }
+        ])
+      }
       setFretes([ //seta o estado com os novos valores dos serviços de frete
         {
           FreteValor: PAC.FreteValor,
