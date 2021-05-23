@@ -55,7 +55,7 @@ const MenuMobile: React.FC<IMenuMobile> = ({MenuState, SetMenuState, categorias}
                 <Lista>
                   {categorias.map(categoria =>{
                     return(
-                      <Link href={`/categoria/${categoria._id}`}>
+                      <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
                         <a onClick={() => SetMenuState(!MenuState)}>
                           <Item>
                             <p>{categoria.Nome}</p>

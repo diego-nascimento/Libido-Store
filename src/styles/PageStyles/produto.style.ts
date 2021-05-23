@@ -111,11 +111,13 @@ export const ContainerPreco = styled.div`
 
   .BotoesContainer{
     display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-    
+    flex-direction: column;
+    margin-top: 10px;
+  
     button{
-      margin: 0px 10px;
+      margin-top: 30px;
+      padding: 15px 10px;
+      margin: 10px 0px;
       font-size: .8rem;
       font-weight: 500;
     }
