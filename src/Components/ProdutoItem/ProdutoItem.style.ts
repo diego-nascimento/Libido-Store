@@ -33,6 +33,17 @@ export const Card = styled.div<ICard>`
     align-items: center;
   }
 
+  .TagContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    top: 0px;
+    position: absolute;
+    left: 0px;
+    z-index: 99;
+    margin: 5px 5px;
+  }
+
   img{
     width: 100%;
     transition: .1s;
@@ -78,4 +89,12 @@ export const Card = styled.div<ICard>`
 
 export const ImagemContainer = styled.div`
 
+`;
+
+export const Tag = styled.h3`
+  padding: 2px 5px;
+  font-size: .7rem; 
+  border: 1px solid #111;
+  border-radius: 1px;
+  margin: 0px;
 `;
