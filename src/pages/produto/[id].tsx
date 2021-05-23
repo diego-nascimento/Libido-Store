@@ -2,11 +2,8 @@ import Head from 'next/head'
 import React from 'react'
 import Layout from '../../Components/Layout/Layout'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import {Wrapper, InfoContainer, DescricaoContainer} from '../../styles/PageStyles/produto.style'
+import {Wrapper, InfoContainer, DescricaoContainer, ContainerPreco, Tag} from '../../styles/PageStyles/produto.style'
 import Link from 'next/link'
-import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
-import { MdExpandMore, MdArrowBack } from 'react-icons/md'
-import { styles } from '../../styles/styles'
 import marked from 'marked'
 import Router from 'next/router'
 import {connect} from 'react-redux'
@@ -17,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetFactory } from '../../Factory/http/GetFactory'
 import { ICategoria } from '../../typing/Interfaces/ICategoria'
+import { useRouter } from 'next/router'
 
 
 interface IProdutoPage{
@@ -26,6 +24,7 @@ interface IProdutoPage{
 }
 
 const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) => {
+  const Navigator = useRouter()
 
   const addProduto = (produto: IProduto  ) => {
     dispatch(CartActions.AdicionarAoCarrinho(produto));
@@ -33,6 +32,12 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
       position: toast.POSITION.BOTTOM_CENTER 
     })
   }
+
+  const handleComprar = (produto: IProduto) =>{
+    dispatch(CartActions.AdicionarAoCarrinho(produto));
+    Navigator.push('/carrinho')
+  }
+
 
  return(
    <Layout categorias={categorias}>
@@ -53,10 +58,25 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
      </Head>
 
      {produto && <Wrapper className="Container">
-       <div className="voltar" onClick={() => { Router.back() }}>
-         <MdArrowBack />
-         <p>Voltar</p>
-       </div>
+        <p>
+          <Link href='/' >
+            <a>Home</a>
+          </Link>
+          {' / '}
+          {produto.categorias && produto.categorias.map(categoria => {
+            return (
+              <>
+                <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
+                  <a >{categoria.Nome} </a>
+                </Link>
+                {' / '}
+              </>
+            )
+          })}
+          <a style={{fontWeight: 'bold', cursor: 'default'}}>{produto.Nome}</a>
+         </p>
+         
+          
         <InfoContainer  >
          <div className="imageContainer">
           <Carousel
@@ -72,55 +92,44 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
               </Carousel.Item>
             }): null}
           </Carousel>
-           
+          
          </div>
          <div className="info">
-         
-           <h1>{(produto.Nome).toLowerCase()}</h1>
-           <p style={{fontSize: '.6rem'}}>
-            {/*<span>(Cod Item: jasidjisaio) - </span> */}
-            Outros Produtos: {produto.categorias && produto.categorias.map(categoria => {
-             return (
-               <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
-                <a style={{fontSize: '.6rem'}}>{categoria.Nome} </a>
-               </Link>
-             )
-            })}
-           </p>
-           <div className="preco">
-              <h2>Por {Intl.NumberFormat('pt-BR', {
+          {produto.pronta && <Tag>Pronta Entrega</Tag>}  
+           <div className="topInfo">
+            <h1>{(produto.Nome)}</h1>
+            <div className="descricao">
+                <p>
+                  {produto.descricao}
+                </p>
+            </div>
+           </div>
+          
+           <ContainerPreco>
+            <div className="preco">
+              <b>Por:</b>
+              <h2>{Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
-                  }).format(produto.preco )}</h2>
-           </div>
-            <div className="descricao">
-              <p>
-                {produto.descricao}
-              </p>
-           </div>
-           {produto.pronta && <h2 style={{marginTop: '20px', fontSize: '1.1rem'}}>Pronta Entrega</h2>}
-           <Botao Produto={produto} Click={addProduto} Style={{marginTop: '40px', fontSize: '1.1rem'}}>Comprar</Botao>
-           
+                  }).format(produto.preco )}
+              </h2>
+            </div>
+            <div className="BotoesContainer">
+              <Botao Produto={produto} Click={addProduto} Style={{width: '100%'}}>Adicionar ao Carrinho</Botao>
+              <Botao Produto={produto} Click={handleComprar} Style={{width: '100%'}}>Comprar</Botao>
+            </div>
+            
+          </ContainerPreco>  
          </div> 
        </InfoContainer>
        {
-         produto.especificacao && <DescricaoContainer>
-         <Accordion
-           style={{
-             background: 'transparent',
-             border: `1px solid ${styles.dest2Components}`,
-           }} TransitionProps={{ unmountOnExit: true }}>
-          <AccordionSummary expandIcon={<MdExpandMore />} >
+         produto.especificacao && 
+         <DescricaoContainer>
             <h2>Descrição</h2>
-          </AccordionSummary>
-           <AccordionDetails >
              <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }}>
-
              </div>
-          </AccordionDetails>
-      </Accordion> 
-       </DescricaoContainer>
-       }
+          </DescricaoContainer>
+        }
      </Wrapper>}
     </Layout>
  )

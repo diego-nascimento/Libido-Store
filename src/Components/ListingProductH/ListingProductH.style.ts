@@ -4,12 +4,12 @@ export const Container = styled.div`
   width: 90vw;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 20px;
   border-radius: 15px;
 
   h1{
     text-align: center;
-    padding: 20px;
+    padding: 0px;
   }
 
   @media(max-width: 800px){

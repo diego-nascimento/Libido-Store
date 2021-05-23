@@ -97,7 +97,7 @@ export const Card = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 5px;
   overflow: hidden;
   color: ${styles.fontColorInDark};
   flex-direction: column;
