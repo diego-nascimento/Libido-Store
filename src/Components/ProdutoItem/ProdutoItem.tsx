@@ -23,7 +23,7 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
         partialVisibility={true}
         minTopValue={100}
       >
-        <Card Visible={visible} Loaded={Loaded} width={width}>
+        <Card Visible={visible} Loaded={Loaded} width={width? width : ''}>
           <div className="TagContainer">
             {produto.pronta ? 
               <Tag>

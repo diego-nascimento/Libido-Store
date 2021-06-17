@@ -66,7 +66,7 @@ const ListingProductH: React.FC<IListingProductH> = ({produtos, title}) =>{
         {
            produtos.map(produto =>{
             return (
-              <Link href={`/produto/${produto._id}`} key={produto._id} >
+              <Link href={`/produto/${produto._id}?produto=${produto.Nome}`} key={produto._id} >
                 <a style={{height: '100%'}}> 
                 <ContainerCard>
                   <ProdutoItem produto={produto} width={'80%'}/>

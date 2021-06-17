@@ -66,7 +66,7 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
           {produto.categorias && produto.categorias.map(categoria => {
             return (
               <>
-                <Link href={`/categoria/${categoria._id}`} key={categoria._id}>
+                <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id}>
                   <a >{categoria.Nome} </a>
                 </Link>
                 {' / '}

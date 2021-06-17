@@ -29,7 +29,7 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) =
                   {categorias && categorias.map(categoria => {
                     return (
                       <li key={categoria._id}>
-                        <Link href={`/categoria/${categoria._id}`}>
+                        <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`}>
                           <a>
                             <p>{categoria.Nome}</p>
                           </a>
@@ -45,7 +45,7 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) =
         <Container className="Container">
           {produtos && produtos.map(produto =>{
             return (
-              <Link href={`/produto/${produto._id}`} key={produto._id} >
+              <Link href={`/produto/${produto._id}?produto=${produto.Nome}`} key={produto._id} >
                 <a style={{height: '100%'}}> 
                   <Item produto={produto}/>
                 </a>

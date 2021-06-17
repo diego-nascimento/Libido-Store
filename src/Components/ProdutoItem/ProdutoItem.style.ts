@@ -15,7 +15,7 @@ export const Card = styled.div<ICard>`
   position: relative;
   justify-content: center;
   flex-direction: column;
-  width: ${props => props.width? props.width: '100%'};
+  width: ${props => props.width !== ''? props.width: '100%'};
   align-items: center;
   border-radius: 5px;
   overflow: hidden;
