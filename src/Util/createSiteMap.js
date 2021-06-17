@@ -6,22 +6,13 @@ const api = axios.create({
   baseURL: process.env.APIURL,
 });
 
-async function generateSiteMap() {
-  const CategoriaParams = [];
-  const responseCategoria = await api.get('/categorias');
-  responseCategoria.data.forEach((element) => {
-    CategoriaParams.push({
-      id: element._id,
-    });
-  });
 
-  const ProdutoParams = [];
+async function generateSiteMap() {
+  const responseCategoria = await api.get('/categorias');
+  const categorias = responseCategoria.data
+ 
   const responseProdutos = await api.get('/produtos');
-  responseProdutos.data.forEach((element) => {
-    ProdutoParams.push({
-      id: element._id,
-    });
-  });
+  Produtos = responseProdutos.data
 
   const pages = await globby([
     './src/pages/**.tsx',
@@ -47,17 +38,17 @@ async function generateSiteMap() {
                   `;
             })
             .join('')}
-            ${CategoriaParams.map((param) => {
+            ${categorias.map((categoria) => {
               return `
                 <url>
-                 <loc>${`${urlSite}categoria/${param.id}`}</loc>
+                 <loc>${`${urlSite}categoria/${categoria.id}?categoria=${categoria.Nome}`}</loc>
                 </url>
               `;
             }).join('')}
-            ${ProdutoParams.map((param) => {
+            ${Produtos.map((produto) => {
               return `
                 <url>
-                 <loc>${`${urlSite}produto/${param.id}`}</loc>
+                 <loc>${`${urlSite}produto/${produto.id}?produto=${produto.Nome}`}</loc>
                 </url>
               `;
             }).join('')}
