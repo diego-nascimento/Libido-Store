@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GetFactory } from '../../Factory/http/GetFactory'
 import { ICategoria } from '../../typing/Interfaces/ICategoria'
 import { useRouter } from 'next/router'
+import * as GTM from '../../Util/GTM'
 
 
 interface IProdutoPage{
@@ -30,6 +31,12 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
     dispatch(CartActions.AdicionarAoCarrinho(produto));
     toast.dark('Produto Adicionado!', {
       position: toast.POSITION.BOTTOM_CENTER 
+    })
+    GTM.event({
+      'event': 'addToCart',
+      'eventCategory':'enhanced-ecommerce',
+      'eventAction': 'add',
+      'productName': produto.Nome.toLowerCase()
     })
   }
 
