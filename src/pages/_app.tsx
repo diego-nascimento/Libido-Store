@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import store from '../store'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import * as gtag from "../Util/GTM";
+import * as GTM from "../Util/GTM";
 
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
@@ -15,7 +15,10 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   
   React.useEffect(() => {
     const handleRouteChange = (url: URL) => {
-      gtag.pageview(url);
+      GTM.event({
+        event: 'pageview',
+        url: url
+      })
     };
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => {

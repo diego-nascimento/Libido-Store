@@ -51,7 +51,7 @@ const Home: React.FC <IHome> = ({categorias, produtos, destaques, novidades}) =>
         <Container className="Container">
           {categorias && categorias !== undefined && categorias.map(categoria => {
             return (
-              <Link href={`/categoria/${categoria._id}`} key={categoria._id} >
+              <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id} >
                 <a>
                 <Card >
                   {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={categoria.Nome} />}
