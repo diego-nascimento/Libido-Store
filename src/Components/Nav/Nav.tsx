@@ -20,7 +20,7 @@ const Nav: React.FC<INav> = ({tamanho_carrinho, carrinho, categorias}) => {
   React.useEffect(() => {
     const checkPageOffSet = () => {
       window.addEventListener('scroll', () => {
-        window.pageYOffset < 10? setMenuBackground(false): setMenuBackground(true)
+        window.pageYOffset < 2? setMenuBackground(false): setMenuBackground(true)
       })
     }
     checkPageOffSet();

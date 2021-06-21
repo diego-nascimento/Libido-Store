@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ContainerHeader = styled.header<INavegacao>`
-  height: 50px;
+  height: 35px;
   background: ${styles.componentsDest};
   display: ${({MenuBackground}) => MenuBackground ? `none`: 'flex' };
   justify-content: center;

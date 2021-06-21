@@ -569,13 +569,10 @@ const Checkout: React.FC<CarrinhoProps> = ({
                       <p style={{ padding: '0px', margin: '0px'}}>Prazo de entrega: {fretes[Frete].prazo} dias</p>
                   </h2>
                   }
-
-                  {(total + Frete) * Parcelas[parcelas - 1].acrescimo / 100 === 0 ? null : 
-                    <h2>Juros: {Intl.NumberFormat('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
+                  <h2>Juros: {Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
                   }).format((total + Frete) * Parcelas[parcelas - 1].acrescimo/100)} </h2>
-                  }
                   <h2>Total ({tamanho_carrinho} {tamanho_carrinho === 1? 'Item': 'Itens'}): {Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
