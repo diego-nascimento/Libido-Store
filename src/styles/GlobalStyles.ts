@@ -1,6 +1,6 @@
-import { createGlobalStyle} from 'styled-components';
-import {styles} from './styles'
-import {ImageShowUp, PBottomTop} from '../styles/Keyframes'
+import { createGlobalStyle } from 'styled-components'
+import { styles } from './styles'
+import { ImageShowUp, PBottomTop } from '../styles/Keyframes'
 
 export const GlobalStyles = createGlobalStyle`
   *{
@@ -128,7 +128,6 @@ html{
   }
 
   .PageContainer{
-    animation: ${ImageShowUp({opacity: 1})} .5s forwards;
+    animation: ${ImageShowUp({ opacity: 1 })} .5s forwards;
   }
-`;
-
+`
