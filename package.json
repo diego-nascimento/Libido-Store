@@ -7,16 +7,16 @@
     "build": "next build",
     "start": "next start"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{ts, tsx}": [
       "eslint 'src/** --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
     "@hookform/resolvers": "^2.0.0",
