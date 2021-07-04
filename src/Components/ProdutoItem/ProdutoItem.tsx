@@ -1,16 +1,15 @@
 import React from 'react'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import {Card, ImagemContainer, Tag} from './ProdutoItem.style'
-import { Carousel } from 'react-bootstrap';
+import { Card, ImagemContainer, Tag } from './ProdutoItem.style'
+import { Carousel } from 'react-bootstrap'
 import VisibilitySensor from 'react-visibility-sensor'
-
 
 interface IProdutoItem{
   produto: IProduto
   width?: string
 }
 
-const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
+const ProdutoItem: React.FC<IProdutoItem> = ({ produto, width }) => {
   const [visible, setVisible] = React.useState(false)
   const [Loaded, setLoaded] = React.useState(false)
 
@@ -23,12 +22,13 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
         partialVisibility={true}
         minTopValue={100}
       >
-        <Card Visible={visible} Loaded={Loaded} width={width? width : ''}>
+        <Card Visible={visible} Loaded={Loaded} width={width || ''}>
           <div className="TagContainer">
-            {produto.pronta ? 
-              <Tag>
+            {produto.pronta
+              ? <Tag>
                 Pronta Entrega
-              </Tag>: null
+              </Tag>
+              : null
             }
           </div>
           <ImagemContainer>
@@ -38,9 +38,9 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
               indicators={false}
               fade={true}
               slide={true}
-            >                
-              {produto.imagens ?
-                produto.imagens.map(imagem => {
+            >
+              {produto.imagens
+                ? produto.imagens.map(imagem => {
                   return (
                     <Carousel.Item key={imagem._id}
                       interval={Math.floor(Math.random() * (2500 - 1800 + 1)) + 1800}
@@ -48,8 +48,8 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
                       <img src={imagem.url} alt={produto.Nome} onLoad={() => setLoaded(true)}/>
                     </Carousel.Item>
                   )
-                }) :
-                <Carousel.Item key={'1'} >
+                })
+                : <Carousel.Item key={'1'} >
                   <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png"
                     alt="No Image"
                     onLoad={() => setLoaded(true)}
@@ -57,19 +57,19 @@ const ProdutoItem: React.FC<IProdutoItem> = ({produto, width}) => {
                 </Carousel.Item>
               }
               </Carousel>
-            </ImagemContainer>      
+            </ImagemContainer>
             <div className="info">
-              
+
               <h2>{(produto.Nome.toLowerCase())}</h2>
                 <b>{Intl.NumberFormat('pt-BR', {
                   style: 'currency',
-                  currency: 'BRL',
+                  currency: 'BRL'
                 }).format(produto.preco)}
                 </b>
-            </div> 
+            </div>
           </Card>
       </VisibilitySensor>
-      
+
     </>
   )
 }

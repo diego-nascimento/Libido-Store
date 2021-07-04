@@ -1,13 +1,10 @@
 import styled from 'styled-components'
-import { styles } from '../../styles/styles';
-
-interface ICard{
-  Visible: boolean
-  Loaded: boolean
-}
+import { styles } from '../../styles/styles'
 
 interface ICard{
   width?: string
+  Visible: boolean
+  Loaded: boolean
 }
 
 export const Card = styled.div<ICard>`
@@ -15,7 +12,7 @@ export const Card = styled.div<ICard>`
   position: relative;
   justify-content: center;
   flex-direction: column;
-  width: ${props => props.width !== ''? props.width: '100%'};
+  width: ${props => props.width !== '' ? props.width : '100%'};
   align-items: center;
   border-radius: 5px;
   overflow: hidden;
@@ -85,11 +82,11 @@ export const Card = styled.div<ICard>`
     height: auto;
   }
 }
-`;
+`
 
 export const ImagemContainer = styled.div`
 
-`;
+`
 
 export const Tag = styled.h3`
   padding: 2px 5px;
@@ -97,4 +94,4 @@ export const Tag = styled.h3`
   border: 1px solid #111;
   border-radius: 1px;
   margin: 0px;
-`;
+`

@@ -9,14 +9,8 @@
   },
   "lint-staged": {
     "*.{ts, tsx}": [
-      "eslint 'src/** --fix",
-      "git add"
+      "eslint 'src/** --fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "@hookform/resolvers": "^2.0.0",

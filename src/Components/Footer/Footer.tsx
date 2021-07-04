@@ -1,13 +1,14 @@
+import React from 'react'
 import { FooterContainer, Rights } from './Footer.style'
 import { RedesSociais } from '../Nav/Nav.style'
-import { FaInstagram, FaWhatsapp} from 'react-icons/fa'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import Link from 'next/link'
 
-const Footer: React.FC =() => {
+const Footer: React.FC = () => {
   return (
     <FooterContainer>
         <div className="Container Footer-Container">
-          {/*<Logo></Logo>*/}
+          {/* <Logo></Logo> */}
           <div className="Grid-Container">
             <p>Entre em Contato</p>
             <ul>
@@ -21,12 +22,12 @@ const Footer: React.FC =() => {
               <li>
                 <Link href="/entrega">
                   <a>Entregas</a>
-                </Link> 
+                </Link>
               </li>
               <li>
                 <Link href="/produtos">
                   <a>Produtos</a>
-                </Link> 
+                </Link>
               </li>
             </ul>
           </div>
@@ -51,6 +52,5 @@ const Footer: React.FC =() => {
       </FooterContainer>
   )
 }
-
 
 export default Footer
