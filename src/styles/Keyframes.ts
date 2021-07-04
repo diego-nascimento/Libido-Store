@@ -13,12 +13,9 @@ export const ImageShowUp = ({ opacity }:IImageShowUp) => keyframes`
 `
 
 export const PBottomTop = keyframes`
-  from
+  from{
     transform: translateY(-20px)
   }to{
-
-
-    
     transform: translateY(0px);
   }
 `

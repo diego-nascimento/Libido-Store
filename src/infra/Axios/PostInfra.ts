@@ -18,7 +18,7 @@ export class PostInfra implements IPostInfra {
             body: response.data
           }
       }
-    } catch (error) {
+    } catch (error: any) {
       return {
         StatusCode: error.response.status,
         body: error.response.data
