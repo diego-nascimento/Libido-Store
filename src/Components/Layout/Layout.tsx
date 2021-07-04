@@ -22,12 +22,13 @@ const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias })
     dispatch(CartActions.PegarCarrinhoLocalStorage())
     setTimeout(() => {
       setLoading(false)
-    }, Math.floor(Math.random() * (700 - 120 +1)) + 120)
+    }, Math.floor(Math.random() * (700 - 120 + 1)) + 120)
   }, [])
 
   return (
-    Loading ? <LoadingPage /> :
-    <PageContainer>
+    Loading
+      ? <LoadingPage />
+      : <PageContainer>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -41,4 +42,3 @@ const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias })
 }
 
 export default connect()(Layout)
-

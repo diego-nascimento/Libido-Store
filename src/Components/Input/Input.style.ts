@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { styles } from '../../styles/styles'
 
-
 interface IContainer{
   borderColor?: string | null
   show?: boolean
@@ -28,7 +27,7 @@ export const Container = styled.div<IContainer>`
     height: 40px;
     padding: 10px;
     border-radius: 15px;
-    background-color: ${props => props.readOnly === true ? styles.componentsDest: '#ddd' };
+    background-color: ${props => props.readOnly === true ? styles.componentsDest : '#ddd'};
     border: none;
     font-weight: 500;
     font-size: .9rem;
@@ -40,5 +39,4 @@ export const Container = styled.div<IContainer>`
       color: ${styles.componentsDest};
     }
   }
-`;
- 
+`

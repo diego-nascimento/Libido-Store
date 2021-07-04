@@ -1,4 +1,4 @@
-import {IImagem} from '../Interfaces/IImagem'
+import { IImagem } from '../Interfaces/IImagem'
 
 export interface ICategoria{
   _id: string

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { styles } from '../../styles/styles';
-
+import { styles } from '../../styles/styles'
 
 export const FooterContainer = styled.footer`
   background: ${styles.componentsDest};
@@ -54,7 +53,7 @@ export const FooterContainer = styled.footer`
       justify-content: flex-start;
     }
   }
-`;
+`
 
 export const Rights = styled.div`
   width: 100vw;
@@ -86,4 +85,4 @@ export const Rights = styled.div`
       }
     }
   }
-`;
+`

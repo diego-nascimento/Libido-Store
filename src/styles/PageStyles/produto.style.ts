@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { styles } from '../styles';
-
+import { styles } from '../styles'
 
 export const Wrapper = styled.section`
   padding: 30px 10px;
@@ -23,7 +22,7 @@ export const Wrapper = styled.section`
     flex-direction: row;
     cursor: pointer;
   }
-`;
+`
 
 export const InfoContainer = styled.div`
   display: grid;
@@ -85,7 +84,7 @@ export const InfoContainer = styled.div`
   @media(max-width: 800px){
     grid-template-columns: 1fr;
   }
-`;
+`
 
 export const Tag = styled.h2`
   padding: 5px 10px;
@@ -100,7 +99,7 @@ export const Tag = styled.h2`
   @media(max-width: 1000px){
     position: static;
   }
-`;
+`
 
 export const ContainerPreco = styled.div`
   width: 100%;
@@ -122,7 +121,7 @@ export const ContainerPreco = styled.div`
       font-weight: 500;
     }
   }
-`;
+`
 
 export const DescricaoContainer = styled.section`
   color: #555;
@@ -144,4 +143,4 @@ export const DescricaoContainer = styled.section`
       width: 300px;
     }
   }
-`;
+`

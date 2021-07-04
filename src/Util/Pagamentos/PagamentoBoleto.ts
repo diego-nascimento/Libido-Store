@@ -1,9 +1,9 @@
-import { PostFactory } from "../../Factory/http/PostFactory"
-import { IBoletoInfo } from "../../pages/api/pagamento/boleto"
-import { IFreteInfo } from "../../typing/Interfaces/IFreteInfo"
-import { IProduto } from "../../typing/Interfaces/IProduto"
-import { IDataForm } from "../../typing/Interfaces/IReactHookDataForm"
-import { normalize } from "../Normalize"
+import { PostFactory } from '../../Factory/http/PostFactory'
+import { IBoletoInfo } from '../../pages/api/pagamento/boleto'
+import { IFreteInfo } from '../../typing/Interfaces/IFreteInfo'
+import { IProduto } from '../../typing/Interfaces/IProduto'
+import { IDataForm } from '../../typing/Interfaces/IReactHookDataForm'
+import { normalize } from '../Normalize'
 
 interface IPagamentoBoleto{
   data: IDataForm
@@ -13,9 +13,9 @@ interface IPagamentoBoleto{
   Frete: IFreteInfo
 }
 
-export const PagamentoBoleto = async ({data, totalPagar, Frete, produtos, FreteServico}: IPagamentoBoleto) =>{
+export const PagamentoBoleto = async ({ data, totalPagar, Frete, produtos, FreteServico }: IPagamentoBoleto) => {
   const postApi = PostFactory()
-  const boletoInfo: IBoletoInfo = { //preenchendo as informações de comprador do boleto
+  const boletoInfo: IBoletoInfo = { // preenchendo as informações de comprador do boleto
     cpf: normalize(data.Cpf),
     nome: data.Nome,
     bairro: data.Bairro,
@@ -32,18 +32,18 @@ export const PagamentoBoleto = async ({data, totalPagar, Frete, produtos, FreteS
     url: 'api/pagamento/boleto',
     body: {
       data: {
-      info: boletoInfo,
-      total: totalPagar.toFixed(2),
-      Produtos: produtos,
-      FreteInfo: {
-        FreteServico: FreteServico,
-        /*FreteValor: fretes[Frete].valor,
+        info: boletoInfo,
+        total: totalPagar.toFixed(2),
+        Produtos: produtos,
+        FreteInfo: {
+          FreteServico: FreteServico,
+          /* FreteValor: fretes[Frete].valor,
         prazo: fretes[Frete].prazo
         */
-        FreteValor: Frete.FreteValor,
-        prazo: Frete.prazo
+          FreteValor: Frete.FreteValor,
+          prazo: Frete.prazo
+        }
       }
     }
-    }
-  }) 
+  })
 }

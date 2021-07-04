@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import {updateStatusTransactionFactory} from '../../../Factory/updatePedidoFactory'
-import {IUpdateStatusTransacionEntry} from '../../../domain/useCases/Transactions/updateStatusTransaction'
-import {updateStatusMessageFactory} from '../../../Factory/statusUpdateEmailFactory'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { updateStatusTransactionFactory } from '../../../Factory/updatePedidoFactory'
+import { IUpdateStatusTransacionEntry } from '../../../domain/useCases/Transactions/updateStatusTransaction'
+import { updateStatusMessageFactory } from '../../../Factory/statusUpdateEmailFactory'
 
-export default async function handler(
+export default async function handler (
   Request: NextApiRequest,
-  Response: NextApiResponse,
+  Response: NextApiResponse
 ) {
   if (Request.method === 'POST') {
     try {
@@ -24,7 +24,7 @@ export default async function handler(
         status: response.status
       })
       if (response) {
-        return Response.status(200).json({message: 'ok'})
+        return Response.status(200).json({ message: 'ok' })
       }
     } catch (error) {
       console.log(error)

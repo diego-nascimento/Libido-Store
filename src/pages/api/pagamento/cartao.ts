@@ -1,19 +1,17 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-//@ts-ignore
-import pagarme from 'pagarme';
-import { IProduto } from '../../../typing/Interfaces/IProduto';
-import {ICardPaymentInfo} from '../../../typing/Interfaces/ICardInfo'
-import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo';
+import { NextApiRequest, NextApiResponse } from 'next'
+// @ts-ignore
+import pagarme from 'pagarme'
+import { IProduto } from '../../../typing/Interfaces/IProduto'
+import { ICardPaymentInfo } from '../../../typing/Interfaces/ICardInfo'
+import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
-import { newPedidoMail } from '../../../Factory/newPedidoEmail';
-import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo';
+import { newPedidoMail } from '../../../Factory/newPedidoEmail'
+import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
 
-
-export default async function handler(
+export default async function handler (
   Request: NextApiRequest,
-  Response: NextApiResponse,
+  Response: NextApiResponse
 ) {
-
   if (Request.method === 'POST') {
     try {
       const PersonInfo: ICardPaymentInfo = Request.body.data.info
@@ -22,15 +20,15 @@ export default async function handler(
       const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
 
       const response = await pagarme.client
-        .connect({ api_key: process.env.PAGARME_APIKEY})
+        .connect({ api_key: process.env.PAGARME_APIKEY })
         .then((client: any) =>
-          client.transactions.create(FillCardInfo(PersonInfo, Produtos, total, FreteInfo)),
-      )
+          client.transactions.create(FillCardInfo(PersonInfo, Produtos, total, FreteInfo))
+        )
 
-      if(response.status === 'refused'){
+      if (response.status === 'refused') {
         throw new Error('Pagamento Recusado')
       }
-     
+
       const PedidoSave = SavePedidoFactory()
       PedidoSave.save(
         {
@@ -62,14 +60,14 @@ export default async function handler(
       )
       const PedidoMail = newPedidoMail()
       await PedidoMail.send({
-      Produtos: Produtos,
-      email: PersonInfo.email,
-      idTransaction: response.id,
-      method: 'cartao',
-      status: response.status,
-      freteInfo: FreteInfo
-    })
-      
+        Produtos: Produtos,
+        email: PersonInfo.email,
+        idTransaction: response.id,
+        method: 'cartao',
+        status: response.status,
+        freteInfo: FreteInfo
+      })
+
       return Response.json(response)
     } catch (error) {
       return Response.json(error)

@@ -18,6 +18,6 @@ export const Parcelas = [
   {
     numero: 5,
     acrescimo: 5
-  },
+  }
 
 ]

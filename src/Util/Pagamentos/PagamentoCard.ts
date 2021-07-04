@@ -1,9 +1,9 @@
-import { PostFactory } from "../../Factory/http/PostFactory"
-import { ICardPaymentInfo } from "../../typing/Interfaces/ICardInfo"
-import { IFreteInfo } from "../../typing/Interfaces/IFreteInfo"
-import { IProduto } from "../../typing/Interfaces/IProduto"
-import { IDataForm } from "../../typing/Interfaces/IReactHookDataForm"
-import { normalize } from "../Normalize"
+import { PostFactory } from '../../Factory/http/PostFactory'
+import { ICardPaymentInfo } from '../../typing/Interfaces/ICardInfo'
+import { IFreteInfo } from '../../typing/Interfaces/IFreteInfo'
+import { IProduto } from '../../typing/Interfaces/IProduto'
+import { IDataForm } from '../../typing/Interfaces/IReactHookDataForm'
+import { normalize } from '../Normalize'
 
 interface IPagamentoCard{
   data: IDataForm
@@ -13,9 +13,9 @@ interface IPagamentoCard{
   Frete: IFreteInfo
 }
 
-export const PagamentoCard = async ({data, produtos, FreteServico, totalPagar, Frete}: IPagamentoCard) =>{
+export const PagamentoCard = async ({ data, produtos, FreteServico, totalPagar, Frete }: IPagamentoCard) => {
   const postApi = PostFactory()
-  const cardInfo: ICardPaymentInfo = { //preenche informações do comprador para compra com cartao
+  const cardInfo: ICardPaymentInfo = { // preenche informações do comprador para compra com cartao
     Bairro: data.Bairro,
     Nome: data.Nome,
     Cpf: normalize(data.Cpf),
@@ -39,17 +39,17 @@ export const PagamentoCard = async ({data, produtos, FreteServico, totalPagar, F
     url: 'api/pagamento/cartao',
     body: {
       data: {
-        info: cardInfo, //informaçoes do comprador e do cartao
-        produtos: produtos, //lista de produtos
-        total: totalPagar.toFixed(2), //valor total a se pagar
+        info: cardInfo, // informaçoes do comprador e do cartao
+        produtos: produtos, // lista de produtos
+        total: totalPagar.toFixed(2), // valor total a se pagar
         FreteInfo: {
           FreteServico: FreteServico,
-          /*FreteValor: fretes[Frete].valor,
+          /* FreteValor: fretes[Frete].valor,
           prazo: fretes[Frete].prazo
           */
           FreteValor: Frete.FreteValor,
           prazo: Frete.prazo
-        },
+        }
       }
     }
   })

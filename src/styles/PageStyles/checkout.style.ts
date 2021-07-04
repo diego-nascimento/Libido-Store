@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { styles } from '../styles';
+import { styles } from '../styles'
 
-export const Wrapper  = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -11,12 +11,12 @@ export const Wrapper  = styled.div`
     font-size: 1.8rem;
     margin-bottom: 20px;
   }
-`;
+`
 
-export const Container  = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 100%;
-`;
+`
 
 export const ProdutosContainer = styled.div`
   display: grid;
@@ -46,7 +46,7 @@ export const ProdutosContainer = styled.div`
   @media(max-width: 800px){
     grid-template-columns: 1fr;
   }
-`;
+`
 
 export const Card = styled.div`
   width: 100%;
@@ -55,7 +55,7 @@ export const Card = styled.div`
   border-bottom: 1px solid ${styles.componentsDest};
   user-select: none; 
   align-items: center;
-`;
+`
 
 export const ImageContainer = styled.div`
   width: 120px;
@@ -68,7 +68,7 @@ export const ImageContainer = styled.div`
   img{
     width: 100%;
   }
-`;
+`
 
 export const InfoContainer = styled.div`
   padding-left: 20px; 
@@ -118,7 +118,7 @@ export const InfoContainer = styled.div`
   h2{
     margin: 10px 0px;
   }
-`;
+`
 
 export const BotaoFinalizar = styled.button`
   width: 100%;
@@ -131,7 +131,7 @@ export const BotaoFinalizar = styled.button`
   margin: 20px 0px;
   letter-spacing: 1px;
   border-radius: 15px;
-`;
+`
 
 interface IFormulario{
   show: boolean
@@ -147,27 +147,23 @@ export const Formulario = styled.form<IFormulario>`
   
   .Endereco{
     display: grid;
-    grid-template-columns: ${props => props.show ? '1fr 150px': '1fr'};
+    grid-template-columns: ${props => props.show ? '1fr 150px' : '1fr'};
     grid-gap: 10px;
   }
 
-`;
-
+`
 
 export const PaymentMethods = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-`;
-
+`
 
 export const ListMethods = styled.ul`
   display: flex;
   flex-direction: row;
-`;
-
-
+`
 
 interface IMethods{
   option: number
@@ -192,10 +188,9 @@ export const Methods = styled.li<IMethods>`
   }
 `
 
-
 export const CardInformations = styled.div`
   
-`;
+`
 
 export const FormularioCard = styled.div`
   
@@ -206,12 +201,11 @@ export const CardData = styled.div`
   color: ${styles.fontColorInDark};
   padding: 10px;
   border-radius: 15px;
-`;
+`
 
 export const Aside = styled.div`
   align-self: flex-start;
-`;
-
+`
 
 export const ErrorContainer = styled.div`
   display: flex;
@@ -229,13 +223,13 @@ export const ErrorContainer = styled.div`
     padding-bottom: 0px;
     margin-bottom: 0px;
   }
-`;
+`
 
 export const ContainerInfoCard = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
-`;
+`
 
 export const SelectParcelas = styled.select`
   margin: 10px 0px;
@@ -248,7 +242,7 @@ export const SelectParcelas = styled.select`
   font-weight: 500;
   font-size: .9rem;
   color: ${styles.componentsDest};
-`;
+`
 
 interface ISelectEstado {
   show: boolean
@@ -285,7 +279,7 @@ export const ContainerCep = styled.div`
     font-size: .9rem;
     color: ${styles.componentsDest};
   }
-`;
+`
 
 export const TotalsInfo = styled.div`
   width: 100%;
@@ -304,5 +298,4 @@ export const TotalsInfo = styled.div`
   }
 
   
-`;
-
+`

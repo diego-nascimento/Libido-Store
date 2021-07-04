@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { styles } from '../styles'
 
-
 export const Header = styled.header`
   width: 100vw;
   display: flex;
@@ -16,8 +15,7 @@ export const Header = styled.header`
   background-position: center center;
   background-color: ${styles.bgColor};
   position: relative;
-`;
-
+`
 
 export const Banner = styled.section`
   width: 100vw;
@@ -60,11 +58,11 @@ export const Banner = styled.section`
       }
     }
 }
-`;
+`
 
 export const TextContainer = styled.div`
   width: 100%;
-`;
+`
 
 export const Categorias = styled.section`
   width: 100vw;
@@ -72,7 +70,7 @@ export const Categorias = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`
 
 export const Container = styled.div`
   display: grid;
@@ -88,7 +86,7 @@ export const Container = styled.div`
 @media  (max-width: 800px){
     width:90%;
   }
-`;
+`
 
 export const Card = styled.div`
   width: 100%;
@@ -117,7 +115,7 @@ export const Card = styled.div`
     width:100%;
   }
 
-`;
+`
 
 export const CardInfo = styled.div`
   width: 100%;
@@ -142,6 +140,4 @@ export const CardInfo = styled.div`
     border-radius: 8px;
     margin-top: 10px;
   }
-`;
-
-
+`

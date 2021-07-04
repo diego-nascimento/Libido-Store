@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import { styles } from '../styles';
-import {ImageShowUp} from '../Keyframes'
-
+import { styles } from '../styles'
+import { ImageShowUp } from '../Keyframes'
 
 export const SobreContainer = styled.section`
   width: 100vw;
@@ -20,7 +19,7 @@ export const SobreContainer = styled.section`
     font-size: 2rem;
   }
 
-`;
+`
 
 export const Container = styled.div`
   display: flex;
@@ -29,9 +28,9 @@ export const Container = styled.div`
 
   img{
     width: 30%;
-    animation: ${ImageShowUp({opacity: .9})} .5s forwards;
+    animation: ${ImageShowUp({ opacity: 0.9 })} .5s forwards;
   }  
-`;
+`
 
 export const InfoContainer = styled.section`
   width: 100%;
@@ -56,4 +55,4 @@ export const InfoContainer = styled.section`
       line-height: 1.2rem;
     }
   }
-`;
+`

@@ -5,7 +5,7 @@ export const PageContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-`;
+`
 
 export const Main = styled.main`
   display: flex;
@@ -13,4 +13,4 @@ export const Main = styled.main`
   align-items: center;
   z-index: 1;
   min-height: 100%;
-`;
+`

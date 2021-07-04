@@ -1,13 +1,13 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-//@ts-ignore
-import pagarme from 'pagarme';
-import { IProduto } from '../../../typing/Interfaces/IProduto';
+import { NextApiRequest, NextApiResponse } from 'next'
+// @ts-ignore
+import pagarme from 'pagarme'
+import { IProduto } from '../../../typing/Interfaces/IProduto'
 import { FillBoletoInfo } from '../../../Util/Pagamentos/FillBoletoInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail'
-import {IFreteInfo} from '../../../typing/Interfaces/IFreteInfo'
+import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
 
-export interface  IBoletoInfo{
+export interface IBoletoInfo{
   nome: string
   cpf: string,
   estado: string,
@@ -21,23 +21,21 @@ export interface  IBoletoInfo{
   email: string
 }
 
-
-export default async function handler(
+export default async function handler (
   Request: NextApiRequest,
-  Response: NextApiResponse,
+  Response: NextApiResponse
 ) {
   const paymentInfo:IBoletoInfo = Request.body.data.info
   const total = Request.body.data.total
   const Produtos: Array<IProduto> = Request.body.data.Produtos
   const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
-  try{
-
-      const response = await pagarme.client
-      .connect({ api_key: process.env.PAGARME_APIKEY})
+  try {
+    const response = await pagarme.client
+      .connect({ api_key: process.env.PAGARME_APIKEY })
       .then((client: any) =>
-        client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo)),
+        client.transactions.create(FillBoletoInfo(paymentInfo, Produtos, total, FreteInfo))
       )
-  
+
     const savePedido = SavePedidoFactory()
     await savePedido.save({
       email: paymentInfo.email,
@@ -74,7 +72,7 @@ export default async function handler(
       freteInfo: FreteInfo,
       boletoURL: response.boleto_url + '?format=pdf'
     })
-      return Response.json(response)  
+    return Response.json(response)
   } catch (error) {
     return Response.status(500).json(error)
   }
