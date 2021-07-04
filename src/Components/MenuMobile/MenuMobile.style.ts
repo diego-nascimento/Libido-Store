@@ -15,7 +15,7 @@ export const Container = styled.nav<IContainer>`
   display: none;
   z-index: 99;
   cursor: default;
-  transform: ${props => props.MenuState? 'translateX(0px)': 'translateX(-350px)'};
+  transform: ${props => props.MenuState ? 'translateX(0px)' : 'translateX(-350px)'};
   transition: .3s;
 
   .ContainerLabel{
@@ -48,13 +48,13 @@ export const Container = styled.nav<IContainer>`
       }
     }
   }
-`;
+`
 
 export const Lista = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;  
+`
 
 export const Item = styled.li`
   width: 100%;
@@ -77,4 +77,4 @@ export const Item = styled.li`
       text-decoration: underline;
     }
   }
-`;
+`

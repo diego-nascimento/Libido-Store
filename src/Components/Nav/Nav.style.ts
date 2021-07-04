@@ -1,7 +1,5 @@
-import styled from 'styled-components';
-import { styles } from '../../styles/styles';
-
-
+import styled from 'styled-components'
+import { styles } from '../../styles/styles'
 
 interface INavegacao{
   MenuBackground: boolean
@@ -9,15 +7,15 @@ interface INavegacao{
 
 export const Wrapper = styled.div`
   width: 100vw;
-`;
+`
 
 export const ContainerHeader = styled.header<INavegacao>`
   height: 35px;
   background: ${styles.componentsDest};
-  display: ${({MenuBackground}) => MenuBackground ? `none`: 'flex' };
+  display: ${({ MenuBackground }) => MenuBackground ? 'none' : 'flex'};
   justify-content: center;
   width: 100%;
-`;
+`
 
 export const Message = styled.div`
   color: ${styles.fontColorInDark};
@@ -26,7 +24,7 @@ export const Message = styled.div`
     font-size: .7rem;
     text-transform: uppercase;
   }
-`;
+`
 
 export const Container = styled.div`
   display: flex;
@@ -39,8 +37,7 @@ export const Container = styled.div`
   svg{
     color: ${styles.fontColorInDark};
   }
-`;
-
+`
 
 export const RedesSociais = styled.ul`
   display: flex;
@@ -75,13 +72,12 @@ export const RedesSociais = styled.ul`
       }
     }
   }
-`;
-
+`
 
 export const Navegacao = styled.nav<INavegacao>`
   background-color: ${styles.componentsColor};
   width: 100vw;
-  position:  ${({MenuBackground}) => MenuBackground ? `fixed`: 'relative' };
+  position:  ${({ MenuBackground }) => MenuBackground ? 'fixed' : 'relative'};
   display: flex;
   top: 0px;
   flex-direction: column;
@@ -110,7 +106,7 @@ export const Navegacao = styled.nav<INavegacao>`
 
     }
   }
-`;
+`
 
 export const ContainerNav = styled.div`
   display: flex;
@@ -164,12 +160,11 @@ export const ContainerNav = styled.div`
     
   }
   
-`;
+`
 
 interface ILista{
   MenuState: boolean,
 }
-
 
 export const Lista = styled.ul<ILista>`
   display: flex;
@@ -208,7 +203,7 @@ export const Lista = styled.ul<ILista>`
   @media  (max-width: 800px){
     display: none;
   }
-`;
+`
 
 export const Categorias = styled.section`
   height: 50px;
@@ -223,7 +218,7 @@ export const Categorias = styled.section`
   @media(max-width: 800px){
     display: none;
   }
-`;
+`
 
 export const ListaCategorias = styled.ul`
   display: flex;
@@ -232,7 +227,7 @@ export const ListaCategorias = styled.ul`
   justify-content: space-around;
   align-items: center;
   height: 50px;
-`;
+`
 
 export const CategoriaItem = styled.li`
   height: 100%;
@@ -264,5 +259,4 @@ export const CategoriaItem = styled.li`
       text-decoration: underline;
     }
   }
-`;
-
+`

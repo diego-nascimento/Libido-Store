@@ -4,7 +4,7 @@ import { ICategoria } from '../../typing/Interfaces/ICategoria'
 import { IProduto } from '../../typing/Interfaces/IProduto'
 import { Wrapper, ProdutosContainer, Container, SideBar } from './ShowProdutos.style'
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
-import { MdExpandMore } from 'react-icons/md';
+import { MdExpandMore } from 'react-icons/md'
 import Item from '../ProdutoItem/ProdutoItem'
 
 interface IShowProdutos{
@@ -13,15 +13,15 @@ interface IShowProdutos{
   categorias:Array<ICategoria>
 }
 
-const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) => {
-  return(
+const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) => {
+  return (
     <Wrapper className="Container">
       <h1>{title}</h1>
       <ProdutosContainer>
         <SideBar>
           <div className="block">
-            <Accordion style={{background: 'rgba(0,0,0,0)', border: 'none'}}> 
-              <AccordionSummary  expandIcon={<MdExpandMore />}>
+            <Accordion style={{ background: 'rgba(0,0,0,0)', border: 'none' }}>
+              <AccordionSummary expandIcon={<MdExpandMore />}>
                   <h2>Categorias</h2>
               </AccordionSummary>
               <AccordionDetails>
@@ -39,14 +39,14 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) =
                   })}
                 </ul>
         </AccordionDetails>
-      </Accordion> 
+      </Accordion>
           </div>
         </SideBar>
         <Container className="Container">
-          {produtos && produtos.map(produto =>{
+          {produtos && produtos.map(produto => {
             return (
               <Link href={`/produto/${produto._id}?produto=${produto.Nome}`} key={produto._id} >
-                <a style={{height: '100%'}}> 
+                <a style={{ height: '100%' }}>
                   <Item produto={produto}/>
                 </a>
             </Link>
@@ -57,6 +57,5 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias}) =
       </Wrapper>
   )
 }
-
 
 export default ShowProdutos

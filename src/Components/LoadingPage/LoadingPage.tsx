@@ -1,6 +1,6 @@
 import React from 'react'
-import {Container} from './LoadingPage.style'
-import {PuffLoader} from 'react-spinners'
+import { Container } from './LoadingPage.style'
+import { PuffLoader } from 'react-spinners'
 
 const LoadingPage = () => {
   return (

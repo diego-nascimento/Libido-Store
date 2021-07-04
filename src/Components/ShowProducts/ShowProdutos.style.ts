@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { styles } from '../../styles/styles';
-
+import { styles } from '../../styles/styles'
 
 export const Wrapper = styled.section`
   padding: 20px 20px;
@@ -19,7 +18,7 @@ export const Wrapper = styled.section`
     width: 100%;
     padding: 100px 10px;
   }
-`;
+`
 
 export const ProdutosContainer = styled.div`
   display: grid;
@@ -29,8 +28,7 @@ export const ProdutosContainer = styled.div`
   @media(max-width: 1100px){
     grid-template-columns: 1fr;
   }
-`;
-
+`
 
 export const Container = styled.div`
   display: grid;
@@ -44,8 +42,6 @@ export const Container = styled.div`
     grid-gap: 10px;
   }
 `
-
-
 
 export const SideBar = styled.aside`
   width: 100%;
@@ -80,5 +76,4 @@ export const SideBar = styled.aside`
 
   }
 
-`;
-
+`

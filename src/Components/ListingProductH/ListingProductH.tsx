@@ -1,23 +1,21 @@
-import React from'react'
+import React from 'react'
 import Slider from 'react-slick'
-import {Container, ContainerCard} from './ListingProductH.style'
+import { Container, ContainerCard } from './ListingProductH.style'
 import ProdutoItem from '../ProdutoItem/ProdutoItem'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import Link from  'next/link'
-
-
+import Link from 'next/link'
 
 interface IListingProductH{
   produtos: Array<IProduto>
   title: string
 }
 
-const ListingProductH: React.FC<IListingProductH> = ({produtos, title}) =>{
+const ListingProductH: React.FC<IListingProductH> = ({ produtos, title }) => {
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    centerPadding: "60px",
+    centerPadding: '60px',
     slidesToShow: 5,
     slidesToScroll: 1,
 
@@ -27,7 +25,7 @@ const ListingProductH: React.FC<IListingProductH> = ({produtos, title}) =>{
         settings: {
           slidesToShow: 4,
           slidesToScroll: 1,
-          infinite: true,
+          infinite: true
         }
       },
       {
@@ -56,29 +54,28 @@ const ListingProductH: React.FC<IListingProductH> = ({produtos, title}) =>{
           arrows: false
         }
       }
-    ],
-  };
+    ]
+  }
 
-  return(
+  return (
     <Container>
       <h1>{title}</h1>
       <Slider {...settings}>
         {
-           produtos.map(produto =>{
-            return (
+           produtos.map(produto => {
+             return (
               <Link href={`/produto/${produto._id}?produto=${produto.Nome}`} key={produto._id} >
-                <a style={{height: '100%'}}> 
+                <a style={{ height: '100%' }}>
                 <ContainerCard>
                   <ProdutoItem produto={produto} width={'80%'}/>
                  </ContainerCard>
                 </a>
             </Link>
-            )
-          })
+             )
+           })
         }
       </Slider>
     </Container>
-    
 
   )
 }

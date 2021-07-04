@@ -15,11 +15,11 @@ export const Container = styled.div`
   @media(max-width: 800px){
     margin-top: 0px;
   }
-`;
+`
 
 export const ContainerCard = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
