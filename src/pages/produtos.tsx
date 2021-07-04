@@ -1,11 +1,10 @@
 import Head from 'next/head'
 import Layout from '../Components/Layout/Layout'
+import React from 'react'
 import ShowProdutos from '../Components/ShowProducts/ShowProdutos'
 import { ICategoria } from '../typing/Interfaces/ICategoria'
 import { IProduto } from '../typing/Interfaces/IProduto'
 import { GetFactory } from '../Factory/http/GetFactory'
-import ListingProductH from '../Components/ListingProductH/ListingProductH'
-
 
 interface IAllProdutos{
   produtos: Array<IProduto>
@@ -13,20 +12,19 @@ interface IAllProdutos{
 }
 
 const Produtos: React.FC<IAllProdutos> = ({ produtos, categorias }) => {
-
   return (
     <Layout categorias={categorias}>
       <Head>
         <title>Libido LoveShop - Produtos</title>
       </Head>
-      <ShowProdutos produtos={produtos} title={"Produtos Disponiveis"} categorias={categorias}/>
+      <ShowProdutos produtos={produtos} title={'Produtos Disponiveis'} categorias={categorias}/>
     </Layout>
   )
 }
 
 export default Produtos
 
-export async function getStaticProps() {
+export async function getStaticProps () {
   const api = GetFactory()
   const responseProdutos = await api.handle(
     {
@@ -37,13 +35,11 @@ export async function getStaticProps() {
     body: null,
     url: `${process.env.APIURL}/categorias`
   })
-  
-  
-  const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+
   return {
     props: {
       categorias: responseCategorias.body,
       produtos: responseProdutos.body
-    },
+    }
   }
 }

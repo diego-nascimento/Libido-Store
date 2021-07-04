@@ -1,10 +1,10 @@
-import {Banner, TextContainer, Card, Header, Categorias, Container} from '../styles/PageStyles/index.style'
+import { Banner, TextContainer, Card, Header, Categorias, Container } from '../styles/PageStyles/index.style'
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
-import {ICategoria} from '../typing/Interfaces/ICategoria'
+import { ICategoria } from '../typing/Interfaces/ICategoria'
 import Link from 'next/link'
 import Head from 'next/head'
-import {GetFactory} from '../Factory/http/GetFactory'
+import { GetFactory } from '../Factory/http/GetFactory'
 import BannerIndex from '../Components/Banner/Banner'
 import ListingProductH from '../Components/ListingProductH/ListingProductH'
 import { IProduto } from '../typing/Interfaces/IProduto'
@@ -17,17 +17,14 @@ interface IHome{
   novidades: Array<IProduto>
 }
 
-
-
-const Home: React.FC <IHome> = ({categorias, produtos, destaques, novidades}) => {
-
+const Home: React.FC <IHome> = ({ categorias, produtos, destaques, novidades }) => {
   return (
     <Layout categorias={categorias}>
       <Head>
         <title>Libido LoveShop - Inicio</title>
         <meta name="description" content={' A LIBIDO é uma loja especializada em produtos de love shop de bom gosto e  qualidade. Nosso principal alvo é o prazer feminino!'} />
       </Head>
-      <Header style={{background: 'none'}}>
+      <Header style={{ background: 'none' }}>
         <BannerIndex />
       </Header>
       <Banner >
@@ -54,7 +51,7 @@ const Home: React.FC <IHome> = ({categorias, produtos, destaques, novidades}) =>
               <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id} >
                 <a>
                 <Card >
-                  {categoria.Imagem? <img src={categoria.Imagem.url} alt={categoria.Nome} />: <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={categoria.Nome} />}
+                  {categoria.Imagem ? <img src={categoria.Imagem.url} alt={categoria.Nome} /> : <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={categoria.Nome} />}
                 </Card>
                 </a>
               </Link>
@@ -63,14 +60,12 @@ const Home: React.FC <IHome> = ({categorias, produtos, destaques, novidades}) =>
         </Container>
       </Categorias>
     </Layout>
-  );
+  )
 }
 
 export default Home
 
-
-
-export async function getStaticProps() {
+export async function getStaticProps () {
   const api = GetFactory()
   const categorias = await api.handle({
     body: null,
@@ -90,13 +85,12 @@ export async function getStaticProps() {
     url: `${process.env.APIURL}/produtos?_limit=10`
   })
 
-  const revalidateTime: string | undefined = process.env.REVALIDATETIME
-    return {
-      props: {
-        categorias: categorias.body,
-        produtos: produtos.body,
-        destaques: destaques.body,
-        novidades: novidades.body
-      },
+  return {
+    props: {
+      categorias: categorias.body,
+      produtos: produtos.body,
+      destaques: destaques.body,
+      novidades: novidades.body
     }
+  }
 }

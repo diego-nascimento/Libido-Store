@@ -1,5 +1,4 @@
-import mongoose, {Schema} from 'mongoose'
-
+import mongoose, { Schema } from 'mongoose'
 
 const pedidoSchema = new Schema({
   idTransaction: Number,
@@ -38,8 +37,8 @@ const pedidoSchema = new Schema({
     default: Date.now()
   },
   publishedAt: {
-      type: Date,
-      default: Date.now()
+    type: Date,
+    default: Date.now()
   }
 })
 

@@ -1,11 +1,10 @@
-import Head from "next/head"
-import Layout from "../../Components/Layout/Layout"
-import ShowProdutos from "../../Components/ShowProducts/ShowProdutos"
-import { GetFactory } from "../../Factory/http/GetFactory"
-import { ICategoria } from "../../typing/Interfaces/ICategoria"
-import { IProduto } from "../../typing/Interfaces/IProduto"
-
-
+import React from 'react'
+import Head from 'next/head'
+import Layout from '../../Components/Layout/Layout'
+import ShowProdutos from '../../Components/ShowProducts/ShowProdutos'
+import { GetFactory } from '../../Factory/http/GetFactory'
+import { ICategoria } from '../../typing/Interfaces/ICategoria'
+import { IProduto } from '../../typing/Interfaces/IProduto'
 
 interface IAllProdutos{
   produtos: Array<IProduto>
@@ -13,7 +12,7 @@ interface IAllProdutos{
   categoria: ICategoria
 }
 
-const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categoria}) => {
+const ProdutoCategoria: React.FC<IAllProdutos> = ({ produtos, categorias, categoria }) => {
   return (
     <Layout categorias={categorias}>
       <Head>
@@ -27,7 +26,7 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({produtos, categorias, categor
 
 export default ProdutoCategoria
 
-export async function getStaticPaths() {
+export async function getStaticPaths () {
   const api = GetFactory()
 
   const response = await api.handle({
@@ -39,18 +38,17 @@ export async function getStaticPaths() {
   response.body.forEach((element:IProduto) => {
     params.push({
       params: {
-        id: element._id,
-      },
-    });
-  });
+        id: element._id
+      }
+    })
+  })
   return {
     paths: params,
-    fallback: true,
-  };
+    fallback: true
+  }
 }
 
-
-export async function getStaticProps({ params }: any) {
+export async function getStaticProps ({ params }: any) {
   const api = GetFactory()
   const responseProdutos = await api.handle({
     body: null,
@@ -64,12 +62,12 @@ export async function getStaticProps({ params }: any) {
     url: `${process.env.APIURL}/categorias/${params.id}`,
     body: null
   })
-   const revalidateTime: string | undefined = process.env.REVALIDATETIME 
+
   return {
     props: {
       categorias: responseCategorias.body,
       produtos: responseProdutos.body,
       categoria: responseCategoriaAtual.body
-    },
+    }
   }
 }

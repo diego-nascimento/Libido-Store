@@ -1,4 +1,4 @@
-import {GetData, GetInfra } from './Protocols'
+import { GetData, GetInfra } from './Protocols'
 
 export const GetFactory = () => {
   const Get_Infra = new GetInfra()

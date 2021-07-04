@@ -1,5 +1,5 @@
-import { IFreteInfo } from "../../../typing/Interfaces/IFreteInfo";
-import { IProduto } from "../../../typing/Interfaces/IProduto";
+import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
+import { IProduto } from '../../../typing/Interfaces/IProduto'
 
 export interface IsaveTransacionEntry{
   idTransaction: number

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container  = styled.div`
+export const Container = styled.div`
   width: 100%;
   position: relative;
 
@@ -12,4 +12,4 @@ export const Container  = styled.div`
   a img{
     width: 100%;
   }
-`;
+`

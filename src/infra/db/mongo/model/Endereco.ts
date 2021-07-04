@@ -1,5 +1,4 @@
-import mongoose, {Schema} from 'mongoose'
-
+import mongoose, { Schema } from 'mongoose'
 
 const EnderecoSchema = new Schema({
   numero: String,

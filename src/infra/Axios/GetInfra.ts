@@ -1,9 +1,9 @@
-import { IGetInfra, IGetEntry } from '../../data/protocols/http/IGet-Infra';
-import { HttpResponse } from '../../domain/protocols/IHttpHelpers';
+import { IGetInfra, IGetEntry } from '../../data/protocols/http/IGet-Infra'
+import { HttpResponse } from '../../domain/protocols/IHttpHelpers'
 import { api } from './AxiosApi'
 
-export class GetInfra implements IGetInfra{
-  async Get({ body, url }: IGetEntry): Promise<HttpResponse>{
+export class GetInfra implements IGetInfra {
+  async Get ({ body, url }: IGetEntry): Promise<HttpResponse> {
     try {
       const response = await api.get(url, body)
       switch (response.status) {
@@ -19,14 +19,14 @@ export class GetInfra implements IGetInfra{
             body: 'Não Encontrado'
           }
       }
-      
+
       return {
         StatusCode: response.status,
         body: response.data
       }
     } catch (error) {
       return {
-        
+
         StatusCode: 500,
         body: 'Algo deu Errado, Tente mais tarde'
       }
