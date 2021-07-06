@@ -37,7 +37,7 @@ const Banner: React.FC = () => {
                 <Carousel.Item key={index}>
                   {banner.link !== null
                     ? <Link href={banner.link}>
-                      <a style={{ width: '100%', cursor: 'pointer' }}>
+                      <a style={{ width: '100%', cursor: 'pointer' }} target='blank'>
                         <img src={banner.url} alt={banner.alt} />
                       </a>
                     </Link>
