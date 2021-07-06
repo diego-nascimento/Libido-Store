@@ -125,7 +125,7 @@ export const ContainerPreco = styled.div`
 
 export const DescricaoContainer = styled.section`
   color: #555;
-  text-align: center;
+  text-align: left;
 
   p{
     margin: 0px;
