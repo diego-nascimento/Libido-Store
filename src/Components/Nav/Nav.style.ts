@@ -84,7 +84,6 @@ export const Navegacao = styled.nav<INavegacao>`
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  transition: .4s;
   z-index: 99;
 
   

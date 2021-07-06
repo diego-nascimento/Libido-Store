@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
 import { GetFactory } from '../Factory/http/GetFactory'
-import { SobreContainer, Container, InfoContainer } from '../styles/PageStyles/entrega.style'
+import { SobreContainer, Container, InfoContainer, ImageContainer } from '../styles/PageStyles/entrega.style'
 import { ICategoria } from '../typing/Interfaces/ICategoria'
 
 interface IEntrega{
@@ -16,11 +16,11 @@ const Entrega: React.FC<IEntrega> = ({ categorias }) => (
     </Head>
     <SobreContainer>
       <Container className="Container">
+        <ImageContainer>
+          <img src="/delivery-sexshop-pirauba.png" alt="delivery-sexshop-pirauba" />
+        </ImageContainer>
         <InfoContainer>
-          <h1>Entregas: </h1>
-        </InfoContainer>
-        <img src="/delivery-sexshop-pirauba.png" alt="delivery-sexshop-pirauba" />
-        <InfoContainer>
+        <h1>Entregas: </h1>
           <p>
             Nossos clientes merecem todo o conforto e comodidade possível, e
             é baseado nisso que ofertamos FRETE GRÁTIS para todos os pedidos
@@ -29,11 +29,11 @@ const Entrega: React.FC<IEntrega> = ({ categorias }) => (
         </InfoContainer>
       </Container>
       <Container className="Container">
+        <ImageContainer>
+          <img src="/localizacao-sexshop-pirauba.png" alt="localizacao-sexshop-pirauba" />
+        </ImageContainer>
         <InfoContainer>
           <h1>Locais que atendemos: </h1>
-        </InfoContainer>
-        <img src="/localizacao-sexshop-pirauba.png" alt="localizacao-sexshop-pirauba" />
-        <InfoContainer>
           <p>
             Fazemos entrega imediata ( em até 24hrs do pedido concluído) por
             toda cidade de Piraúba mas também atendemos e entregamos
@@ -44,11 +44,11 @@ const Entrega: React.FC<IEntrega> = ({ categorias }) => (
         </InfoContainer>
       </Container>
       <Container className="Container">
+      <ImageContainer>
+      <img src="/retirada-sexshop-pirauba.png" alt="Retiradas-sexshop-pirauba" />
+        </ImageContainer>
         <InfoContainer>
           <h1>Retiradas: </h1>
-        </InfoContainer>
-        <img src="/retirada-sexshop-pirauba.png" alt="Retiradas-sexshop-pirauba" />
-        <InfoContainer>
           <p>
             Se por algum motivo for mais conveniente para você buscar sua
             encomenda com a gente, te recebemos respeitando todo o

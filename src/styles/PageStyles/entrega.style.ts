@@ -3,7 +3,7 @@ import { styles } from '../styles'
 import { ImageShowUp } from '../Keyframes'
 
 export const SobreContainer = styled.section`
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px 20px;
@@ -22,23 +22,26 @@ export const SobreContainer = styled.section`
 `
 
 export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  :nth-child(even){
+    direction: rtl;
+  }
 
-  img{
-    width: 30%;
-    animation: ${ImageShowUp({ opacity: 0.9 })} .5s forwards;
-  }  
+  @media(max-width: 500px){
+    grid-template-columns: 1fr;
+  }
 `
 
 export const InfoContainer = styled.section`
   width: 100%;
   text-align: left;
+  direction: ltr;
 
   p{
+    margin-top: 20px;
     letter-spacing: 1px;
-    line-height: 1.8rem;
+    line-height: 2rem;
     color: ${styles.fontColorDest};
     font-size: 1.5rem;
   }
@@ -53,6 +56,23 @@ export const InfoContainer = styled.section`
       letter-spacing: 1px;
       font-size: .8rem;
       line-height: 1.2rem;
+    }
+  }
+`
+
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img{
+      width: 80%;
+      animation: ${ImageShowUp({ opacity: 0.9 })} .5s forwards;
+  }  
+
+  @media(max-width: 500px){
+    img{
+      width: 50%;
     }
   }
 `
