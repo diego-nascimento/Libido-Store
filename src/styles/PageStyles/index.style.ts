@@ -19,7 +19,7 @@ export const Header = styled.header`
 
 export const Banner = styled.section`
   width: 100vw;
-  background: #311F2B;
+  background: #330c0f;
   display: flex;
   justify-content: center;
   padding: 10px 20px;

@@ -1,7 +1,7 @@
 export const styles = {
   bgColor: '#212121',
-  componentsColor: '#C25E83',
-  componentsDest: '#311F2B',
+  componentsColor: '#D27C7D',
+  componentsDest: '#330c0f',
   dest2Components: '#ddd',
   fontColor: '#311F2B',
   fontColorDest: '#311f2',
