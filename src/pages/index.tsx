@@ -17,7 +17,7 @@ interface IHome{
   novidades: Array<IProduto>
 }
 
-const Home: React.FC <IHome> = ({ categorias, produtos, destaques, novidades }) => {
+const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
   return (
     <Layout categorias={categorias}>
       <Head>
@@ -71,10 +71,6 @@ export async function getStaticProps () {
     body: null,
     url: `${process.env.APIURL}/categorias`
   })
-  const produtos = await api.handle({
-    body: null,
-    url: `${process.env.APIURL}/produtos`
-  })
 
   const destaques = await api.handle({
     body: null,
@@ -88,7 +84,6 @@ export async function getStaticProps () {
   return {
     props: {
       categorias: categorias.body,
-      produtos: produtos.body,
       destaques: destaques.body,
       novidades: novidades.body
     }

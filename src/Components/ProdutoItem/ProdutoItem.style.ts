@@ -71,11 +71,11 @@ export const Card = styled.div<ICard>`
 @media(max-width: 800px){
   h2{
     
-    font-size: .9rem;
+    font-size: .7rem;
   }
 
   b{
-    font-size: 1rem;
+    font-size: .8rem;
   }
 
   img{
@@ -94,4 +94,25 @@ export const Tag = styled.h3`
   border: 1px solid #111;
   border-radius: 1px;
   margin: 0px;
+`
+
+export const Precos = styled.div`
+  width:100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  @media(max-width: 800px){
+    font-size: .5rem;
+  }
+
+  .listPrice{
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+  }
+
+  .salePrice{
+    color: ${styles.componentsColor}
+  }
+
+  
 `

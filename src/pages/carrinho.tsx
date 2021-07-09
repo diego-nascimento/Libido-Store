@@ -99,10 +99,10 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                         <h2>{produto.Nome}</h2>
                         {produto.pronta && <b className="Pronta">Entrega Imediata</b>}
                         <p>
-                          Preço: {produto.preco && Intl.NumberFormat('pt-BR', {
+                          Preço: {produto.saleprice && Intl.NumberFormat('pt-BR', {
                           style: 'currency',
                           currency: 'BRL'
-                        }).format(produto.preco)}
+                        }).format(produto.saleprice)}
                         </p>
                         <p>
                         <b>{produto.subtotal && Intl.NumberFormat('pt-BR', {
@@ -148,13 +148,13 @@ const Carrinho: React.FC<CarrinhoProps> = ({
 const mapStateToProps = (state: any) => ({
   produtos: state.cart.map((produto: IProduto) => ({
     ...produto,
-    subtotal: produto.preco * (produto.quantidade ? produto.quantidade : 0)
+    subtotal: produto.saleprice * (produto.quantidade ? produto.quantidade : 0)
   })),
 
   tamanho_carrinho: state.cart.length,
 
   total: state.cart.reduce((total: number, produto: IProduto) => {
-    return total + produto.preco * (produto.quantidade ? produto.quantidade : 0)
+    return total + produto.saleprice * (produto.quantidade ? produto.quantidade : 0)
   }, 0)
 })
 

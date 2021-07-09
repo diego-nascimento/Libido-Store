@@ -51,15 +51,9 @@ export const InfoContainer = styled.div`
     }
 
     .preco{
-
-      b{
-        color: #444;
-        font-size: 1.3rem;
-      }
-
-      h2{
-        font-size: 2rem;
-        margin-top: 5px;
+      p{
+        font-size: 1rem;
+        font-weight: bold;
       }
     }
 
@@ -125,7 +119,7 @@ export const ContainerPreco = styled.div`
 
 export const DescricaoContainer = styled.section`
   color: #555;
-  text-align: left;
+  text-align: left ;
 
   p{
     margin: 0px;
@@ -142,5 +136,43 @@ export const DescricaoContainer = styled.section`
     img{
       width: 300px;
     }
+  }
+`
+
+export const ListPrice = styled.div`
+  b{
+    color: #444;
+    font-size: 1rem;
+  }
+
+  .precoOFF{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    
+    b{
+      margin-left: 10px;
+      font-size: 1.5rem;
+    }
+  }
+  h3{
+    font-size: 1.5rem;
+    text-decoration: line-through;
+    margin-left: 10px;
+  }
+
+  
+`
+
+export const SalePrice = styled.div`
+   b{
+    color: #444;
+    font-size: 1.3rem;
+  }
+  h2{
+    font-size: 2rem;
+    margin-top: 5px;
+    margin-left: 10px;
   }
 `

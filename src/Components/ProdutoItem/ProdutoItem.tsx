@@ -1,6 +1,6 @@
 import React from 'react'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import { Card, ImagemContainer, Tag } from './ProdutoItem.style'
+import { Card, ImagemContainer, Tag, Precos } from './ProdutoItem.style'
 import { Carousel } from 'react-bootstrap'
 import VisibilitySensor from 'react-visibility-sensor'
 
@@ -59,13 +59,21 @@ const ProdutoItem: React.FC<IProdutoItem> = ({ produto, width }) => {
               </Carousel>
             </ImagemContainer>
             <div className="info">
-
               <h2>{(produto.Nome.toLowerCase())}</h2>
-                <b>{Intl.NumberFormat('pt-BR', {
+              <Precos>
+                {produto.listPrice
+                  ? <b className={'listPrice'}>{Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  }).format(produto.listPrice)}
+                </b>
+                  : null}
+                <b className={'salePrice'}>{Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL'
-                }).format(produto.preco)}
+                }).format(produto.saleprice)}
                 </b>
+              </Precos>
             </div>
           </Card>
       </VisibilitySensor>

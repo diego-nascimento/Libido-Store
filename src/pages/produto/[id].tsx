@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Layout from '../../Components/Layout/Layout'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-import { Wrapper, InfoContainer, DescricaoContainer, ContainerPreco, Tag } from '../../styles/PageStyles/produto.style'
+import { Wrapper, InfoContainer, DescricaoContainer, ContainerPreco, Tag, ListPrice, SalePrice } from '../../styles/PageStyles/produto.style'
 import Link from 'next/link'
 import marked from 'marked'
 import { useRouter } from 'next/router'
@@ -113,12 +113,33 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
 
            <ContainerPreco>
             <div className="preco">
-              <b>Por:</b>
+              {produto.listPrice
+                ? <ListPrice>
+                <b>De:</b>
+                <div className='precoOFF'>
+                  <h3>{Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  }).format(produto.listPrice)}
+                  </h3>
+                  <b style={{ position: 'relative', top: '-4px', color: '#C33E3E', border: '2px solid #C33E3E', padding: '3px 7px' }}>
+                    {(((produto.listPrice - produto.saleprice) / produto.listPrice) * 100).toFixed(0)}% OFF
+                  </b>
+                </div>
+
+                </ListPrice>
+                : null
+            }
+
+            <SalePrice>
+              {produto.listPrice ? <b>Por:</b> : <p>A partir de:</p>}
               <h2>{Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL'
-              }).format(produto.preco)}
+              }).format(produto.saleprice)}
               </h2>
+            </SalePrice>
+
             </div>
             <div className="BotoesContainer">
               <Botao Produto={produto} Click={addProduto} Style={{ width: '100%' }}>Adicionar ao Carrinho</Botao>

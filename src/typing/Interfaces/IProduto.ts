@@ -6,7 +6,8 @@ export interface IProduto{
   Nome: string,
   imagens: Array<IImagem>
   categorias: Array<ICategoria>
-  preco: number
+  listPrice: number
+  saleprice: number
   descricao: string
   especificacao: string
   pronta: boolean

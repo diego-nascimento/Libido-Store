@@ -4,8 +4,6 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 import { ServerStyleSheet } from 'styled-components'
 import { GA_TRACKING_ID } from '../Util/GTM'
 
-console.log()
-
 class MyDocument extends Document<any> {
   static async getInitialProps (ctx: DocumentContext) {
     const styledComponentsSheet = new ServerStyleSheet()

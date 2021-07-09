@@ -50,7 +50,7 @@ export const FillBoletoInfo = (paymentInfo: IBoletoInfo, Produtos: Array<IProdut
       return {
         id: produto._id,
         title: produto.Nome,
-        unit_price: produto.preco * 100,
+        unit_price: produto.saleprice * 100,
         quantity: produto.quantidade,
         tangible: true
       }

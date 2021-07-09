@@ -27,7 +27,6 @@ export default async function handler (
         return Response.status(200).json({ message: 'ok' })
       }
     } catch (error) {
-      console.log(error)
       return Response.status(500).json({
         message: 'error'
       })

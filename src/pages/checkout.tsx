@@ -679,12 +679,12 @@ const Checkout: React.FC<CarrinhoProps> = ({
 const mapStateToProps = (state: any) => ({
   produtos: state.cart.map((produto: IProduto) => ({
     ...produto,
-    subtotal: produto.preco * (produto.quantidade ? produto.quantidade : 0)
+    subtotal: produto.saleprice * (produto.quantidade ? produto.quantidade : 0)
   })),
 
   tamanho_carrinho: state.cart.length,
 
-  total: state.cart.reduce((total: number, produto: IProduto) => total + produto.preco * (produto.quantidade ? produto.quantidade : 0), 0)
+  total: state.cart.reduce((total: number, produto: IProduto) => total + produto.saleprice * (produto.quantidade ? produto.quantidade : 0), 0)
 })
 
 export default connect(mapStateToProps)(Checkout)
