@@ -41,7 +41,7 @@ const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
           </TextContainer>
         </div>
       </Banner>
-        <ListingProductH produtos={destaques} title={'Destaques'}/>
+        <ListingProductH produtos={destaques} title={'Destaques'} />
         <ListingProductH produtos={novidades} title={'Novidades'}/>
       <Categorias>
         <h1>Categorias</h1>

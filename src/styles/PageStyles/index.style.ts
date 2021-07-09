@@ -23,6 +23,7 @@ export const Banner = styled.section`
   display: flex;
   justify-content: center;
   padding: 10px 20px;
+  margin-bottom: 30px;
 
   p{
       text-align: left;

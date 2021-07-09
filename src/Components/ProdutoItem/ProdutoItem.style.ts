@@ -18,6 +18,7 @@ export const Card = styled.div<ICard>`
   overflow: hidden;
   height: 100%;
   margin: 0 auto;
+  max-width: 300px;
 
   .info{
     background: transparent;
@@ -51,7 +52,7 @@ export const Card = styled.div<ICard>`
     text-align: left;
     text-transform: capitalize;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: .9rem;
   }
 
   b{
@@ -103,6 +104,8 @@ export const Precos = styled.div`
 
   @media(max-width: 800px){
     font-size: .5rem;
+    flex-direction: column;
+  align-items: center;
   }
 
   .listPrice{
