@@ -40,6 +40,7 @@ export const Card = styled.div<ICard>`
     left: 0px;
     z-index: 99;
     margin: 5px 5px;
+    background-color: white;
   }
 
   img{

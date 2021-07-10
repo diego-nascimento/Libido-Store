@@ -20,45 +20,8 @@ export const Header = styled.header`
 export const Banner = styled.section`
   width: 100vw;
   background: #330c0f;
-  display: flex;
-  justify-content: center;
-  padding: 10px 20px;
+  padding: 30px 0px;
   margin-bottom: 30px;
-
-  p{
-      text-align: left;
-      line-height: 2rem;
-      letter-spacing: 1px;
-  }
-
-  .Container{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 20px;
-
-    h2{
-      font-size: 1.5rem;
-      text-transform: capitalize;
-    }
-
-    h2, p{
-      display: flex;
-      align-items: center;
-      color: ${styles.fontColorInDark};
-    }
-
-    @media  (max-width: 800px){
-      grid-template-columns: 1fr;
-
-      h2{
-        font-size: 1.2rem;
-      }
-      p{
-        font-size: .7rem;
-        line-height: 1.2rem;
-      }
-    }
-}
 `
 
 export const TextContainer = styled.div`

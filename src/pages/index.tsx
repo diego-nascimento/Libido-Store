@@ -1,4 +1,4 @@
-import { Banner, TextContainer, Card, Header, Categorias, Container } from '../styles/PageStyles/index.style'
+import { Banner, Card, Header, Categorias, Container } from '../styles/PageStyles/index.style'
 import Layout from '../Components/Layout/Layout'
 import React from 'react'
 import { ICategoria } from '../typing/Interfaces/ICategoria'
@@ -28,25 +28,16 @@ const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
         <BannerIndex />
       </Header>
       <Banner >
-        <div className="Container">
-          <h2>Bem Vindo ao nosso espaço!</h2>
-          <TextContainer>
-            <p>
-              A LIBIDO é uma loja especializada em produtos de love shop de bom gosto e  qualidade. Nosso principal alvo é o prazer feminino! <br/>
-              Atuamos com vendas de produtos sensuais desde de 2019. <br/>
-              Nosso atendimento é ágil e especializado. Estamos preparados para o suporte pré venda e pós compra. Não tenha vergonha de esclarecer suas dúvidas nem de nos mandar uma mensagem!<br/>
-              A discrição para a gente é a base de tudo. Não divulgamos a identidade de nossos cliente. <br/><br/>
-              Se ame, se toque e sinta prazer estando só ou acompanhada(o).
-            </p>
-          </TextContainer>
-        </div>
       </Banner>
         <ListingProductH produtos={destaques} title={'Destaques'} />
         <ListingProductH produtos={novidades} title={'Novidades'}/>
       <Categorias>
         <h1>Categorias</h1>
         <Container className="Container">
-          {categorias && categorias !== undefined && categorias.map(categoria => {
+          {categorias && categorias !== undefined && categorias.map((categoria, index) => {
+            if (index > 5) {
+              return null
+            }
             return (
               <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id} >
                 <a>

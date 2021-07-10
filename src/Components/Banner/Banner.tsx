@@ -28,9 +28,10 @@ const Banner: React.FC = () => {
       <Carousel
             controls={true}
             touch={true}
-            indicators={false}
+            indicators={true}
             slide={true}
             interval={5000}
+
           >
             {Banners.map((banner, index) => {
               return (
