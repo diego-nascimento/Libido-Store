@@ -5,7 +5,7 @@ import ShowProdutos from '../../Components/ShowProducts/ShowProdutos'
 import { GetFactory } from '../../Factory/http/GetFactory'
 import { ICategoria } from '../../typing/Interfaces/ICategoria'
 import { IProduto } from '../../typing/Interfaces/IProduto'
-
+import { Banner } from '../../styles/PageStyles/categorias.style'
 interface IAllProdutos{
   produtos: Array<IProduto>
   categorias: Array<ICategoria>
@@ -19,6 +19,9 @@ const ProdutoCategoria: React.FC<IAllProdutos> = ({ produtos, categorias, catego
         <title>Libido LoveShop - {categoria && categoria.Nome}</title>
         <meta name="keywords" content={`${categoria && categoria.Nome}`}></meta>
       </Head>
+      { categoria && categoria.banner && <Banner>
+          <img src={categoria.banner.url} alt={categoria.Nome} />
+        </Banner>}
       {categoria && <ShowProdutos produtos={produtos} title={categoria.Nome} categorias={categorias}/>}
     </Layout>
   )

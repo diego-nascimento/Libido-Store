@@ -186,6 +186,7 @@ const Checkout: React.FC<CarrinhoProps> = ({
     setloading(true)
     if (normalize(getValues().Cep) === '36170000' || !cepValido) { // se o cep é de pirauba, prazo é de 2 dias e o valor é 0
       setloading(false)
+
       return setFretes([
         {
           FreteValor: 0,
