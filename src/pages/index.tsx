@@ -30,8 +30,8 @@ const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
       </Header>
       <Banner >
       </Banner>
-        <ListingProductH produtos={destaques} title={'Destaques'} />
-        <ListingProductH produtos={novidades} title={'Novidades'}/>
+        <ListingProductH produtos={destaques} title={'Pra você'} />
+        <ListingProductH produtos={novidades} title={'Acabou de chegar'}/>
       <Categorias>
         <Title text={'Categorias'}/>
         <Container className="Container">

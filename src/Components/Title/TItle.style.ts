@@ -7,25 +7,25 @@ export const Container = styled.div`
 export const TitleText = styled.h1`
   font-weight: bold;
   text-transform: capitalize;
-  font-size: 2rem;
+  font-size: 2.5rem;
   letter-spacing: 1px;
   color: ${styles.componentsDest};
 
   ::first-letter{
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     color: ${styles.componentsColor};
 
   }
 
   @media(max-width: 800px){
-    font-size: 1.5rem;
+    font-size: 2rem;
 
     ::first-letter{
-      font-size: 2rem;
+      font-size: 3rem;
     }
   }
 
   @media(max-width: 500px){
-    font-size: 1rem;
+    font-size: 1.7rem;
   }
 `
