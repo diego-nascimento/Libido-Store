@@ -8,6 +8,7 @@ import { GetFactory } from '../Factory/http/GetFactory'
 import BannerIndex from '../Components/Banner/Banner'
 import ListingProductH from '../Components/ListingProductH/ListingProductH'
 import { IProduto } from '../typing/Interfaces/IProduto'
+import Title from '../Components/Title'
 
 interface IHome{
   categorias: Array<ICategoria>
@@ -32,10 +33,10 @@ const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
         <ListingProductH produtos={destaques} title={'Destaques'} />
         <ListingProductH produtos={novidades} title={'Novidades'}/>
       <Categorias>
-        <h1>Categorias</h1>
+        <Title text={'Categorias'}/>
         <Container className="Container">
           {categorias && categorias !== undefined && categorias.map((categoria, index) => {
-            if (index > 5) {
+            if (index > 4) {
               return null
             }
             return (

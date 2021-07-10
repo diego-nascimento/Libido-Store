@@ -6,6 +6,7 @@ import { Wrapper, ProdutosContainer, Container, SideBar } from './ShowProdutos.s
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import { MdExpandMore } from 'react-icons/md'
 import Item from '../ProdutoItem/ProdutoItem'
+import Title from '../Title'
 
 interface IShowProdutos{
   produtos: Array<IProduto>
@@ -16,7 +17,7 @@ interface IShowProdutos{
 const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) => {
   return (
     <Wrapper className="Container">
-      <h1>{title}</h1>
+      <Title text={title} />
       <ProdutosContainer>
         <SideBar>
           <div className="block">

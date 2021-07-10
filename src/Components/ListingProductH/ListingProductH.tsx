@@ -4,6 +4,7 @@ import { Container, ContainerCard } from './ListingProductH.style'
 import ProdutoItem from '../ProdutoItem/ProdutoItem'
 import { IProduto } from '../../typing/Interfaces/IProduto'
 import Link from 'next/link'
+import Title from '../Title'
 
 interface IListingProductH{
   produtos: Array<IProduto>
@@ -59,7 +60,7 @@ const ListingProductH: React.FC<IListingProductH> = ({ produtos, title }) => {
 
   return (
     <Container>
-      <h1>{title}</h1>
+      <Title text={title}/>
       <Slider {...settings}>
         {
            produtos.map(produto => {

@@ -37,14 +37,40 @@ export const Categorias = styled.section`
 `
 
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: grid; 
+  grid-template-columns: 1fr 2fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "left-top meio right-top"
+    "left-bottom meio right-bottom"; 
   grid-gap: 20px;
   width: calc(100% - 20px);
 
   a{
     display: flex;
     justify-content: center;
+
+    :nth-child(1){
+      grid-area: meio;
+      height: 100%;
+    }
+
+    :nth-child(2){
+      grid-area: left-top;
+    }
+
+    :nth-child(3){
+      grid-area: left-bottom;
+    }
+
+    :nth-child(4){
+      grid-area: right-bottom;
+    }
+
+    :nth-child(5){
+      grid-area: right-top;
+    }
   }
 
 @media  (max-width: 800px){
@@ -64,6 +90,7 @@ export const Card = styled.div`
   color: ${styles.fontColorInDark};
   flex-direction: column;
   background-color: ${styles.fontColor};
+
 
   img{
     width: 100%;

@@ -40,7 +40,7 @@ export const Card = styled.div<ICard>`
     left: 0px;
     z-index: 99;
     margin: 5px 5px;
-    background-color: white;
+    
   }
 
   img{
@@ -96,6 +96,7 @@ export const Tag = styled.h3`
   border: 1px solid #111;
   border-radius: 1px;
   margin: 0px;
+  background-color: white;
 `
 
 export const Precos = styled.div`
