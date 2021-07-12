@@ -116,6 +116,7 @@ export const ContainerNav = styled.div`
   cursor: pointer;
   max-height: 60px;
   padding: 10px 20px;
+  cursor: default;
   
   .CarrinhoButton{
       position: relative;

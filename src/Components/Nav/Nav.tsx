@@ -10,7 +10,7 @@ import MenuMobile from '../MenuMobile/MenuMobile'
 interface INav{
   tamanho_carrinho: number
   carrinho?: boolean,
-  categorias: Array<ICategoria>
+  categorias?: Array<ICategoria>
 }
 
 const Nav: React.FC<INav> = ({ tamanho_carrinho, carrinho, categorias }) => {

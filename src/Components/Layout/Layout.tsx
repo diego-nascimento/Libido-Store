@@ -7,17 +7,18 @@ import { PageContainer, Main } from './Layout.style'
 import { connect } from 'react-redux'
 import * as CartActions from '../../store/modules/cart/actions'
 import { ICategoria } from '../../typing/Interfaces/ICategoria'
-
+import { useRouter } from 'next/router'
+import NavBag from '../NavBag/NavBag'
 interface ILayout {
   children: any
   dispatch: any
   carrinho?: boolean
-  categorias: Array<ICategoria>
+  categorias?: Array<ICategoria>
 }
 
 const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias }) => {
   const [Loading, setLoading] = React.useState(true)
-
+  const Router = useRouter()
   React.useEffect(() => {
     dispatch(CartActions.PegarCarrinhoLocalStorage())
     setTimeout(() => {
@@ -32,7 +33,7 @@ const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias })
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Nav carrinho={carrinho} categorias={categorias}/>
+      {Router.pathname === '/carrinho' ? <NavBag /> : <Nav carrinho={carrinho} categorias={categorias}/>}
       <Main >
         {children}
       </Main>
