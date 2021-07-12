@@ -41,7 +41,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                   {step === 1 && <Formulario />}
 
                <div className="AsideTotal">
-                  <h2>Total ({tamanho_carrinho} itens): {Intl.NumberFormat('pt-BR', {
+                  <h2>subTotal ({tamanho_carrinho} itens): {Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
                   }).format(total)} </h2>

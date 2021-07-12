@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import { PostFactory } from '../Factory/http/PostFactory'
+import { IFreteInfo } from '../typing/Interfaces/IFreteInfo'
 
 type FreteContextType = {
   getFreteValues: (cep: string) => void
@@ -63,14 +64,48 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
       ])
     }
     const postApi = PostFactory()
-    const response = await postApi.handle({
+    const responsePAC = await postApi.handle({
       url: 'api/correios',
       body: {
         cep: cep,
         servico: '04510'
       }
     })
-    console.log(response)
+
+    let ValorStr: string = responsePAC.body.Servicos.cServico.Valor._text // a informação vem em xml e como texto
+    if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) { // se o valor do serviço retornado, quer dizer que algo esta errado nas informações do correio
+      setLoading(false) // finaliza o esado de carregamento
+      return setcepValido(false) // com isso o cep fica invalido
+    }
+
+    const PAC: IFreteInfo = { // organiza as informações do PAC
+      FreteServico: 'PAC',
+      prazo: Number.parseInt(responsePAC.body.Servicos.cServico.PrazoEntrega._text),
+      FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
+    }
+    const responseSEDEX = await postApi.handle({
+      url: 'api/correios',
+      body: {
+        cep: cep,
+        servico: '04014'
+      }
+    })
+    ValorStr = responseSEDEX.body.Servicos.cServico.Valor._text // xml em texto
+    const SEDEX: IFreteInfo = {
+      FreteServico: 'Sedex',
+      prazo: Number.parseInt(responseSEDEX.body.Servicos.cServico.PrazoEntrega._text),
+      FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
+    }
+    setFretes([ // seta o estado com os novos valores dos serviços de frete
+      {
+        FreteValor: PAC.FreteValor,
+        prazo: PAC.prazo
+      },
+      {
+        FreteValor: SEDEX.FreteValor,
+        prazo: SEDEX.prazo
+      }
+    ])
     setLoading(false)
   }
 
