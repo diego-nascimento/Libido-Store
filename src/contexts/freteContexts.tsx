@@ -1,6 +1,24 @@
 import React, { ReactNode } from 'react'
+import { DeepMap, FieldError, FieldValues, useForm, UseFormGetValues, UseFormHandleSubmit, UseFormRegister, UseFormSetValue, UseFormUnregister, Control } from 'react-hook-form'
 import { PostFactory } from '../Factory/http/PostFactory'
 import { IFreteInfo } from '../typing/Interfaces/IFreteInfo'
+import { IValues } from '../typing/types/ICheckoutValues'
+import { requiredFields } from '../Util/EnderecoRequiredFields'
+import { normalize } from '../Util/Normalize'
+
+type IFrete = {
+  Bairro: string,
+  Cep: string,
+  Cidade: string,
+  Complemento: string,
+  Cpf: string,
+  Endereco: string,
+  Estado: string,
+  Nome: string,
+  Numero: string,
+  Whatsapp: string,
+  email: string
+}
 
 type FreteContextType = {
   getFreteValues: (cep: string) => void
@@ -9,44 +27,108 @@ type FreteContextType = {
   resetFreteValues: () => void
   setFrete: React.Dispatch<React.SetStateAction<number>>
   setcepValido: React.Dispatch<React.SetStateAction<boolean>>
-  returnFreteSelected: () => {FreteValor :number, prazo: number}
+  returnFreteSelected: () => {servico: string, FreteValor :number, prazo: number}
   error: string | null,
   setError: React.Dispatch<React.SetStateAction<string | null>>
+  register: UseFormRegister<FieldValues>
+  handleSubmit: UseFormHandleSubmit<FieldValues>
+  unregister: UseFormUnregister<FieldValues>
+  setValue: UseFormSetValue<FieldValues>
+  getValues: UseFormGetValues<FieldValues>
+  errors: DeepMap<FieldValues, FieldError>
+  getFormularioInformations: () => IFrete
+  showAddress: boolean
+  setShowAddress: React.Dispatch<React.SetStateAction<boolean>>
+  addressEditable: TypesAddressInfo
+  setAddressEditable: React.Dispatch<React.SetStateAction<TypesAddressInfo>>
+  FreteSelected: number
+  control: Control<FieldValues>
+}
+
+type TypesAddressInfo = {
+  Cidade: boolean
+  Estado: boolean
+  Bairro: boolean
+  Endereco: boolean
 }
 
 type AuthProviderProps = {
   children: ReactNode;
 };
 
+type TypeFretes ={
+  servico: string,
+  FreteValor: number,
+  prazo: number
+}
+
 const FreteContext = React.createContext({} as FreteContextType)
 
 const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [cepValido, setcepValido] = React.useState<boolean>(false) // estado que define se um cep valido foi inserido ou nao
+  const [showAddress, setShowAddress] = React.useState<boolean>(false) // State se deve ou não mostrar os campos de endereço
+  const [addressEditable, setAddressEditable] = React.useState<TypesAddressInfo>({ // State se campos estão editaveis ou não
+    Cidade: true,
+    Estado: true,
+    Bairro: true,
+    Endereco: true
+  })
   const [FreteSelected, setFrete] = React.useState<number>(0) // Qual frete foi selecionado, 0 para boleto, 1 para cartao
-  const [fretes, setFretes] = React.useState<Array<{FreteValor :number, prazo: number}>>([ // estado onde sao salvos as informações sobre os serviços de frete
+  const [fretes, setFretes] = React.useState<Array<TypeFretes>>([ // estado onde sao salvos as informações sobre os serviços de frete
     {
       FreteValor: 0,
-      prazo: 0
+      prazo: 0,
+      servico: ''
     }, {
       FreteValor: 0,
-      prazo: 0
+      prazo: 0,
+      servico: ''
     }
   ])
   const [error, setError] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState<boolean>(false)
+  const {
+    register, handleSubmit, formState: { errors }, unregister, setValue, getValues, control
+  } = useForm()
 
   const resetFreteValues = () => {
     setFretes([ // reseta valores de frete
       {
         FreteValor: 0,
-        prazo: 2
-      },
-      {
+        prazo: 0,
+        servico: ''
+      }, {
         FreteValor: 0,
-        prazo: 2
+        prazo: 0,
+        servico: ''
       }
     ])
   }
+
+  React.useEffect(() => { // atualiza os campos de endereço se o estado de cep valido alterar
+    if (!cepValido) {
+      unregister('Cidade') // faz com q o react hook form nao registre os valores de endereço
+      unregister('Estado')
+      unregister('Bairro')
+      unregister('Numero')
+      unregister('Endereco')
+      unregister('Complemento')
+      requiredFields.forEach((field) => { // Limpa os campos de Endereço quando um Cep valido nao esta inserido
+        setValue(field.field as keyof IValues, '')
+      })
+      setValue('Cep', '')
+      setShowAddress(false)
+      resetFreteValues()
+    } else {
+      getFreteValues(normalize(getValues().Cep))
+      register('Cidade')
+      register('Estado')
+      register('Bairro')
+      register('Numero')
+      register('Endereco')
+      register('Complemento')
+    }
+  }, [cepValido])
 
   const getFreteValues = async (cep: string) => { // função que conslta no correio os valores e serviços de frete
     setLoading(true)
@@ -54,10 +136,12 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setLoading(false)
       return setFretes([
         {
+          servico: 'PAC',
           FreteValor: 0,
           prazo: 2
         },
         {
+          servico: 'Sedex',
           FreteValor: 0,
           prazo: 2
         }
@@ -98,10 +182,12 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     setFretes([ // seta o estado com os novos valores dos serviços de frete
       {
+        servico: 'PAC',
         FreteValor: PAC.FreteValor,
         prazo: PAC.prazo
       },
       {
+        servico: 'Sedex',
         FreteValor: SEDEX.FreteValor,
         prazo: SEDEX.prazo
       }
@@ -113,7 +199,23 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return fretes[FreteSelected]
   }
 
-  return (<FreteContext.Provider value={{ getFreteValues, cepValido, loading, resetFreteValues, setFrete, setcepValido, returnFreteSelected, error, setError }}>{children}</FreteContext.Provider>)
+  const getFormularioInformations = ():IFrete => {
+    return {
+      Cep: getValues().Cep,
+      Bairro: getValues().Bairro,
+      Cidade: getValues().Cidade,
+      Complemento: getValues().Complemento,
+      Endereco: getValues().Endereco,
+      Estado: getValues().Estado,
+      Numero: getValues().Numero,
+      Cpf: getValues().Cpf,
+      Nome: getValues().Nome,
+      Whatsapp: getValues().Whatsapp,
+      email: getValues().email
+    }
+  }
+
+  return (<FreteContext.Provider value={{ getFreteValues, cepValido, loading, resetFreteValues, setFrete, setcepValido, returnFreteSelected, error, setError, register, handleSubmit, setValue, getValues, errors, unregister, getFormularioInformations, showAddress, setShowAddress, addressEditable, setAddressEditable, FreteSelected, control }}>{children}</FreteContext.Provider>)
 }
 
 const useFrete = () => {

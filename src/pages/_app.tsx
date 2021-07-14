@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import React from 'react'
 import * as GTM from '../Util/GTM'
 import { StepProvider } from '../contexts/cartStep'
+import { FreteProvider } from '../contexts/freteContexts'
+import { PagamentoProvider } from '../contexts/pagamentoContexts'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter()
@@ -27,13 +29,16 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   }, [router.events])
 
   return (
-    <StepProvider>
-      <Provider store={store}>
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </Provider>
-    </StepProvider>
-
+    <PagamentoProvider>
+      <FreteProvider>
+        <StepProvider>
+          <Provider store={store}>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </Provider>
+        </StepProvider>
+      </FreteProvider>
+    </PagamentoProvider>
   )
 }
 

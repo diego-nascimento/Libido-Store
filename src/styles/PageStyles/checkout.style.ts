@@ -18,7 +18,7 @@ export const Container = styled.div`
   height: 100%;
 `
 
-export const ProdutosContainer = styled.div`
+export const CheckoutContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 400px;
   grid-gap: 20px;
@@ -56,9 +56,12 @@ export const Card = styled.div`
   user-select: none; 
   align-items: center;
 `
+interface IImageContainer {
+  smallSize: boolean
+}
 
-export const ImageContainer = styled.div`
-  width: 120px;
+export const ImageContainer = styled.div<IImageContainer>`
+  width: ${props => props.smallSize ? '60px' : '120px'};
   height: 100%;
   border-radius: 15px;
   overflow: hidden;
@@ -114,10 +117,6 @@ export const InfoContainer = styled.div`
   .Pronta{
     font-size: .9rem;
   }
-
-  h2{
-    margin: 10px 0px;
-  }
 `
 
 export const BotaoFinalizar = styled.button`
@@ -151,49 +150,6 @@ export const Formulario = styled.form<IFormulario>`
     grid-gap: 10px;
   }
 
-`
-
-export const PaymentMethods = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-`
-
-export const ListMethods = styled.ul`
-  display: flex;
-  flex-direction: row;
-`
-
-interface IMethods{
-  option: number
-}
-
-export const Methods = styled.li<IMethods>`
-  width: 100%;
-  background: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  border: 1px solid ${styles.componentsDest};
-  background: ${styles.componentsDest};
-  color: ${styles.fontColorInDark};
-  margin: 0px 5px;
-  transition: .4s;
-  cursor: pointer;
-
-  :nth-child(${props => props.option + 1}){
-    opacity: .8;
-  }
-`
-
-export const CardInformations = styled.div`
-  
-`
-
-export const FormularioCard = styled.div`
-  
 `
 export const CardData = styled.div`
   margin: 0px 0px 10px;
@@ -231,23 +187,6 @@ export const ContainerInfoCard = styled.div`
   grid-gap: 10px;
 `
 
-export const SelectParcelas = styled.select`
-  margin: 10px 0px;
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #ddd;
-  border: none;
-  font-weight: 500;
-  font-size: .9rem;
-  color: ${styles.componentsDest};
-`
-
-interface ISelectEstado {
-  show: boolean
-}
-
 export const SelectEstado = styled.select<ISelectEstado>`
   margin: 10px 0px;
   width: 100%;
@@ -281,21 +220,44 @@ export const ContainerCep = styled.div`
   }
 `
 
-export const TotalsInfo = styled.div`
+export const ProdutosWrapper = styled.div`
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+`
+
+export const ProdutosContainer = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 
-  h2{
-    margin: 10px 0px;
-    
-    :nth-child(4){
-      font-size: 1.6rem;
-      border-top: 1px solid #ddd;
-      padding: 20px 0px 0px;
-
-    }
+export const Produto = styled.li`
+  border-top: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  img{
+    width: 100%;
   }
+`
 
+export const ProdutoInfoContainer = styled.div`
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  p{
+    font-size: .7rem;
+    line-height: 1.1rem;
+    text-transform: capitalize;
+  }
   
 `

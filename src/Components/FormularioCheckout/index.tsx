@@ -1,6 +1,4 @@
 import React from 'react'
-import { useForm } from 'react-hook-form'
-import InputMask from 'react-input-mask'
 import Input from '../Input/Input'
 import { GoAlert } from 'react-icons/go'
 import { Container as ContainerInput } from '../Input/Input.style'
@@ -9,6 +7,8 @@ import { styles } from '../../styles/styles'
 import { normalize } from '../../Util/Normalize'
 import { requiredFields } from '../../Util/EnderecoRequiredFields'
 import { IValues } from '../../typing/types/ICheckoutValues'
+import { Controller } from 'react-hook-form'
+import InputMask from 'react-input-mask'
 
 import {
   Formulario, SelectEstado, ContainerCep, ErrorContainer
@@ -16,53 +16,8 @@ import {
 import { GetFactory } from '../../Factory/http/GetFactory'
 import { useFrete } from '../../contexts/freteContexts'
 
-type TypesAddressInfo = {
-  Cidade: boolean
-  Estado: boolean
-  Bairro: boolean
-  Endereco: boolean
-}
-
 const FormularioCheckout: React.FC = () => {
-  const [showAddress, setShowAddress] = React.useState<boolean>(false) // State se deve ou não mostrar os campos de endereço
-  const [addressEditable, setAddressEditable] = React.useState<TypesAddressInfo>({ // State se campos estão editaveis ou não
-    Cidade: true,
-    Estado: true,
-    Bairro: true,
-    Endereco: true
-  })
-  const {
-    register, formState: { errors }, unregister, setValue, getValues
-  } = useForm()
-
-  const { getFreteValues, cepValido, loading, resetFreteValues, setFrete, setcepValido, setError, error, returnFreteSelected } = useFrete()
-
-  console.log(returnFreteSelected())
-
-  React.useEffect(() => { // atualiza os campos de endereço se o estado de cep valido alterar
-    if (!cepValido) {
-      unregister('Cidade') // faz com q o react hook form nao registre os valores de endereço
-      unregister('Estado')
-      unregister('Bairro')
-      unregister('Numero')
-      unregister('Endereco')
-      unregister('Complemento')
-      requiredFields.forEach((field) => { // Limpa os campos de Endereço quando um Cep valido nao esta inserido
-        setValue(field.field as keyof IValues, '')
-      })
-      setValue('Cep', '')
-      setShowAddress(false)
-      resetFreteValues()
-    } else {
-      getFreteValues(normalize(getValues().Cep))
-      register('Cidade')
-      register('Estado')
-      register('Bairro')
-      register('Numero')
-      register('Endereco')
-      register('Complemento')
-    }
-  }, [cepValido])
+  const { cepValido, loading, setFrete, setcepValido, setError, error, errors, getValues, register, setValue, addressEditable, setAddressEditable, setShowAddress, showAddress, FreteSelected, control } = useFrete()
 
   const handleCepClick = async () => { // Function que lida com a consulta de informações do cep
     const Get = GetFactory()
@@ -94,7 +49,7 @@ const FormularioCheckout: React.FC = () => {
   }
 
   return (
-            <Formulario show={showAddress}>
+            <Formulario show={showAddress} >
               {error &&
                 <ErrorContainer >
                  <p>
@@ -119,24 +74,50 @@ const FormularioCheckout: React.FC = () => {
                 name="email"
               />
               <ContainerInput show>
-                <InputMask
-                  mask="999.999.999-99"
-                  placeholder="CPF"
-                  {...register('Cpf', { required: true })}
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                    max: 9,
+                    min: 9
+                  }}
+                  name='Cpf'
+                  defaultValue=""
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <InputMask
+                      mask="999.999.999-99"
+                      placeholder="CPF"
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
                 />
                 {errors && errors.Cpf && errors.Cpf.type === 'required' && (
-                <p>
-                  <GoAlert />
-                  Esse Campo é Obrigatorio
-                </p>
+                  <p>
+                    <GoAlert />
+                    Esse Campo é Obrigatorio
+                  </p>
                 )}
               </ContainerInput>
               <ContainerInput show>
-                <InputMask
-                  mask="(99) 99999-9999"
-                  placeholder="Whatsapp"
-                  {...register('Whatsapp', { required: true })}
-                />
+                <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                      max: 11,
+                      min: 11
+                    }}
+                    name='Whatsapp'
+                    defaultValue=""
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputMask
+                        mask="(99)99999-9999"
+                        placeholder="Whatsapp"
+                        value={value}
+                        onChange={onChange}
+                      />
+                    )}
+                  />
                 {errors && errors.Whatsapp && errors.Whatsapp.type === 'required' && (
                 <p>
                   <GoAlert />
@@ -148,11 +129,23 @@ const FormularioCheckout: React.FC = () => {
               <h2 style={{ marginTop: '10px' }}>Endereço de Entrega:</h2>
               <ContainerCep>
                 <ContainerInput show readOnly={cepValido}>
-                  <InputMask
-                    mask="99999-999"
-                    placeholder="Cep"
-                    {...register('Cep', { required: true })}
-                    disabled={cepValido}
+                <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                      max: 8,
+                      min: 8
+                    }}
+                    name='Cep'
+                    defaultValue=""
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputMask
+                        mask="99999-999"
+                        placeholder="CEP"
+                        value={value}
+                        onChange={onChange}
+                      />
+                    )}
                   />
                   {errors && errors.Cep && errors.Cep.type === 'required' && (
                   <p>
@@ -196,7 +189,7 @@ const FormularioCheckout: React.FC = () => {
               <div className="Endereco">
                 <Input
                   type="text"
-                  placeholder="Endereco"
+                  placeholder="Endereço"
                   Register={register}
                   Error={errors.Endereco}
                   name="Endereco"
@@ -273,7 +266,7 @@ const FormularioCheckout: React.FC = () => {
                   </ContainerInput>
                   )
                 : (
-                  <SelectEstado placeholder="Frete" onChange={(e) => setFrete(Number.parseInt(e.target.value))} show={showAddress}>
+                  <SelectEstado placeholder="Frete" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFrete(Number.parseInt(e.target.value))} show={showAddress} value={FreteSelected}>
                     <option value={0}>PAC</option>
                     <option value={1}>Sedex</option>
                   </SelectEstado>
