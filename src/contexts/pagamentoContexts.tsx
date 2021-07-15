@@ -56,7 +56,9 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
     return Methods[method]
   }
 
-  console.log(parcelas)
+  React.useEffect(() => {
+    setParcelas(1)
+  }, [method])
 
   const getCardPaymentInformation = () => {
     return {
@@ -130,7 +132,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           email: data.email,
           cardInfo: {
             CardCVC: cardData.cvc,
-            CardExpire: cardData.expiresin,
+            CardExpire: normalize(cardData.expiresin),
             CardName: cardData.name,
             CardNumber: cardData.number,
             parcelas: parcelas
@@ -141,13 +143,12 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           body: {
             data: {
               info: CardMethodInfo,
-              total: (total + FreteSelected.FreteValor) + (total + FreteSelected.FreteValor) * Parcelas[parcelas - 1].acrescimo,
+              total: ((total + FreteSelected.FreteValor) + (total + FreteSelected.FreteValor) * ((Parcelas[parcelas - 1].acrescimo) / 100)).toFixed(2),
               Produtos: produtos,
               FreteInfo: FreteSelected
             }
           }
         })
-        console.log(responseCard)
         break
     }
 

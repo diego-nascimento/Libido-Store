@@ -7,12 +7,11 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { IProduto } from '../typing/Interfaces/IProduto'
 import Formulario from '../Components/FormularioCheckout'
-import { IFrete, TypeFretes, useFrete } from '../contexts/freteContexts'
+import { IFrete, useFrete } from '../contexts/freteContexts'
 import { usePagamento } from '../contexts/pagamentoContexts'
 import { useStep } from '../contexts/cartStep'
-
+import { Parcelas } from '../Util/Parcelas'
 import Pagamento from '../Components/PagamentoCheckout'
-import { IFreteInfo } from '../typing/Interfaces/IFreteInfo'
 import { Carousel } from 'react-bootstrap'
 
 interface CarrinhoProps{
@@ -31,7 +30,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
 }) => {
   const { step, setStep } = useStep()
   const { returnFreteSelected, cepValido, loading, handleSubmit } = useFrete()
-  const { handleFinalizar } = usePagamento()
+  const { handleFinalizar, parcelas, method } = usePagamento()
   React.useEffect(() => {
     setStep(0)
   }, [])
@@ -117,10 +116,14 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                      currency: 'BRL'
                    }).format(returnFreteSelected().FreteValor)
                   } - em até {returnFreteSelected().prazo} dias</h2>}
+                  {method === 1 && Parcelas[parcelas - 1].acrescimo > 0 && <h2>Juros: {Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  }).format((total + returnFreteSelected().FreteValor) * (Parcelas[parcelas - 1].acrescimo / 100))}</h2>}
                   <h1>Total: {Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                  }).format(total + returnFreteSelected().FreteValor)}</h1>
+                  }).format((total + returnFreteSelected().FreteValor) + (total + returnFreteSelected().FreteValor) * (Parcelas[parcelas - 1].acrescimo / 100)) }</h1>
                   <BotaoFinalizar disabled={loading} onClick={handleSubmit(handleContinue)}>{loading ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
               </ContainerResume>
           </div>
