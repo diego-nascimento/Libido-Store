@@ -1,21 +1,38 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { PaymentHeader, ButtonContainer, Button, CardInfoContainer, FormularioContainer } from '../../Pagamento.style'
 import { Container, Content } from '../../methods.style'
 import { IFrete, useFrete } from '../../../../contexts/freteContexts'
 import { usePagamento } from '../../../../contexts/pagamentoContexts'
 import { connect } from 'react-redux'
 import { IProduto } from '../../../../typing/Interfaces/IProduto'
-import Cards from 'react-credit-cards'
+import Cards, { Focused } from 'react-credit-cards'
 import InputMask from 'react-input-mask'
+import { createStyles, FormControl, InputLabel, makeStyles, Select, Theme } from '@material-ui/core'
+import { Parcelas } from '../../../../Util/Parcelas'
 
 interface ICartaoCredito {
   total: number
   produtos: Array<IProduto>
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      width: '100%',
+      minWidth: 120,
+      marginTop: '10px',
+      background: 'white'
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2)
+    }
+  })
+)
+
 const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }) => {
   const { returnFreteSelected, handleSubmit } = useFrete()
-  const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus } = usePagamento()
+  const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus, setParcelas, parcelas } = usePagamento()
+  const classes = useStyles()
 
   const handleSubmitDelivery = (data:IFrete) => {
     handleFinalizar(data, returnFreteSelected(), produtos, total)
@@ -38,13 +55,48 @@ const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }) => {
           cvc={cvc}
           expiry={expiresIn}
           number={cardNumber}
+          // @ts-ignore
           focused={focus}
         />
         <FormularioContainer>
-          <input type="text" placeholder='Nome do titular do cartão' name='name'onChange={(e) => setCardName(e.target.value)} onFocus={(e) => setFocus('name')}/>
-          <InputMask mask='9999 9999 9999 9999' placeholder='Numero do cartão' type="text" name='number' onChange={(e) => setCardNumber(e.target.value)} onFocus={(e) => setFocus('number')}/>
+          <input type="text" placeholder='Nome do titular do cartão' name='name'onChange={(e) => setCardName(e.target.value)} onFocus={() => {
+            const name: Focused = 'name'
+            setFocus(name)
+          }}/>
+          <InputMask mask='9999 9999 9999 9999' placeholder='Numero do cartão' type="text" name='number' onChange={(e) => setCardNumber(e.target.value)} onFocus={(e) => {
+            const name: Focused = 'number'
+            setFocus(name)
+          }}/>
           <InputMask mask='99/99' type="text" placeholder='Validade' name ='expiry'onChange={(e) => setExpiresIn(e.target.value)} onFocus={(e) => setFocus('expiry')}/>
-          <InputMask mask='999' placeholder='CVC' type="tel" name='cvc'onChange={(e) => setCvc(e.target.value)} onFocus={(e) => setFocus('cvc')}/>
+          <InputMask mask='999' placeholder='CVC' type="tel" name='cvc'onChange={(e) => setCvc(e.target.value)} onFocus={(e) => {
+            const name: Focused = 'cvc'
+            setFocus(name)
+          }}/>
+          <FormControl variant="filled" className={classes.formControl}>
+            <InputLabel htmlFor="selectParcelas">Selecione o número de parcelas</InputLabel>
+            <Select
+              native
+              value={parcelas}
+              // @ts-ignore
+              onChange={(e:React.ChangeEvent<{ name?: string; value: unknown }>) => setParcelas(e.target.value)}
+              inputProps={{
+                name: 'Parcelas',
+                id: 'selectParcelas'
+              }}
+            >
+              {Parcelas.map(parcela => {
+                return (
+                  <option value={parcela.numero} key={parcela.numero}>
+                    {parcela.numero}x de {Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL'
+                    }).format((total + returnFreteSelected().FreteValor) / parcela.numero)}
+                    {parcela.acrescimo > 0 ? ' com juros' : ' sem juros'}
+                  </option>
+                )
+              })}
+            </Select>
+          </FormControl>
         </FormularioContainer>
       </CardInfoContainer>
       <ButtonContainer>

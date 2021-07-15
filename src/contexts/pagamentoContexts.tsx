@@ -13,6 +13,7 @@ type PagamentoProviderTypes ={
   setMethod: React.Dispatch<React.SetStateAction<number>>
   AvailableMethods: Array<string>
   getSelectedMethod: () => string
+  parcelas: number
   setParcelas: React.Dispatch<React.SetStateAction<number>>
   getPercentageJuros: () => number
   Methods: Array<string>
@@ -41,16 +42,21 @@ const PagamentoContext = React.createContext({} as PagamentoProviderTypes)
 const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
   const [method, setMethod] = React.useState<number>(0)
   const [AvailableMethods, setavailableMethods] = React.useState<Array<string>>(Methods)
-  const [parcelas, setParcelas] = React.useState<number>(0)
+  const [parcelas, setParcelas] = React.useState<number>(1)
   const [cardName, setCardName] = React.useState<string>('')
   const [cardNumber, setCardNumber] = React.useState<string>('')
   const [expiresIn, setExpiresIn] = React.useState<string>('')
   const [cvc, setCvc] = React.useState<string>('')
-  const [focus, setFocus] = React.useState<Focused | undefined>('name')
+  const [focus, setFocus] = React.useState<Focused | undefined>(() => {
+    const name: Focused = 'name'
+    return name
+  })
 
   const getSelectedMethod = (): string => {
     return Methods[method]
   }
+
+  console.log(parcelas)
 
   const getCardPaymentInformation = () => {
     return {
@@ -127,7 +133,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
             CardExpire: cardData.expiresin,
             CardName: cardData.name,
             CardNumber: cardData.number,
-            parcelas: 1
+            parcelas: parcelas
           }
         }
         const responseCard = await post.handle({
@@ -135,12 +141,13 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           body: {
             data: {
               info: CardMethodInfo,
-              total: total,
+              total: (total + FreteSelected.FreteValor) + (total + FreteSelected.FreteValor) * Parcelas[parcelas - 1].acrescimo,
               Produtos: produtos,
               FreteInfo: FreteSelected
             }
           }
         })
+        console.log(responseCard)
         break
     }
 
@@ -148,7 +155,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
   }
 
   return (
-    <PagamentoContext.Provider value={{ AvailableMethods, method, setMethod, getSelectedMethod, getPercentageJuros, setParcelas, Methods, setavailableMethods, handleFinalizar, cardName, setCardName, cardNumber, setCardNumber, expiresIn, setExpiresIn, cvc, setCvc, focus, setFocus }}>
+    <PagamentoContext.Provider value={{ AvailableMethods, method, setMethod, getSelectedMethod, getPercentageJuros, setParcelas, Methods, setavailableMethods, handleFinalizar, cardName, setCardName, cardNumber, setCardNumber, expiresIn, setExpiresIn, cvc, setCvc, focus, setFocus, parcelas }}>
       {children}
     </PagamentoContext.Provider>
   )

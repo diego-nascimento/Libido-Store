@@ -35,7 +35,7 @@ const Pagamento:React.FC = () => {
                 return (
                   <Method key={index} onClick={() => setMethod(index)} selected={SelectedMethod === index}>
                     {method === 'Boleto' && <ImBarcode />}
-                    {method === 'Cartao' && <ImCreditCard />}
+                    {method === 'Cartão' && <ImCreditCard />}
                     {method === 'Pagamento na entrega' && <GrDeliver />}
                     <span>{method}</span>
                   </Method>

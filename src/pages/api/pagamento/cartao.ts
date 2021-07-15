@@ -7,6 +7,7 @@ import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail'
 import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
+import { Parcelas } from '../../../Util/Parcelas'
 
 export default async function handler (
   Request: NextApiRequest,
@@ -15,7 +16,7 @@ export default async function handler (
   if (Request.method === 'POST') {
     try {
       const PersonInfo: ICardPaymentInfo = Request.body.data.info
-      const Produtos: Array<IProduto> = Request.body.data.produtos
+      const Produtos: Array<IProduto> = Request.body.data.Produtos
       const total: number = Request.body.data.total
       const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
 
@@ -39,7 +40,7 @@ export default async function handler (
           status: response.status,
           produtos: Produtos,
           parcelas: PersonInfo.cardInfo.parcelas,
-          total: total + FreteInfo.FreteValor,
+          total: total,
           whatsapp: PersonInfo.Whatsapp,
           cpf: PersonInfo.Cpf,
           endereco: {
@@ -68,9 +69,10 @@ export default async function handler (
         freteInfo: FreteInfo
       })
 
-      return Response.json(response)
+      return Response.status(response.statusCode).json(response.body)
     } catch (error) {
-      return Response.json(error)
+      console.log(error)
+      return Response.status(500).json(error)
     }
   }
 }
