@@ -2,7 +2,7 @@ import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
 import { IProduto } from '../../../typing/Interfaces/IProduto'
 
 export interface IsaveTransacionEntry{
-  idTransaction: number
+  idTransaction?: number
   status: string
   method: string
   produtos: Array<IProduto>

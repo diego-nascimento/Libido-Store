@@ -38,7 +38,7 @@ export class SavePedidoRepo implements ISaveTransactionRepo {
       })
 
       const InfoReturned = await Pedido.create({
-        idTransaction: data.idTransaction,
+        idTransaction: data.idTransaction || '',
         method: data.method,
         status: data.status,
         email: data.email,
@@ -52,7 +52,7 @@ export class SavePedidoRepo implements ISaveTransactionRepo {
           kind: 'ComponentEnderecoEndereco',
           ref: endereco._id
         }],
-        freteServico: data.freteInfo.FreteServico,
+        freteServico: data.freteInfo.servico,
         freteValor: data.freteInfo.FreteValor
       })
       return InfoReturned

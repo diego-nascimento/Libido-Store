@@ -2,7 +2,7 @@ import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
 import { IProduto } from '../../../typing/Interfaces/IProduto'
 
 export interface IemailNewPedidoEntry{
-  idTransaction: string,
+  idTransaction?: string,
   method: string,
   Produtos: Array<IProduto>
   email: string

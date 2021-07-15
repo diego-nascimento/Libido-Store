@@ -1,6 +1,6 @@
 
 export interface IFreteInfo{
-  FreteServico?: string,
+  servico: string,
   FreteValor: number,
   prazo: number
 }

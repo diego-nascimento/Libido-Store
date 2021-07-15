@@ -73,7 +73,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
     }
     switch (method) {
       case 'Boleto':
-        const response = await post.handle({
+        const responseBoleto = await post.handle({
           url: '/api/pagamento/boleto',
           body: {
             data: {
@@ -86,7 +86,18 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
         })
         break
       case 'Pagamento na entrega':
-
+        const responseEntrega = await post.handle({
+          url: '/api/pagamento/entrega',
+          body: {
+            data: {
+              info: Info,
+              total: total,
+              Produtos: produtos,
+              FreteInfo: FreteSelected
+            }
+          }
+        })
+        console.log(responseEntrega)
         break
     }
 
