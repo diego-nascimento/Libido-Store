@@ -11,6 +11,7 @@ import * as GTM from '../Util/GTM'
 import { StepProvider } from '../contexts/cartStep'
 import { FreteProvider } from '../contexts/freteContexts'
 import { PagamentoProvider } from '../contexts/pagamentoContexts'
+import '../styles/styles-compiled.css'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter()

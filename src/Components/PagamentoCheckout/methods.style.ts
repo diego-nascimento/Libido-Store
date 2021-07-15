@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import { styles } from '../../../../styles/styles'
+import { styles } from '../../styles/styles'
 
 export const Container = styled.div`
   width: 100%;
 `
 
-export const ContentBoleto = styled.div`
+export const Content = styled.div`
   padding: 15px 0px;
   border-bottom: 1px solid #ccc;
 

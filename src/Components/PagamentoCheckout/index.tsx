@@ -8,6 +8,7 @@ import { ImBarcode, ImCreditCard } from 'react-icons/im'
 import { GrDeliver } from 'react-icons/gr'
 import Boleto from './Components/Boleto/index'
 import PaymentOnDelivery from './Components/PaymentOnDelivery'
+import CreditCard from './Components/Cartao'
 
 const Pagamento:React.FC = () => {
   const { AvailableMethods, setMethod, method: SelectedMethod } = usePagamento()
@@ -23,6 +24,7 @@ const Pagamento:React.FC = () => {
       ? setavailableMethods(Methods)
       : setavailableMethods([Methods[0], Methods[1]])
   }, [cepValido])
+
   return (
     <Container>
       <PagamentoWrapper>
@@ -42,6 +44,7 @@ const Pagamento:React.FC = () => {
           </MethodsContainer>
           <WrapperPayment>
               {SelectedMethod === 0 && <Boleto />}
+              {SelectedMethod === 1 && <CreditCard />}
               {SelectedMethod === 2 && <PaymentOnDelivery />}
           </WrapperPayment>
         </PagamentoContainer>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { PaymentHeader, ButtonContainer, Button } from '../../Pagamento.style'
-import { Container, ContentBoleto, Warning, TextContainer } from '../Boleto/boleto.style'
+import { Container, Content, Warning, TextContainer } from '../../methods.style'
 import { IFrete, useFrete } from '../../../../contexts/freteContexts'
 import { usePagamento } from '../../../../contexts/pagamentoContexts'
 import { connect } from 'react-redux'
@@ -23,14 +23,14 @@ const Delivery: React.FC<IDelivery> = ({ total, produtos }) => {
   return (
     <Container>
       <PaymentHeader>
-        <h2>Pagamento na entrega</h2>
+        <h2>Pagamento na Entrega</h2>
       </PaymentHeader>
-      <ContentBoleto>
+      <Content>
         <span>Valor a ser pago</span>: <span>{Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL'
         }).format(total + returnFreteSelected().FreteValor) }</span>
-      </ContentBoleto>
+      </Content>
       <Warning>
         <MdWarning />
         <TextContainer>

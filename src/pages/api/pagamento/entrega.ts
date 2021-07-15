@@ -34,7 +34,7 @@ export default async function handler (
       status: 'Entrega e pagamento pendente',
       nome: paymentInfo.nome,
       produtos: Produtos,
-      total: total,
+      total: total + FreteInfo.FreteValor,
       whatsapp: paymentInfo.whatsapp,
       cpf: paymentInfo.cpf,
       endereco: {

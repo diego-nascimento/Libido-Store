@@ -132,5 +132,39 @@ export const Button = styled.div`
   align-items: center;
   justify-content: center;
   margin-top:15px;
-  cursor: pointer
+  cursor: pointer;
+`
+
+export const CardInfoContainer = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+
+  @media(max-width: 1200px){
+    flex-direction: column;
+  }
+`
+
+export const FormularioContainer = styled.div`
+  width: 100%;
+  margin-left: 15px;
+
+  @media(max-width: 1200px){
+    margin-left: 0px;
+    margin-top: 15px;
+  }
+
+  input{
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px 5px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    font-size: .9rem;
+    color: ${styles.componentsDest};
+
+    :first-child{
+      margin-top: 0px;
+    }
+  }
 `

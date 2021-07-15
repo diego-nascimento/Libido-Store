@@ -1,6 +1,6 @@
 import React from 'react'
 import { PaymentHeader, ButtonContainer, Button } from '../../Pagamento.style'
-import { Container, ContentBoleto, Warning, TextContainer } from './boleto.style'
+import { Container, Content, Warning, TextContainer } from '../../methods.style'
 import { IFrete, useFrete } from '../../../../contexts/freteContexts'
 import { usePagamento } from '../../../../contexts/pagamentoContexts'
 import { connect } from 'react-redux'
@@ -25,12 +25,12 @@ const Boleto: React.FC<IBoleto> = ({ total, produtos }) => {
       <PaymentHeader>
         <h2>Pague com Boleto Bancário</h2>
       </PaymentHeader>
-      <ContentBoleto>
+      <Content>
         <span>Valor do Boleto</span>: <span>{Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL'
         }).format(total + returnFreteSelected().FreteValor) }</span>
-      </ContentBoleto>
+      </Content>
       <Warning>
         <MdWarning />
         <TextContainer>

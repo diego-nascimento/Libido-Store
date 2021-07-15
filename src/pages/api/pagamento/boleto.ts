@@ -40,11 +40,11 @@ export default async function handler (
     const responseSave = await savePedido.save({
       email: paymentInfo.email,
       idTransaction: response.id,
-      method: FreteInfo.FreteServico || 'Boleto',
+      method: FreteInfo.servico || 'Boleto',
       nome: paymentInfo.nome,
       status: response.status,
       produtos: Produtos,
-      total: total,
+      total: total + FreteInfo.FreteValor,
       whatsapp: paymentInfo.whatsapp,
       cpf: paymentInfo.cpf,
       endereco: {
@@ -57,7 +57,7 @@ export default async function handler (
         complemento: paymentInfo.complemento
       },
       freteInfo: {
-        FreteServico: FreteInfo.FreteServico,
+        servico: FreteInfo.servico,
         FreteValor: FreteInfo.FreteValor,
         prazo: FreteInfo.prazo
       }

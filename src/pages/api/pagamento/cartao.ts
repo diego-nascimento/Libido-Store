@@ -39,7 +39,7 @@ export default async function handler (
           status: response.status,
           produtos: Produtos,
           parcelas: PersonInfo.cardInfo.parcelas,
-          total: total,
+          total: total + FreteInfo.FreteValor,
           whatsapp: PersonInfo.Whatsapp,
           cpf: PersonInfo.Cpf,
           endereco: {
@@ -52,7 +52,7 @@ export default async function handler (
             complemento: PersonInfo.complemento
           },
           freteInfo: {
-            FreteServico: FreteInfo.FreteServico,
+            servico: FreteInfo.servico,
             FreteValor: FreteInfo.FreteValor,
             prazo: FreteInfo.prazo
           }
