@@ -43,7 +43,7 @@ const Carrinho: React.FC<ICarrinho> = ({ produtos, dispatch }) => {
         {produtos.map(produto => {
           return (
             <Card style={{ padding: '30px' }} key={produto._id}>
-              <ImageContainer>
+              <ImageContainer smallSize={false}>
                 <Carousel
                   controls={false}
                   touch={true}

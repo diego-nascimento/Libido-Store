@@ -11,6 +11,10 @@ export const Wrapper = styled.div`
     font-size: 1.8rem;
     margin-bottom: 20px;
   }
+
+  @media(max-width: 800px){
+    width: calc(100% - 20px);
+  }
 `
 
 export const Container = styled.div`
@@ -26,7 +30,7 @@ export const CheckoutContainer = styled.div`
   margin-top: 30px;
   
   .AsideTotal{
-    background: ${styles.componentsColor};
+    background: #ddd;
     color: ${styles.componentsDest};
     padding: 20px;
     border-radius: 15px;
@@ -34,8 +38,11 @@ export const CheckoutContainer = styled.div`
     width: 100%;
     align-self: flex-start;
 
-    h2{
-      font-size: 1.3rem;
+    .TitleResume{
+      font-size: 1.4rem;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 10px;
+      font-weight: bold;
     }
 
     @media(max-width: 800px){
@@ -132,25 +139,6 @@ export const BotaoFinalizar = styled.button`
   border-radius: 15px;
 `
 
-interface IFormulario{
-  show: boolean
-}
-
-export const Formulario = styled.form<IFormulario>`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 0px;
-  padding: 0px;
-  
-  .Endereco{
-    display: grid;
-    grid-template-columns: ${props => props.show ? '1fr 150px' : '1fr'};
-    grid-gap: 10px;
-  }
-
-`
 export const CardData = styled.div`
   margin: 0px 0px 10px;
   background: ${styles.componentsDest};
@@ -163,87 +151,41 @@ export const Aside = styled.div`
   align-self: flex-start;
 `
 
-export const ErrorContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0px;
-  margin: 0px;
-
-  p{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    color: #a00;
-    font-size: .1.2rem; 
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-  }
-`
-
 export const ContainerInfoCard = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 `
 
-export const SelectEstado = styled.select<ISelectEstado>`
-  margin: 10px 0px;
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #ddd;
-  border: none;
-  font-weight: 500;
-  font-size: .9rem;
-  color: ${styles.componentsDest};
-  display: ${props => props.show === true ? 'flex' : 'none'};
-
-`
-
-export const ContainerCep = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 100px;
-  align-items: center;
-  grid-gap: 20px;
-  
-  button{
-    height: 40px;
-    border-radius: 5px;
-    background-color: #ddd;
-    border: none;
-    font-weight: 500;
-    font-size: .9rem;
-    color: ${styles.componentsDest};
-  }
-`
-
 export const ProdutosWrapper = styled.div`
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 export const ProdutosContainer = styled.ul`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `
 
 export const Produto = styled.li`
-  border-top: 1px solid #ccc;
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
   justify-content: center;
   height: 100%;
-  
-  img{
-    width: 100%;
+  border-top: 1px solid #aaa;
+  padding: 10px 0px;
+  margin: 0px;
+
+  :first-child{
+    border-top: none;
+    padding-top: 0px;
+  }
+
+  :last-child{
+    border-bottom: 1px solid #aaa;
   }
 `
 
@@ -253,11 +195,28 @@ export const ProdutoInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  padding: 0px 0px 0px 10px;
+  margin: 0px;
 
   p{
     font-size: .7rem;
     line-height: 1.1rem;
     text-transform: capitalize;
+    margin: 0px;
+    padding: 0px;
   }
-  
+`
+
+export const ContainerResume = styled.div`
+
+  h1{
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  h2{
+    font-size: 1rem;
+  }
 `

@@ -1,13 +1,14 @@
 import React from 'react'
 import Layout from '../Components/Layout/Layout'
-import { Wrapper, Container, CheckoutContainer, ProdutosWrapper, ProdutosContainer, Produto, ProdutoInfoContainer, ImageContainer, BotaoFinalizar } from '../styles/PageStyles/checkout.style'
+import { Wrapper, Container, CheckoutContainer, ProdutosWrapper, ProdutosContainer, Produto, ProdutoInfoContainer, ImageContainer, ContainerResume, BotaoFinalizar } from '../styles/PageStyles/checkout.style'
 import { connect } from 'react-redux'
 import Bag from '../Components/Carrinho'
 import Link from 'next/link'
 import Head from 'next/head'
 import { IProduto } from '../typing/Interfaces/IProduto'
 import Formulario from '../Components/FormularioCheckout'
-import { useFrete } from '../contexts/freteContexts'
+import { IFrete, TypeFretes, useFrete } from '../contexts/freteContexts'
+import { usePagamento } from '../contexts/pagamentoContexts'
 import { useStep } from '../contexts/cartStep'
 
 import Pagamento from '../Components/PagamentoCheckout'
@@ -30,13 +31,15 @@ const Carrinho: React.FC<CarrinhoProps> = ({
 }) => {
   const { step, setStep } = useStep()
   const { returnFreteSelected, cepValido, loading, handleSubmit } = useFrete()
-
+  const { handleFinalizar } = usePagamento()
   React.useEffect(() => {
     setStep(0)
   }, [])
 
-  const handleContinue = (data: IFreteInfo) => {
-    setStep(step + 1)
+  const handleContinue = (data: IFrete) => {
+    step === 2
+      ? handleFinalizar(data, returnFreteSelected(), produtos, total)
+      : setStep(step + 1)
   }
 
   const StepsCheckout = ['Sacola', 'Metodo de Entrega', 'Pagamento']
@@ -60,7 +63,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                   {step === 2 && <Pagamento />}
 
           <div className="AsideTotal">
-            <h2>Resumo do Pedido</h2>
+            <h2 className='TitleResume'>Resumo do Pedido</h2>
               {produtos && step > 0 &&
                 <ProdutosWrapper>
                   <ProdutosContainer>
@@ -91,7 +94,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                           </ImageContainer>
                           <ProdutoInfoContainer>
                               <p>{produto.quantidade}x {produto.Nome.toLowerCase()}</p>
-                              <b style={{ textAlign: 'right' }}> {Intl.NumberFormat('pt-BR', {
+                              <b> {Intl.NumberFormat('pt-BR', {
                                 style: 'currency',
                                 currency: 'BRL'
                               }).format(produto.saleprice)}</b>
@@ -102,22 +105,24 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                   </ProdutosContainer>
                 </ProdutosWrapper>
               }
-              {cepValido && <h2>Frete:  { returnFreteSelected().FreteValor === 0
-                ? 'Gratis'
-                : Intl.NumberFormat('pt-BR', {
+              <ContainerResume>
+                <h2>{quantidadeProdutos} produtos: {Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL'
-                }).format(returnFreteSelected().FreteValor)
-                } - em até {returnFreteSelected().prazo} dias</h2>}
-              <h2>({quantidadeProdutos} produtos): {Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(total)} </h2>
-                <h2>Total: {Intl.NumberFormat('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL'
-                }).format(total + returnFreteSelected().FreteValor)}</h2>
-                <BotaoFinalizar disabled={loading} onClick={handleSubmit(handleContinue)}>{loading ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
+                }).format(total)} </h2>
+                 {cepValido && <h2>Frete:  { returnFreteSelected().FreteValor === 0
+                   ? 'Gratis'
+                   : Intl.NumberFormat('pt-BR', {
+                     style: 'currency',
+                     currency: 'BRL'
+                   }).format(returnFreteSelected().FreteValor)
+                  } - em até {returnFreteSelected().prazo} dias</h2>}
+                  <h1>Total: {Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  }).format(total + returnFreteSelected().FreteValor)}</h1>
+                  <BotaoFinalizar disabled={loading} onClick={handleSubmit(handleContinue)}>{loading ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
+              </ContainerResume>
           </div>
         </CheckoutContainer>
             }

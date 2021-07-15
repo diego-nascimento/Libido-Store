@@ -12,7 +12,7 @@ import InputMask from 'react-input-mask'
 
 import {
   Formulario, SelectEstado, ContainerCep, ErrorContainer
-} from '../../styles/PageStyles/checkout.style'
+} from './FormularioCheckout.style'
 import { GetFactory } from '../../Factory/http/GetFactory'
 import { useFrete } from '../../contexts/freteContexts'
 
@@ -266,8 +266,8 @@ const FormularioCheckout: React.FC = () => {
                   </ContainerInput>
                   )
                 : (
-                  <SelectEstado placeholder="Frete" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFrete(Number.parseInt(e.target.value))} show={showAddress} value={FreteSelected}>
-                    <option value={0}>PAC</option>
+                  <SelectEstado placeholder="Frete" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFrete(Number.parseInt(e.target.value))} show={showAddress} value={FreteSelected}>
+                   <option value={0}>PAC</option>
                     <option value={1}>Sedex</option>
                   </SelectEstado>
                   )}

@@ -32,6 +32,8 @@
         "no-use-before-define": 0,
         "no-case-declarations": 0,
         "camelcase": "off",
-        "new-cap":"off"
+        "new-cap":"off",
+        "no-unused-vars": "off",
+        "no-undef": "off" 
     }
 }

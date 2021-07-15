@@ -37,10 +37,10 @@ export default async function handler (
       )
 
     const savePedido = SavePedidoFactory()
-    await savePedido.save({
+    const responseSave = await savePedido.save({
       email: paymentInfo.email,
       idTransaction: response.id,
-      method: 'boleto',
+      method: FreteInfo.FreteServico || 'Boleto',
       nome: paymentInfo.nome,
       status: response.status,
       produtos: Produtos,

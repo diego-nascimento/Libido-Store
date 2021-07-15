@@ -10,6 +10,7 @@ export const EnderecoContainer = styled.div`
   border: 1px solid #ccc;
   padding: 10px 10px;
   border-radius: 5px;
+  margin-top: 50px;
 
   .Editar{
     color: ${styles.componentsDest};
@@ -50,4 +51,86 @@ export const InfoContainer = styled.div`
 export const Endereco = styled.div``
 export const ClientInformation = styled.div``
 
-export const PagamentoContainer = styled.div``
+export const PagamentoWrapper = styled.div`
+  margin-top: 20px;
+`
+
+export const PagamentoContainer = styled.div`
+  display: grid;
+  grid-template-columns: 250px 3fr;
+
+  @media(max-width: 1000px){
+    grid-template-columns: 1fr;
+  }
+`
+
+export const MethodsContainer = styled.ul`
+`
+
+interface IMethod {
+  selected: boolean
+}
+
+export const Method = styled.li<IMethod>`
+  width: 100%;
+  border: 1px solid #000;
+  border-right: none;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+  background: ${props => props.selected ? '#ddd' : 'white'};
+  transition: .3s;
+  cursor: pointer;
+
+  :first-child{
+    margin-top: 0px;
+  }
+
+  span{
+    margin-left: 10px
+  }
+
+  @media(max-width: 1000px){
+    grid-template-columns: 1fr;
+    border-right: 1px solid #000;
+  }
+`
+
+export const WrapperPayment = styled.div`
+  width: 100%;
+  border: 1px solid #000;
+  padding: 10px;
+`
+
+export const PaymentHeader = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  
+
+  h2{
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+`
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+export const Button = styled.div`
+  width: 200px;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: ${styles.componentsDest};
+  border-radius: 15px;;
+  color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:15px;
+  cursor: pointer
+`

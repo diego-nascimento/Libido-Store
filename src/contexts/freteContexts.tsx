@@ -6,7 +6,7 @@ import { IValues } from '../typing/types/ICheckoutValues'
 import { requiredFields } from '../Util/EnderecoRequiredFields'
 import { normalize } from '../Util/Normalize'
 
-type IFrete = {
+export type IFrete = {
   Bairro: string,
   Cep: string,
   Cidade: string,
@@ -56,7 +56,7 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-type TypeFretes ={
+export type TypeFretes ={
   servico: string,
   FreteValor: number,
   prazo: number
@@ -195,8 +195,16 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setLoading(false)
   }
 
-  const returnFreteSelected = () => {
-    return fretes[FreteSelected]
+  const returnFreteSelected = (): TypeFretes => {
+    if (getValues().Cep === '36170-000') {
+      return {
+        FreteValor: 0,
+        prazo: 2,
+        servico: 'Entregamos na sua casa'
+      }
+    } else {
+      return fretes[FreteSelected]
+    }
   }
 
   const getFormularioInformations = ():IFrete => {
