@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }) => {
-  const { returnFreteSelected, handleSubmit } = useFrete()
-  const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus, setParcelas, parcelas } = usePagamento()
+  const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
+  const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus, setParcelas, parcelas, loading: LoadingPagamento } = usePagamento()
   const classes = useStyles()
 
   const handleSubmitDelivery = (data:IFrete) => {
@@ -100,7 +100,9 @@ const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }) => {
         </FormularioContainer>
       </CardInfoContainer>
       <ButtonContainer>
-        <Button onClick={handleSubmit(handleSubmitDelivery)}>Finalizar Pedido</Button>
+        <Button onClick={handleSubmit(handleSubmitDelivery)} disabled={LoadingFrete || LoadingPagamento}>
+          {LoadingFrete || LoadingPagamento ? 'Carregando' : 'Finalizar Pedido'}
+        </Button>
       </ButtonContainer>
     </Container>
   )

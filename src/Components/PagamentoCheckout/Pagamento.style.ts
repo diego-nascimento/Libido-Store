@@ -121,12 +121,13 @@ export const ButtonContainer = styled.div`
   justify-content: flex-end;
 `
 
-export const Button = styled.div`
+export const Button = styled.button`
   width: 200px;
   font-size: 1.2rem;
   padding: 10px 20px;
   background-color: ${styles.componentsDest};
   border-radius: 15px;;
+  border: none;
   color:white;
   display: flex;
   align-items: center;

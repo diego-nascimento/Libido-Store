@@ -9,6 +9,9 @@ import * as CartActions from '../../store/modules/cart/actions'
 import { ICategoria } from '../../typing/Interfaces/ICategoria'
 import { useRouter } from 'next/router'
 import NavBag from '../NavBag/NavBag'
+import { Backdrop, CircularProgress } from '@material-ui/core'
+import { useFrete } from '../../contexts/freteContexts'
+import { usePagamento } from '../../contexts/pagamentoContexts'
 interface ILayout {
   children: any
   dispatch: any
@@ -19,6 +22,8 @@ interface ILayout {
 const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias }) => {
   const [Loading, setLoading] = React.useState(true)
   const Router = useRouter()
+  const { loading: LoadingFrete } = useFrete()
+  const { loading: LoadingPayment } = usePagamento()
   React.useEffect(() => {
     dispatch(CartActions.PegarCarrinhoLocalStorage())
     setTimeout(() => {
@@ -34,6 +39,9 @@ const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias })
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       {Router.pathname === '/carrinho' ? <NavBag /> : <Nav carrinho={carrinho} categorias={categorias}/>}
+      <Backdrop open={LoadingFrete || LoadingPayment} style={{ zIndex: 99 }}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       <Main >
         {children}
       </Main>

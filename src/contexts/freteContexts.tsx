@@ -163,7 +163,7 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     const PAC: IFreteInfo = { // organiza as informações do PAC
-      FreteServico: 'PAC',
+      servico: 'PAC',
       prazo: Number.parseInt(responsePAC.body.Servicos.cServico.PrazoEntrega._text),
       FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
     }
@@ -176,7 +176,7 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
     })
     ValorStr = responseSEDEX.body.Servicos.cServico.Valor._text // xml em texto
     const SEDEX: IFreteInfo = {
-      FreteServico: 'Sedex',
+      servico: 'Sedex',
       prazo: Number.parseInt(responseSEDEX.body.Servicos.cServico.PrazoEntrega._text),
       FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
     }

@@ -20,8 +20,6 @@ export default async function handler (
       const total: number = Request.body.data.total
       const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
 
-      console.log(total)
-
       const response = await pagarme.client
         .connect({ api_key: process.env.PAGARME_APIKEY })
         .then((client: any) =>
@@ -73,7 +71,6 @@ export default async function handler (
 
       return Response.status(200).json(response.body)
     } catch (error) {
-      console.log(error)
       return Response.status(500).json(error)
     }
   }

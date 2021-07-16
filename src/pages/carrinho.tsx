@@ -13,6 +13,7 @@ import { useStep } from '../contexts/cartStep'
 import { Parcelas } from '../Util/Parcelas'
 import Pagamento from '../Components/PagamentoCheckout'
 import { Carousel } from 'react-bootstrap'
+import { Backdrop, CircularProgress } from '@material-ui/core'
 
 interface CarrinhoProps{
   tamanho_carrinho: number
@@ -29,8 +30,8 @@ const Carrinho: React.FC<CarrinhoProps> = ({
   quantidadeProdutos
 }) => {
   const { step, setStep } = useStep()
-  const { returnFreteSelected, cepValido, loading, handleSubmit } = useFrete()
-  const { handleFinalizar, parcelas, method } = usePagamento()
+  const { returnFreteSelected, cepValido, loading: LoadingFrete, handleSubmit } = useFrete()
+  const { handleFinalizar, parcelas, method, loading: LoadingPayment } = usePagamento()
   React.useEffect(() => {
     setStep(0)
   }, [])
@@ -124,7 +125,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                     style: 'currency',
                     currency: 'BRL'
                   }).format((total + returnFreteSelected().FreteValor) + (total + returnFreteSelected().FreteValor) * (Parcelas[parcelas - 1].acrescimo / 100)) }</h1>
-                  <BotaoFinalizar disabled={loading} onClick={handleSubmit(handleContinue)}>{loading ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
+                  <BotaoFinalizar disabled={LoadingFrete || LoadingFrete} onClick={handleSubmit(handleContinue)}>{LoadingFrete || LoadingFrete ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
               </ContainerResume>
           </div>
         </CheckoutContainer>

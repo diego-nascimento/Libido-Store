@@ -13,7 +13,7 @@ export const Container = styled.nav<IContainer>`
   left: 0px;
   background: white;
   display: none;
-  z-index: 99;
+  z-index: 90;
   cursor: default;
   transform: ${props => props.MenuState ? 'translateX(0px)' : 'translateX(-350px)'};
   transition: .3s;

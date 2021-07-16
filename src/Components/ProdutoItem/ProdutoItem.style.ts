@@ -38,7 +38,7 @@ export const Card = styled.div<ICard>`
     top: 0px;
     position: absolute;
     left: 0px;
-    z-index: 99;
+    z-index: 91;
     margin: 5px 5px;
     
   }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { usePagamento } from '../../contexts/pagamentoContexts'
-import { Parcelas } from '../../Util/Parcelas'
 import { useFrete } from '../../contexts/freteContexts'
 import { Container, EnderecoContainer, EntregaInformation, InfoContainer, Endereco, ClientInformation, PagamentoWrapper, PagamentoContainer, MethodsContainer, Method, WrapperPayment } from './Pagamento.style'
 import { useStep } from '../../contexts/cartStep'
@@ -9,6 +8,7 @@ import { GrDeliver } from 'react-icons/gr'
 import Boleto from './Components/Boleto/index'
 import PaymentOnDelivery from './Components/PaymentOnDelivery'
 import CreditCard from './Components/Cartao'
+import { AiFillWarning } from 'react-icons/ai'
 
 const Pagamento:React.FC = () => {
   const { AvailableMethods, setMethod, method: SelectedMethod } = usePagamento()
@@ -17,7 +17,7 @@ const Pagamento:React.FC = () => {
   const ClienteInformations = getFormularioInformations()
   const FreteInformation = returnFreteSelected()
   const { cepValido, getValues } = useFrete()
-  const { Methods, setavailableMethods } = usePagamento()
+  const { Methods, setavailableMethods, error } = usePagamento()
 
   React.useEffect(() => {
     cepValido && getValues && getValues().Cep === '36170-000'
@@ -43,6 +43,9 @@ const Pagamento:React.FC = () => {
               })}
           </MethodsContainer>
           <WrapperPayment>
+              {error && <p style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
+                <AiFillWarning style={{ marginRight: '5px' }}/>{error}
+                </p>}
               {SelectedMethod === 0 && <Boleto />}
               {SelectedMethod === 1 && <CreditCard />}
               {SelectedMethod === 2 && <PaymentOnDelivery />}

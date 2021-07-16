@@ -84,7 +84,7 @@ export const Navegacao = styled.nav<INavegacao>`
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-  z-index: 99;
+  z-index: 90;
 
   
   svg{

@@ -13,8 +13,8 @@ interface IBoleto {
 }
 
 const Boleto: React.FC<IBoleto> = ({ total, produtos }) => {
-  const { returnFreteSelected, handleSubmit } = useFrete()
-  const { handleFinalizar } = usePagamento()
+  const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
+  const { handleFinalizar, loading: LoadingPagamento } = usePagamento()
 
   const handleSubmitBoleto = (data:IFrete) => {
     handleFinalizar(data, returnFreteSelected(), produtos, total)
@@ -39,7 +39,9 @@ const Boleto: React.FC<IBoleto> = ({ total, produtos }) => {
         </TextContainer>
       </Warning>
       <ButtonContainer>
-        <Button onClick={handleSubmit(handleSubmitBoleto)}>Finalizar Pedido</Button>
+        <Button onClick={handleSubmit(handleSubmitBoleto)} disabled={LoadingFrete || LoadingPagamento}>
+          {LoadingFrete || LoadingPagamento ? 'Carregando' : 'Finalizar Pedido'}
+        </Button>
       </ButtonContainer>
     </Container>
   )
