@@ -35,7 +35,7 @@ const Nav: React.FC<INav> = ({ tamanho_carrinho, carrinho, categorias }) => {
           </Message>
           <RedesSociais >
             <li>
-              <Link href="https://www.instagram.com/loveshoplibido/">
+              <Link href="https://www.instagram.com/loveshopdaari/">
                 <a target="blank"><FaInstagram /></a>
               </Link>
             </li>

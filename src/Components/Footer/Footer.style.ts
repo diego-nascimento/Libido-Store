@@ -1,88 +1,210 @@
 import styled from 'styled-components'
 import { styles } from '../../styles/styles'
 
-export const FooterContainer = styled.footer`
-  background: ${styles.componentsDest};
+export const FooterWrapper = styled.footer`
   width: 100vw;
+  background-color: ${styles.componentsDest};
   display: flex;
-  justify-content: center;
   align-items: center;
+  color: #ccc;
   flex-direction: column;
-  
+`
 
-  .Footer-Container{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    
-    .Grid-Container{
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
+export const FooterContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:"aside FooterMain Infos" "aside FooterMain Infos" ;
+  padding: 30px 0px;
 
-      a{
-        color: ${styles.fontColorInDark};
-
-        :hover{
-          color: ${styles.componentsColor};
-        }
-      }
-    }
-
-    @media  (max-width: 800px){
-      padding: 0px 10px;
-    }
-    
+  @media(max-width: 1300px){
+    margin: 0px 20px;
   }
-  
+
+  @media(max-width: 800px){
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+  }
+`
+
+export const FooterAside = styled.aside`
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+
+  h2{
+    font-size: 1.2rem;
+    letter-spacing: 1px;;
+    text-transform: uppercase;
+  }
+
+  @media(max-width: 800px){
+    margin-bottom: 20px;
+  }
+`
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 20px;
+`
+
+export const Info = styled.div`
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  h2{
+    font-size: 1rem;
+    margin: 0px;
+  }
+
   p{
-    margin: 20px 0px;
-    color: ${styles.fontColorInDark}
+    font-size: .9rem;
+    opacity: .7;
+    padding: 0px;
+    margin: 0px;
   }
+`
 
-  ul{
-    li{
-      color: ${styles.fontColorInDark};
-      padding: 5px 0px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
+export const RedesSociais = styled.div`
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+
+  a{
+    margin-left: 10px;
+    :first-child{
+      margin-left: 0px;
     }
   }
 `
 
-export const Rights = styled.div`
+export const SVGContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  padding: 5px;
+  background-color: #ccc;
+ 
+  border-radius: 50%;
+  svg{
+    font-size: 25px;
+    color: ${styles.componentsDest};  
+  }
+`
+
+export const FooterMain = styled.main`
+  grid-area: FooterMain;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  h2{
+    font-size: 1.2rem;
+    letter-spacing: 1px;;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  
+  a{
+    color: #fff; 
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 5px 0px;
+  }
+
+  p{
+    opacity: .7;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  @media(max-width: 800px){
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    align-items: flex-start;
+    border-top: 1px solid #ccc;
+  }
+`
+
+export const ContainerFooterMain = styled.div`
+
+`
+export const FooterRightSide = styled.aside`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  img{
+    width: 150px;
+  }
+
+  @media(max-width: 800px){
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: flex-start;
+    border-top: 1px solid #ccc;
+  }
+`
+
+export const ContainerPagarme = styled.div`
+  background-color: white;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 10px;
+
+  p{
+    color: #111;
+    font-size: .55rem;
+    position: absolute;
+    top: 5px;
+  }
+  img{
+    width: 120px;
+  }
+`
+
+export const FooterBottom = styled.div`
+  height: 60px;
   width: 100vw;
   display: flex;
   justify-content: center;
-  color: ${styles.fontColorInDark};
-  padding: 10px;
+  background-color: ${styles.componentsDest};
+`
 
-  .Rights-Container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+export const ContainerFooterBoottom = styled.div`
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0px 20px;
+`
 
-    @media  (max-width: 800px){
-      flex-direction: column;
-    }
-
-    .Redes-Sociais-Footer{
-      width: 100px;
-
-      svg{
-        color: ${styles.fontColorInDark};
-
-        :hover{
-          color: ${styles.componentsColor};
-        }
-      }
-    }
+export const ContainerBandeiras = styled.div`
+  background: white;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  background-color: white;
+  padding: 5px;
+  
+  img{
+    width: 200px;
   }
 `

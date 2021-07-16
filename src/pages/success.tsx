@@ -36,7 +36,6 @@ export default Sucesso
 
 export async function getStaticProps ({ params }: any) {
   const api = GetFactory()
-
   const responseCategorias = await api.handle({
     body: null,
     url: `${process.env.APIURL}/categorias`

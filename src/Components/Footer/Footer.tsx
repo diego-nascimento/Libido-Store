@@ -1,56 +1,96 @@
 import React from 'react'
-import { FooterContainer, Rights } from './Footer.style'
-import { RedesSociais } from '../Nav/Nav.style'
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
+import { FooterWrapper, FooterContainer, FooterAside, FooterMain, Content, Info, RedesSociais, SVGContainer, ContainerFooterMain, FooterRightSide, ContainerPagarme, FooterBottom, ContainerBandeiras, ContainerFooterBoottom } from './Footer.style'
 import Link from 'next/link'
+import { AiOutlineMail, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlinePhone } from 'react-icons/ai'
 
 const Footer: React.FC = () => {
   return (
-    <FooterContainer>
-        <div className="Container Footer-Container">
-          {/* <Logo></Logo> */}
-          <div className="Grid-Container">
-            <p>Entre em Contato</p>
-            <ul>
-              <li><FaWhatsapp />: (32) 9 9113-0257</li>
-              <li><FaInstagram />: @loveshoplibido</li>
-            </ul>
-          </div>
-          <div className="Grid-Container">
-            <p>Links Uteis</p>
-            <ul>
-              <li>
-                <Link href="/entrega">
-                  <a>Entregas</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/produtos">
-                  <a>Produtos</a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <Rights className="Container">
-          <div className="Rights-Container">
-            <span>© {new Date().getFullYear()} Libido, Todos os Direitos Reservados.</span>
-            <RedesSociais className="Redes-Sociais-Footer">
-            <li>
-              <Link href="https://www.instagram.com/loveshoplibido/">
-                <a target="blank"><FaInstagram /></a>
-              </Link>
-          </li>
-          <li>
-            <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
-              <a target="blank"><FaWhatsapp /></a>
+    <FooterWrapper>
+      <FooterContainer className="Container">
+        <FooterAside>
+          <h2>Informações de Contato</h2>
+          <Content>
+            <AiOutlineInstagram />
+            <Info>
+              <h2>Instagram</h2>
+              <p>@loveshopdaari</p>
+            </Info>
+          </Content>
+          <Content>
+            <AiOutlineMail />
+            <Info>
+              <h2>Email</h2>
+              <p>libidopirauba@gmail.com</p>
+            </Info>
+          </Content>
+          <Content>
+            <AiOutlinePhone />
+            <Info>
+              <h2>Telefone</h2>
+              <p>(32) 99974-5208</p>
+            </Info>
+          </Content>
+          <RedesSociais>
+            <Link href="https://www.instagram.com/loveshopdaari/">
+              <a >
+              <SVGContainer>
+                <AiOutlineInstagram />
+              </SVGContainer>
+              </a>
             </Link>
-          </li>
-        </RedesSociais>
-          </div>
-        </Rights>
+            <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
+              <a >
+                <SVGContainer>
+                <AiOutlineWhatsApp />
+                </SVGContainer>
+              </a>
+            </Link>
+          </RedesSociais>
+        </FooterAside>
+        <FooterMain>
+          <ContainerFooterMain>
+            <h2>Links Rapidos</h2>
+            <Link href="https://www.instagram.com/loveshopdaari/">
+              <a>
+                <p>Sobre nós</p>
+              </a>
+            </Link>
+            <Link href="/entrega">
+              <a>
+                <p>Entrega</p>
+              </a>
+            </Link>
+            <Link href="politicas-de-trocas">
+              <a>
+                <p>Politicas de trocas e devoluções</p>
+              </a>
+            </Link>
+            <Link href="/produtos">
+              <a>
+                <p>Produtos</p>
+              </a>
+            </Link>
+          </ContainerFooterMain>
+        </FooterMain>
+        <FooterRightSide>
+        <ContainerPagarme>
+            <img src="/ssl.svg" alt="ssl certified" />
+          </ContainerPagarme>
+         <ContainerPagarme>
+            <p>POWERED BY</p>
+            <img src="/pagarme-logo.png" alt="pagarme" />
+          </ContainerPagarme>
+          <ContainerBandeiras>
+            <img src="/bandeiras.png" alt="bandeiras aceitas" />
+          </ContainerBandeiras>
+        </FooterRightSide>
       </FooterContainer>
+      <FooterBottom>
+        <ContainerFooterBoottom className="Container">
+          <span>2021  Diego Nascimento - Todos os Direitos Reservados</span>
+        </ContainerFooterBoottom>
+      </FooterBottom>
+    </FooterWrapper>
   )
 }
-
 export default Footer
