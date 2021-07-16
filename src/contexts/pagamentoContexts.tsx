@@ -66,7 +66,6 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
   }, [method])
 
   const getCardPaymentInformation = () => {
-    console.log(cardNumber.length, cardNumber)
     if (cardName.length === 0) {
       throw new Error()
     }
