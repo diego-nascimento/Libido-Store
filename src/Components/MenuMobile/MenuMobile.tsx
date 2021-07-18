@@ -9,7 +9,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 interface IMenuMobile{
   MenuState: boolean
   SetMenuState: any
-  categorias: Array<ICategoria>
+  categorias?: Array<ICategoria>
 }
 
 const MenuMobile: React.FC<IMenuMobile> = ({ MenuState, SetMenuState, categorias }) => {
@@ -52,7 +52,7 @@ const MenuMobile: React.FC<IMenuMobile> = ({ MenuState, SetMenuState, categorias
               </AccordionSummary>
               <AccordionDetails style={{ width: '100%', padding: '0px' }}>
                 <Lista>
-                  {categorias.map(categoria => {
+                  {categorias && categorias.map(categoria => {
                     return (
                       <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id}>
                         <a onClick={() => SetMenuState(!MenuState)}>

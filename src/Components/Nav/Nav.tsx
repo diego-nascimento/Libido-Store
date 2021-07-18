@@ -76,7 +76,7 @@ const Nav: React.FC<INav> = ({ tamanho_carrinho, carrinho, categorias }) => {
         </ContainerNav>
         <Categorias >
           <ListaCategorias className='Container'>
-                {categorias.map(categoria => {
+                {categorias && categorias.map(categoria => {
                   return (
                     <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id}>
                       <a >
