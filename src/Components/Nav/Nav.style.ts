@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { styles } from '../../styles/styles'
+import Stepper from '@material-ui/core/Stepper'
 
 interface INavegacao{
   MenuBackground: boolean

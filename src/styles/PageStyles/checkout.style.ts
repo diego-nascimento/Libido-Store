@@ -7,11 +7,6 @@ export const Wrapper = styled.div`
   justify-content: center;
   padding: 10px 10px;
 
-  h1{
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-
   @media(max-width: 800px){
     width: calc(100% - 20px);
   }
@@ -27,7 +22,6 @@ export const CheckoutContainer = styled.div`
   grid-template-columns: 1fr 400px;
   grid-gap: 20px;
   justify-content: center;
-  margin-top: 30px;
   
   .AsideTotal{
     background: #ddd;

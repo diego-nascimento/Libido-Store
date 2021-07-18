@@ -6,6 +6,7 @@ import { usePagamento } from '../../../../contexts/pagamentoContexts'
 import { connect } from 'react-redux'
 import { IProduto } from '../../../../typing/Interfaces/IProduto'
 import { MdWarning } from 'react-icons/md'
+import { useRouter } from 'next/router'
 
 interface IBoleto {
   total: number
@@ -15,9 +16,10 @@ interface IBoleto {
 const Boleto: React.FC<IBoleto> = ({ total, produtos }) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
   const { handleFinalizar, loading: LoadingPagamento } = usePagamento()
+  const Router = useRouter()
 
-  const handleSubmitBoleto = (data:IFrete) => {
-    handleFinalizar(data, returnFreteSelected(), produtos, total)
+  const handleSubmitBoleto = async (data:IFrete) => {
+    await handleFinalizar(data, returnFreteSelected(), produtos, total) && Router.replace('/sucesso')
   }
 
   return (

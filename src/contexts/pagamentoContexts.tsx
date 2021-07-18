@@ -18,7 +18,7 @@ type PagamentoProviderTypes ={
   getPercentageJuros: () => number
   Methods: Array<string>
   setavailableMethods: React.Dispatch<React.SetStateAction<string[]>>
-  handleFinalizar: (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number)=> void
+  handleFinalizar: (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number)=> Promise<boolean>
   cardName: string
   cardNumber: string
   expiresIn: string
@@ -90,7 +90,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
     return Parcelas[parcelas].acrescimo
   }
 
-  const handleFinalizar = async (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number) => {
+  const handleFinalizar = async (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number): Promise<boolean> => {
     setLoading(true)
     setError(null)
     try {
@@ -124,8 +124,9 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           })
           if (responseBoleto.StatusCode !== 200) {
             throw new Error()
+          } else {
+            return true
           }
-          break
         case 'Pagamento na entrega':
           const responseEntrega = await post.handle({
             url: '/api/pagamento/entrega',
@@ -140,8 +141,9 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           })
           if (responseEntrega.StatusCode !== 200) {
             throw new Error()
+          } else {
+            return true
           }
-          break
         default:
           const cardData = getCardPaymentInformation()
           const CardMethodInfo: ICardPaymentInfo = {
@@ -177,8 +179,9 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           })
           if (responseCard.StatusCode !== 200) {
             throw new Error()
+          } else {
+            return true
           }
-          break
       }
     } catch (error) {
       if (getSelectedMethod() === 'Boleto' || getSelectedMethod() === 'Pagamento na entrega') {
@@ -186,6 +189,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
       } else {
         setError('Algo deu errado! Verifique as informações e tente novamente!')
       }
+      return false
     } finally {
       setLoading(false)
     }

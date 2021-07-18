@@ -13,7 +13,7 @@ import { useStep } from '../contexts/cartStep'
 import { Parcelas } from '../Util/Parcelas'
 import Pagamento from '../Components/PagamentoCheckout'
 import { Carousel } from 'react-bootstrap'
-import { Backdrop, CircularProgress } from '@material-ui/core'
+import Title from '../Components/Title'
 
 interface CarrinhoProps{
   tamanho_carrinho: number
@@ -51,7 +51,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
       </Head>
        <Wrapper >
          <Container className="Container">
-          {tamanho_carrinho <= 0 ? <h1>Seu Carrinho de Compras esta Vazio.</h1> : <h1>{StepsCheckout[step]}</h1>}
+          {tamanho_carrinho <= 0 ? <h1>Seu Carrinho de Compras esta Vazio.</h1> : <Title text={StepsCheckout[step]}></Title>}
             {tamanho_carrinho <= 0
               ? <p>
               Seu carrinho de compras está aqui para servir a você. Dê um propósito a ele!<br/>
@@ -61,7 +61,6 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                   {step === 0 && <Bag />}
                   {step === 1 && <Formulario />}
                   {step === 2 && <Pagamento />}
-
           <div className="AsideTotal">
             <h2 className='TitleResume'>Resumo do Pedido</h2>
               {produtos && step > 0 &&
@@ -125,7 +124,7 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                     style: 'currency',
                     currency: 'BRL'
                   }).format((total + returnFreteSelected().FreteValor) + (total + returnFreteSelected().FreteValor) * (Parcelas[parcelas - 1].acrescimo / 100)) }</h1>
-                  <BotaoFinalizar disabled={LoadingFrete || LoadingFrete} onClick={handleSubmit(handleContinue)}>{LoadingFrete || LoadingFrete ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
+                  <BotaoFinalizar disabled={LoadingFrete || LoadingPayment} onClick={handleSubmit(handleContinue)}>{LoadingFrete || LoadingPayment ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
               </ContainerResume>
           </div>
         </CheckoutContainer>

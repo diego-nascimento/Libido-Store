@@ -10,7 +10,6 @@ export const Wrapper = styled.section`
     letter-spacing: 1px;
     align-self: center;
     color: ${styles.fontColor};
-    padding-bottom: 10px;
   }
 
 

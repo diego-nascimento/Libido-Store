@@ -19,6 +19,11 @@ export const Formulario = styled.form<IFormulario>`
     grid-gap: 10px;
   }
 
+  input{
+    border: 1px solid ${styles.componentsColor};
+    background-color: ${styles.fontColorDest};
+  }
+
 `
 
 type ISelectEstado = {
@@ -51,10 +56,11 @@ export const ContainerCep = styled.div`
     height: 40px;
     border-radius: 5px;
     background-color: #ddd;
-    border: none;
+    border: 1px solid ${styles.dest2Components};
     font-weight: 500;
     font-size: .9rem;
-    color: ${styles.componentsDest};
+    color: ${styles.fontColorDest};
+
   }
 `
 

@@ -5,6 +5,7 @@ import Head from 'next/head'
 import Router from 'next/router'
 import { ICategoria } from '../typing/Interfaces/ICategoria'
 import { GetFactory } from '../Factory/http/GetFactory'
+import Title from '../Components/Title'
 
 interface ISucesso {
   categorias: Array<ICategoria>
@@ -24,7 +25,7 @@ const Sucesso: React.FC<ISucesso> = ({ categorias }) => {
       </Head>
       <Wrapper>
         <Container className="Container">
-          <h1>Sua compra foi finalizada!</h1>
+          <Title text="Sua Pedido foi registrado com sucesso!"/>
           <h2>Todas as informações são enviadas para o email cadastrado a cada nova atualização!</h2>
         </Container>
       </Wrapper>
