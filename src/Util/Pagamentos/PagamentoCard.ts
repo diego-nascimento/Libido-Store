@@ -16,16 +16,16 @@ interface IPagamentoCard{
 export const PagamentoCard = async ({ data, produtos, FreteServico, totalPagar, Frete }: IPagamentoCard) => {
   const postApi = PostFactory()
   const cardInfo: ICardPaymentInfo = { // preenche informações do comprador para compra com cartao
-    Bairro: data.Bairro,
-    Nome: data.Nome,
-    Cpf: normalize(data.Cpf),
-    Cidade: data.Cidade,
-    Endereco: data.Endereco,
+    bairro: data.Bairro,
+    nome: data.Nome,
+    cpf: normalize(data.Cpf),
+    cidade: data.Cidade,
+    rua: data.Endereco,
     complemento: data.Complemento,
-    Estado: data.Estado,
-    Numero: normalize(data.Numero),
-    Whatsapp: normalize(data.Whatsapp),
-    Cep: normalize(data.Cep),
+    estado: data.Estado,
+    numero: normalize(data.Numero),
+    whatsapp: normalize(data.Whatsapp),
+    cep: normalize(data.Cep),
     email: data.email,
     cardInfo: {
       CardCVC: normalize(data.CardCVC),
