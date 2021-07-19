@@ -15,42 +15,42 @@ export const FillCardInfo = (PersonInfo: ICardPaymentInfo, Produtos: Array<IProd
     installments: PersonInfo.cardInfo.parcelas,
     customer: {
       external_id: '#3311',
-      name: PersonInfo.Nome,
+      name: PersonInfo.nome,
       type: 'individual',
       country: 'br',
       email: PersonInfo.email,
       documents: [
         {
           type: 'cpf',
-          number: PersonInfo.Cpf
+          number: PersonInfo.cpf
         }
       ],
-      phone_numbers: [`+55${PersonInfo.Whatsapp}`]
+      phone_numbers: [`+55${PersonInfo.whatsapp}`]
     },
     shipping: {
-      name: PersonInfo.Nome,
+      name: PersonInfo.nome,
       fee: FreteInfo.FreteValor * 100,
       expedited: true,
       address: {
         country: 'br',
-        state: PersonInfo.Estado,
-        city: PersonInfo.Cidade,
-        neighborhood: PersonInfo.Bairro,
-        street: PersonInfo.Endereco,
-        street_number: PersonInfo.Numero,
+        state: PersonInfo.estado,
+        city: PersonInfo.cidade,
+        neighborhood: PersonInfo.bairro,
+        street: PersonInfo.rua,
+        street_number: PersonInfo.numero,
         zipcode: '06714360'
       }
     },
     billing: {
-      name: PersonInfo.Nome,
+      name: PersonInfo.nome,
       address: {
         country: 'br',
-        state: PersonInfo.Estado,
-        city: PersonInfo.Cidade,
-        neighborhood: PersonInfo.Bairro,
-        street: PersonInfo.Endereco,
-        street_number: PersonInfo.Numero,
-        zipcode: PersonInfo.Cep,
+        state: PersonInfo.estado,
+        city: PersonInfo.cidade,
+        neighborhood: PersonInfo.bairro,
+        street: PersonInfo.rua,
+        street_number: PersonInfo.numero,
+        zipcode: PersonInfo.cep,
         complementary: PersonInfo.complemento
       }
     },

@@ -9,6 +9,7 @@ import Cards, { Focused } from 'react-credit-cards'
 import InputMask from 'react-input-mask'
 import { createStyles, FormControl, InputLabel, makeStyles, Select, Theme } from '@material-ui/core'
 import { Parcelas } from '../../../../Util/Parcelas'
+import { useRouter } from 'next/router'
 
 interface ICartaoCredito {
   total: number
@@ -31,11 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
-  const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus, setParcelas, parcelas, loading: LoadingPagamento } = usePagamento()
+  const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus, setParcelas, parcelas, loading: LoadingPagamento, setLoading } = usePagamento()
   const classes = useStyles()
+  const Router = useRouter()
 
-  const handleSubmitDelivery = (data:IFrete) => {
-    handleFinalizar(data, returnFreteSelected(), produtos, total)
+  const handleSubmitDelivery = async (data:IFrete) => {
+    const response = await handleFinalizar(data, returnFreteSelected(), produtos, total)
+    if (response) {
+      Router.push('/sucesso')
+    }
+    setLoading(false)
   }
 
   return (

@@ -72,7 +72,7 @@ export default async function handler (
       freteInfo: FreteInfo,
       boletoURL: response.boleto_url + '?format=pdf'
     })
-    return Response.json(response)
+    return Response.json(responseSave)
   } catch (error) {
     return Response.status(500).json(error)
   }

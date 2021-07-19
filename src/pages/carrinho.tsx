@@ -14,6 +14,7 @@ import { Parcelas } from '../Util/Parcelas'
 import Pagamento from '../Components/PagamentoCheckout'
 import { Carousel } from 'react-bootstrap'
 import Title from '../Components/Title'
+import { useRouter } from 'next/router'
 
 interface CarrinhoProps{
   tamanho_carrinho: number
@@ -31,15 +32,23 @@ const Carrinho: React.FC<CarrinhoProps> = ({
 }) => {
   const { step, setStep } = useStep()
   const { returnFreteSelected, cepValido, loading: LoadingFrete, handleSubmit } = useFrete()
-  const { handleFinalizar, parcelas, method, loading: LoadingPayment } = usePagamento()
+  const { handleFinalizar, parcelas, method, loading: LoadingPayment, setLoading } = usePagamento()
   React.useEffect(() => {
     setStep(0)
   }, [])
 
-  const handleContinue = (data: IFrete) => {
-    step === 2
-      ? handleFinalizar(data, returnFreteSelected(), produtos, total)
-      : setStep(step + 1)
+  const Router = useRouter()
+
+  const handleContinue = async (data: IFrete) => {
+    if (step === 2) {
+      const response = await handleFinalizar(data, returnFreteSelected(), produtos, total)
+      if (response) {
+        Router.push('/sucesso')
+      }
+      setLoading(false)
+    } else {
+      setStep(step + 1)
+    }
   }
 
   const StepsCheckout = ['Sacola', 'Metodo de Entrega', 'Pagamento']

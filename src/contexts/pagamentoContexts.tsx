@@ -18,7 +18,7 @@ type PagamentoProviderTypes ={
   getPercentageJuros: () => number
   Methods: Array<string>
   setavailableMethods: React.Dispatch<React.SetStateAction<string[]>>
-  handleFinalizar: (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number)=> Promise<boolean>
+  handleFinalizar: (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number)=> Promise<any>
   cardName: string
   cardNumber: string
   expiresIn: string
@@ -31,6 +31,9 @@ type PagamentoProviderTypes ={
   setFocus: React.Dispatch<React.SetStateAction<Focused | undefined>>
   loading: boolean
   error: null | string
+  PedidoInfo: null | any
+  resetContext: () => void
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 type PagamentoProviderProps = {
@@ -49,12 +52,23 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
   const [cardNumber, setCardNumber] = React.useState<string>('')
   const [expiresIn, setExpiresIn] = React.useState<string>('')
   const [cvc, setCvc] = React.useState<string>('')
-  const [focus, setFocus] = React.useState<Focused | undefined>(() => {
-    const name: Focused = 'name'
-    return name
-  })
+  const [focus, setFocus] = React.useState<Focused | undefined>('name')
   const [error, setError] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState <boolean>(false)
+  const [PedidoInfo, setPedidoInfo] = React.useState<null | any>(null)
+
+  const resetContext = () => {
+    setMethod(0)
+    setParcelas(1)
+    setCardName('')
+    setCardNumber('')
+    setExpiresIn('')
+    setCvc('')
+    setFocus('name')
+    setError(null)
+    setLoading(false)
+    setPedidoInfo(null)
+  }
 
   const getSelectedMethod = (): string => {
     return Methods[method]
@@ -90,7 +104,7 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
     return Parcelas[parcelas].acrescimo
   }
 
-  const handleFinalizar = async (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number): Promise<boolean> => {
+  const handleFinalizar = async (data: IFrete, FreteSelected: TypeFretes, produtos: Array<IProduto>, total: number): Promise<any> => {
     setLoading(true)
     setError(null)
     try {
@@ -125,6 +139,10 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           if (responseBoleto.StatusCode !== 200) {
             throw new Error()
           } else {
+            responseBoleto.body = {
+              Info, total, produtos, FreteSelected
+            }
+            setPedidoInfo(responseBoleto)
             return true
           }
         case 'Pagamento na entrega':
@@ -142,20 +160,24 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           if (responseEntrega.StatusCode !== 200) {
             throw new Error()
           } else {
+            responseEntrega.body = {
+              Info, total, produtos, FreteSelected
+            }
+            setPedidoInfo(responseEntrega)
             return true
           }
         default:
           const cardData = getCardPaymentInformation()
           const CardMethodInfo: ICardPaymentInfo = {
-            Nome: data.Nome,
-            Bairro: data.Bairro,
-            Cep: normalize(data.Cep),
-            Cidade: data.Cidade,
-            Cpf: normalize(data.Cpf),
-            Estado: data.Estado,
-            Numero: data.Numero,
-            Endereco: data.Endereco,
-            Whatsapp: normalize(data.Whatsapp),
+            nome: data.Nome,
+            bairro: data.Bairro,
+            cep: normalize(data.Cep),
+            cidade: data.Cidade,
+            cpf: normalize(data.Cpf),
+            estado: data.Estado,
+            numero: data.Numero,
+            rua: data.Endereco,
+            whatsapp: normalize(data.Whatsapp),
             complemento: data.Complemento,
             email: data.email,
             cardInfo: {
@@ -180,6 +202,10 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
           if (responseCard.StatusCode !== 200) {
             throw new Error()
           } else {
+            responseCard.body = {
+              Info, total, produtos, FreteSelected
+            }
+            setPedidoInfo(responseCard)
             return true
           }
       }
@@ -190,13 +216,11 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
         setError('Algo deu errado! Verifique as informações e tente novamente!')
       }
       return false
-    } finally {
-      setLoading(false)
     }
   }
 
   return (
-    <PagamentoContext.Provider value={{ AvailableMethods, method, setMethod, getSelectedMethod, getPercentageJuros, setParcelas, Methods, setavailableMethods, handleFinalizar, cardName, setCardName, cardNumber, setCardNumber, expiresIn, setExpiresIn, cvc, setCvc, focus, setFocus, parcelas, loading, error }}>
+    <PagamentoContext.Provider value={{ AvailableMethods, method, setMethod, getSelectedMethod, getPercentageJuros, setParcelas, Methods, setavailableMethods, handleFinalizar, cardName, setCardName, cardNumber, setCardNumber, expiresIn, setExpiresIn, cvc, setCvc, focus, setFocus, parcelas, loading, error, PedidoInfo, resetContext, setLoading }}>
       {children}
     </PagamentoContext.Provider>
   )

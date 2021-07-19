@@ -15,11 +15,15 @@ interface IBoleto {
 
 const Boleto: React.FC<IBoleto> = ({ total, produtos }) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
-  const { handleFinalizar, loading: LoadingPagamento } = usePagamento()
+  const { handleFinalizar, loading: LoadingPagamento, setLoading } = usePagamento()
   const Router = useRouter()
 
   const handleSubmitBoleto = async (data:IFrete) => {
-    await handleFinalizar(data, returnFreteSelected(), produtos, total) && Router.replace('/sucesso')
+    const response = await handleFinalizar(data, returnFreteSelected(), produtos, total)
+    if (response) {
+      Router.push('/sucesso')
+    }
+    setLoading(false)
   }
 
   return (

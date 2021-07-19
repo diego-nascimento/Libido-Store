@@ -43,6 +43,7 @@ type FreteContextType = {
   setAddressEditable: React.Dispatch<React.SetStateAction<TypesAddressInfo>>
   FreteSelected: number
   control: Control<FieldValues>
+  resetContext: () => void
 }
 
 type TypesAddressInfo = {
@@ -88,8 +89,24 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [error, setError] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState<boolean>(false)
   const {
-    register, handleSubmit, formState: { errors }, unregister, setValue, getValues, control
+    register, handleSubmit, formState: { errors }, unregister, setValue, getValues, control, reset
   } = useForm()
+
+  const resetContext = () => {
+    resetFreteValues()
+    setcepValido(false)
+    setShowAddress(false)
+    setAddressEditable({ // State se campos estão editaveis ou não
+      Cidade: true,
+      Estado: true,
+      Bairro: true,
+      Endereco: true
+    })
+    setFrete(0)
+    setError(null)
+    setLoading(false)
+    reset()
+  }
 
   const resetFreteValues = () => {
     setFretes([ // reseta valores de frete
@@ -223,7 +240,7 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }
 
-  return (<FreteContext.Provider value={{ getFreteValues, cepValido, loading, resetFreteValues, setFrete, setcepValido, returnFreteSelected, error, setError, register, handleSubmit, setValue, getValues, errors, unregister, getFormularioInformations, showAddress, setShowAddress, addressEditable, setAddressEditable, FreteSelected, control }}>{children}</FreteContext.Provider>)
+  return (<FreteContext.Provider value={{ getFreteValues, cepValido, loading, resetFreteValues, setFrete, setcepValido, returnFreteSelected, error, setError, register, handleSubmit, setValue, getValues, errors, unregister, getFormularioInformations, showAddress, setShowAddress, addressEditable, setAddressEditable, FreteSelected, control, resetContext }}>{children}</FreteContext.Provider>)
 }
 
 const useFrete = () => {

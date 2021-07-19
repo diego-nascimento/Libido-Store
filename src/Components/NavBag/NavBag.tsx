@@ -88,7 +88,7 @@ const NavBag: React.FC = () => {
   const steps = getSteps()
   const classes = useStyles()
   function getSteps () {
-    return ['Carrinho', 'Formulario', 'Pagamento', 'Finalizado']
+    return ['Carrinho', 'Formulario', 'Pagamento']
   }
 
   return (

@@ -7,7 +7,6 @@ import { FillCardInfo } from '../../../Util/Pagamentos/FillCardInfo'
 import { SavePedidoFactory } from '../../../Factory/savePedidoFactory'
 import { newPedidoMail } from '../../../Factory/newPedidoEmail'
 import { IFreteInfo } from '../../../typing/Interfaces/IFreteInfo'
-import { Parcelas } from '../../../Util/Parcelas'
 
 export default async function handler (
   Request: NextApiRequest,
@@ -31,25 +30,25 @@ export default async function handler (
       }
 
       const PedidoSave = SavePedidoFactory()
-      PedidoSave.save(
+      const responsePedido = PedidoSave.save(
         {
           email: PersonInfo.email,
           idTransaction: response.id,
           method: 'cartao',
-          nome: PersonInfo.Nome,
+          nome: PersonInfo.nome,
           status: response.status,
           produtos: Produtos,
           parcelas: PersonInfo.cardInfo.parcelas,
           total: total,
-          whatsapp: PersonInfo.Whatsapp,
-          cpf: PersonInfo.Cpf,
+          whatsapp: PersonInfo.whatsapp,
+          cpf: PersonInfo.cpf,
           endereco: {
-            bairro: PersonInfo.Bairro,
-            cep: PersonInfo.Cep,
-            cidade: PersonInfo.Cidade,
-            estado: PersonInfo.Estado,
-            numero: PersonInfo.Numero,
-            rua: PersonInfo.Endereco,
+            bairro: PersonInfo.bairro,
+            cep: PersonInfo.cep,
+            cidade: PersonInfo.cidade,
+            estado: PersonInfo.estado,
+            numero: PersonInfo.numero,
+            rua: PersonInfo.rua,
             complemento: PersonInfo.complemento
           },
           freteInfo: {
@@ -69,7 +68,7 @@ export default async function handler (
         freteInfo: FreteInfo
       })
 
-      return Response.status(200).json(response.body)
+      return Response.status(200).json(responsePedido)
     } catch (error) {
       return Response.status(500).json(error)
     }

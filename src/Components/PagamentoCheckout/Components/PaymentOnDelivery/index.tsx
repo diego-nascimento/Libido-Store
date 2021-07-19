@@ -6,6 +6,7 @@ import { usePagamento } from '../../../../contexts/pagamentoContexts'
 import { connect } from 'react-redux'
 import { IProduto } from '../../../../typing/Interfaces/IProduto'
 import { MdWarning } from 'react-icons/md'
+import { useRouter } from 'next/router'
 
 interface IDelivery {
   total: number
@@ -14,10 +15,16 @@ interface IDelivery {
 
 const Delivery: React.FC<IDelivery> = ({ total, produtos }) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
-  const { handleFinalizar, loading: LoadingPayment } = usePagamento()
+  const { handleFinalizar, loading: LoadingPayment, setLoading } = usePagamento()
 
-  const handleSubmitDelivery = (data:IFrete) => {
-    handleFinalizar(data, returnFreteSelected(), produtos, total)
+  const Router = useRouter()
+  const handleSubmitDelivery = async (data:IFrete) => {
+    const response = await handleFinalizar(data, returnFreteSelected(), produtos, total)
+    console.log(response)
+    if (response) {
+      Router.push('/sucesso')
+    }
+    setLoading(false)
   }
 
   return (

@@ -1,15 +1,15 @@
 export interface ICardPaymentInfo{
-  Nome: string,
-  Cpf: string,
-  Whatsapp: string,
-  email: string,
-  Endereco: string,
-  Numero: string,
-  Bairro: string,
-  Cep: string
-  Cidade: string,
-  Estado: string,
+  nome: string
+  cpf: string,
+  estado: string,
+  cidade: string,
+  bairro: string,
   complemento: string,
+  rua: string,
+  numero: string,
+  cep: string,
+  whatsapp: string,
+  email: string
   cardInfo: {
     CardNumber: string,
     CardExpire: string,

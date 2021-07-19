@@ -28,7 +28,7 @@ export default async function handler (
   const FreteInfo: IFreteInfo = Request.body.data.FreteInfo
   try {
     const savePedido = SavePedidoFactory()
-    await savePedido.save({
+    const responsePedido = await savePedido.save({
       email: paymentInfo.email,
       method: 'Pagamento a combinar',
       status: 'Entrega e pagamento pendente',
@@ -60,7 +60,7 @@ export default async function handler (
       status: 'Entrega e pagamento pendente',
       freteInfo: FreteInfo
     })
-    return Response.status(200).json({ message: 'ok' })
+    return Response.status(200).json(responsePedido)
   } catch (error) {
     return Response.status(500).json(error)
   }
