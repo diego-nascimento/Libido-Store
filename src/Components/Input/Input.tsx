@@ -14,7 +14,7 @@ interface IInput{
   readonly?: boolean
 }
 
-const Input: React.FC<IInput> = ({ type, Register, placeholder, Error, name, border = null, show = true, readonly = false }) => {
+const Input: React.FC<IInput> = ({ type, Register, placeholder, Error, name, border = null, show = true, readonly = false }:IInput) => {
   return (
     <Container borderColor={border} show={show} readOnly={readonly}>
       <input type={type} placeholder={placeholder} readOnly={readonly} {...Register(name, {

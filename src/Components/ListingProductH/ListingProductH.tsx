@@ -11,7 +11,7 @@ interface IListingProductH{
   title: string
 }
 
-const ListingProductH: React.FC<IListingProductH> = ({ produtos, title }) => {
+const ListingProductH: React.FC<IListingProductH> = ({ produtos, title }:IListingProductH) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -63,17 +63,17 @@ const ListingProductH: React.FC<IListingProductH> = ({ produtos, title }) => {
       <Title text={title}/>
       <Slider {...settings}>
         {
-           produtos.map(produto => {
-             return (
+          produtos.map(produto => {
+            return (
               <Link href={`/produto/${produto._id}?produto=${produto.Nome}`} key={produto._id} >
                 <a style={{ height: '100%' }}>
-                <ContainerCard>
-                  <ProdutoItem produto={produto} width={'80%'}/>
-                 </ContainerCard>
+                  <ContainerCard>
+                    <ProdutoItem produto={produto} width={'80%'}/>
+                  </ContainerCard>
                 </a>
-            </Link>
-             )
-           })
+              </Link>
+            )
+          })
         }
       </Slider>
     </Container>

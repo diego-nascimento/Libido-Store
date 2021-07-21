@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --passWithNoTests --silent --runInBand --noStackTrace",
+    "test:watch": "yarn test -- --watch",
+    "test:ci": "yarn test -- --coverage"
   },
   "lint-staged": {
     "*.{ts, tsx}": [
@@ -69,12 +72,15 @@
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/enzyme": "^3.10.9",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/globby": "^9.1.0",
     "@types/gtag.js": "^0.0.4",
+    "@types/jest": "^26.0.24",
     "@types/marked": "^2.0.1",
     "@types/mongoose": "^5.10.5",
     "@types/next": "^9.0.0",
-    "@types/node": "^14.14.30",
+    "@types/node": "^16.4.0",
     "@types/nodemailer": "^6.4.1",
     "@types/nodemailer-express-handlebars": "^4.0.0",
     "@types/nprogress": "^0.2.0",
@@ -83,9 +89,11 @@
     "@types/react-input-mask": "^3.0.0",
     "@types/react-slick": "^0.23.4",
     "@types/styled-components": "^5.1.9",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@typescript-eslint/parser": "^4.28.1",
-    "eslint": "^7.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^7.31.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
@@ -95,7 +103,11 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "git-commit-msg-linter": "^3.2.6",
+    "jest": "^27.0.6",
+    "jest-environment-enzyme": "^7.1.2",
+    "jest-enzyme": "^7.1.2",
     "lint-staged": "^11.0.0",
+    "ts-node": "^10.1.0",
     "typescript": "^4.1.5"
   }
 }

@@ -12,8 +12,9 @@ import { StepProvider } from '../contexts/cartStep'
 import { FreteProvider } from '../contexts/freteContexts'
 import { PagamentoProvider } from '../contexts/pagamentoContexts'
 import '../styles/styles-compiled.css'
+import 'react-toastify/dist/ReactToastify.css'
 
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+const App: React.FC<AppProps> = ({ Component, pageProps }:AppProps) => {
   const router = useRouter()
 
   React.useEffect(() => {

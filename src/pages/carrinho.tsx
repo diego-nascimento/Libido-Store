@@ -17,7 +17,7 @@ import Title from '../Components/Title'
 import { useRouter } from 'next/router'
 
 interface CarrinhoProps{
-  tamanho_carrinho: number
+  tamanhoCarrinho: number
   produtos: Array<IProduto>
   total: number
   dispatch: any
@@ -25,11 +25,11 @@ interface CarrinhoProps{
 }
 
 const Carrinho: React.FC<CarrinhoProps> = ({
-  tamanho_carrinho,
+  tamanhoCarrinho,
   total,
   produtos,
   quantidadeProdutos
-}) => {
+}:CarrinhoProps) => {
   const { step, setStep } = useStep()
   const { returnFreteSelected, cepValido, loading: LoadingFrete, handleSubmit } = useFrete()
   const { handleFinalizar, parcelas, method, loading: LoadingPayment, setLoading } = usePagamento()
@@ -58,21 +58,21 @@ const Carrinho: React.FC<CarrinhoProps> = ({
       <Head>
         <title>Libido LoveShop - Carrinho </title>
       </Head>
-       <Wrapper >
-         <Container className="Container">
-          {tamanho_carrinho <= 0 ? <h1>Seu Carrinho de Compras esta Vazio.</h1> : <Title text={StepsCheckout[step]}></Title>}
-            {tamanho_carrinho <= 0
-              ? <p>
-              Seu carrinho de compras está aqui para servir a você. Dê um propósito a ele!<br/>
-              Continue Suas Compras: <Link href="/"><a>Produtos</a></Link>
+      <Wrapper >
+        <Container className="Container">
+          {tamanhoCarrinho <= 0 ? <h1>Seu Carrinho de Compras esta Vazio.</h1> : <Title text={StepsCheckout[step]}></Title>}
+          {tamanhoCarrinho <= 0
+            ? <p>
+                 Seu carrinho de compras está aqui para servir a você. Dê um propósito a ele!<br/>
+                Continue Suas Compras: <Link href="/"><a>Produtos</a></Link>
             </p>
-              : <CheckoutContainer>
-                  {step === 0 && <Bag />}
-                  {step === 1 && <Formulario />}
-                  {step === 2 && <Pagamento />}
-          <div className="AsideTotal">
-            <h2 className='TitleResume'>Resumo do Pedido</h2>
-              {produtos && step > 0 &&
+            : <CheckoutContainer>
+              {step === 0 && <Bag />}
+              {step === 1 && <Formulario />}
+              {step === 2 && <Pagamento />}
+              <div className="AsideTotal">
+                <h2 className='TitleResume'>Resumo do Pedido</h2>
+                {produtos && step > 0 &&
                 <ProdutosWrapper>
                   <ProdutosContainer>
                     {produtos.map(produto => {
@@ -95,35 +95,35 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                                   )
                                 })
                                 : <Carousel.Item key={'1'} >
-                                    <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="No Image" />
-                                  </Carousel.Item>
+                                  <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt="No Image" />
+                                </Carousel.Item>
                               }
                             </Carousel>
                           </ImageContainer>
                           <ProdutoInfoContainer>
-                              <p>{produto.quantidade}x {produto.Nome.toLowerCase()}</p>
-                              <b> {Intl.NumberFormat('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL'
-                              }).format(produto.saleprice)}</b>
+                            <p>{produto.quantidade}x {produto.Nome.toLowerCase()}</p>
+                            <b> {Intl.NumberFormat('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL'
+                            }).format(produto.saleprice)}</b>
                           </ProdutoInfoContainer>
                         </Produto>
                       )
                     })}
                   </ProdutosContainer>
                 </ProdutosWrapper>
-              }
-              <ContainerResume>
-                <h2>{quantidadeProdutos} produtos: {Intl.NumberFormat('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL'
-                }).format(total)} </h2>
-                 {cepValido && <h2>Frete:  { returnFreteSelected().FreteValor === 0
-                   ? 'Gratis'
-                   : Intl.NumberFormat('pt-BR', {
-                     style: 'currency',
-                     currency: 'BRL'
-                   }).format(returnFreteSelected().FreteValor)
+                }
+                <ContainerResume>
+                  <h2>{quantidadeProdutos} produtos: {Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                  }).format(total)} </h2>
+                  {cepValido && <h2>Frete:  { returnFreteSelected().FreteValor === 0
+                    ? 'Gratis'
+                    : Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL'
+                    }).format(returnFreteSelected().FreteValor)
                   } - em até {returnFreteSelected().prazo} dias</h2>}
                   {method === 1 && Parcelas[parcelas - 1].acrescimo > 0 && <h2>Juros: {Intl.NumberFormat('pt-BR', {
                     style: 'currency',
@@ -134,12 +134,12 @@ const Carrinho: React.FC<CarrinhoProps> = ({
                     currency: 'BRL'
                   }).format((total + returnFreteSelected().FreteValor) + (total + returnFreteSelected().FreteValor) * (Parcelas[parcelas - 1].acrescimo / 100)) }</h1>
                   <BotaoFinalizar disabled={LoadingFrete || LoadingPayment} onClick={handleSubmit(handleContinue)}>{LoadingFrete || LoadingPayment ? 'Carregando' : step === 2 ? 'Finalizar Pedido' : 'Continuar'}</BotaoFinalizar>
-              </ContainerResume>
-          </div>
-        </CheckoutContainer>
-            }
-         </Container>
-       </Wrapper>
+                </ContainerResume>
+              </div>
+            </CheckoutContainer>
+          }
+        </Container>
+      </Wrapper>
     </Layout>
 
   )
@@ -150,7 +150,7 @@ const mapStateToProps = (state: any) => ({
     ...produto,
     subtotal: produto.saleprice * (produto.quantidade ? produto.quantidade : 0)
   })),
-  tamanho_carrinho: state.cart.length,
+  tamanhoCarrinho: state.cart.length,
   quantidadeProdutos: state.cart.reduce((acumulador: number, produto: IProduto) => {
     return acumulador + (produto.quantidade ? produto.quantidade : 0)
   }, 0),

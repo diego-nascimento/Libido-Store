@@ -101,33 +101,33 @@ const NavBag: React.FC = () => {
         </Link>
         <MuiThemeProvider theme={muiTheme}>
           <div className={classes.root}>
-          <Stepper
-            alternativeLabel
-            nonLinear
-            activeStep={step}
-          >
-            {steps.map((label, index) => {
-              const stepProps: {
+            <Stepper
+              alternativeLabel
+              nonLinear
+              activeStep={step}
+            >
+              {steps.map((label, index) => {
+                const stepProps: {
                 completed?: boolean;
                 alternativeLabel?: { marginTop: '5px' };
               } = {
                 completed: index < step
               }
-              const labelProps: { optional?: React.ReactNode } = {}
+                const labelProps: { optional?: React.ReactNode } = {}
 
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel
+                return (
+                  <Step key={label} {...stepProps}>
+                    <StepLabel
                     // onClick={handleStep(index)}
-                    {...labelProps}
-                  >
-                    {label}
-                  </StepLabel>
-                </Step>
-              )
-            })}
-          </Stepper>
-        </div>
+                      {...labelProps}
+                    >
+                      {label}
+                    </StepLabel>
+                  </Step>
+                )
+              })}
+            </Stepper>
+          </div>
         </MuiThemeProvider>
       </ContainerNav>
     </Wrapper>

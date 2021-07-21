@@ -13,7 +13,7 @@ interface IBoleto {
   produtos: Array<IProduto>
 }
 
-const Boleto: React.FC<IBoleto> = ({ total, produtos }) => {
+const Boleto: React.FC<IBoleto> = ({ total, produtos }:IBoleto) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
   const { handleFinalizar, loading: LoadingPagamento, setLoading } = usePagamento()
   const Router = useRouter()

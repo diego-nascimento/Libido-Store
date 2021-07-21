@@ -19,7 +19,7 @@ interface ILayout {
   categorias?: Array<ICategoria>
 }
 
-const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias }) => {
+const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias }: ILayout) => {
   const [Loading, setLoading] = React.useState(true)
   const Router = useRouter()
   const { loading: LoadingFrete } = useFrete()
@@ -35,18 +35,18 @@ const Layout: React.FC<ILayout> = ({ children, dispatch, carrinho, categorias })
     Loading
       ? <LoadingPage />
       : <PageContainer>
-      <Head>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      {Router.pathname === '/carrinho' ? <NavBag /> : <Nav carrinho={carrinho} categorias={categorias}/>}
-      <Backdrop open={LoadingFrete || LoadingPayment} style={{ zIndex: 99 }}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
+        {Router.pathname === '/carrinho' ? <NavBag /> : <Nav carrinho={carrinho} categorias={categorias}/>}
+        <Backdrop open={LoadingFrete || LoadingPayment} style={{ zIndex: 99 }}>
           <CircularProgress color="inherit" />
         </Backdrop>
-      <Main >
-        {children}
-      </Main>
-      <Footer />
-    </PageContainer>
+        <Main >
+          {children}
+        </Main>
+        <Footer />
+      </PageContainer>
   )
 }
 

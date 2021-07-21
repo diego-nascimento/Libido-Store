@@ -5,7 +5,7 @@ interface ITitle {
   text: string
 }
 
-const Title: React.FC<ITitle> = ({ text }) => {
+const Title: React.FC<ITitle> = ({ text }:ITitle) => {
   return (
     <Container>
       <TitleText>

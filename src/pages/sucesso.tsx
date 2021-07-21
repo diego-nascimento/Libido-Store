@@ -49,7 +49,7 @@ type Data = {
 
 }
 
-const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }) => {
+const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }:ISucesso) => {
   const [data, setData] = React.useState<Data | null>(null)
   const { PedidoInfo, resetContext, setLoading, getSelectedMethod, parcelas } = usePagamento()
   const { resetContext: resetContextStep } = useStep()
@@ -71,35 +71,35 @@ const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }) => {
 
   const MethodPayment = () => {
     switch (method) {
-      case 'Boleto':
-        return (
-          <>
-            <ImBarcode />
-            <span>{method}</span>
-          </>
-        )
-      case 'Pagamento na entrega':
-        return (
-          <>
-              <GrDeliver />
-              <span>{method}</span>
-          </>
-        )
-      default:
-        return (
-          <>
-            <ImCreditCard />
-            <span>{method}</span>
-            <span>{parcelasCompra}x</span>
-          </>
-        )
+    case 'Boleto':
+      return (
+        <>
+          <ImBarcode />
+          <span>{method}</span>
+        </>
+      )
+    case 'Pagamento na entrega':
+      return (
+        <>
+          <GrDeliver />
+          <span>{method}</span>
+        </>
+      )
+    default:
+      return (
+        <>
+          <ImCreditCard />
+          <span>{method}</span>
+          <span>{parcelasCompra}x</span>
+        </>
+      )
     }
   }
 
   return (
     <Layout categorias={categorias}>
       <Head>
-         <title>Libido LoveShop - Sucesso</title>
+        <title>Libido LoveShop - Sucesso</title>
       </Head>
       <WrapperSucesso>
         <Container className="Container">
@@ -130,8 +130,8 @@ const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }) => {
               })}
             </Produtos>
             <ContainerBaixo>
-             <ContainerFrete>
-              <p className='titulo'>Forma de entrega</p>
+              <ContainerFrete>
+                <p className='titulo'>Forma de entrega</p>
                 <div className="FreteInfo">
                   <div className="top">
                     <FaTruck />
@@ -148,22 +148,22 @@ const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }) => {
                   </div>
 
                 </div>
-             </ContainerFrete>
-             <ContainerPagamento>
-              <p className='titulo'>Informaçoes do cliente</p>
-              <div className="ContainerInformacoes">
-                <div className="Pagamento">
-                  {MethodPayment()}
+              </ContainerFrete>
+              <ContainerPagamento>
+                <p className='titulo'>Informaçoes do cliente</p>
+                <div className="ContainerInformacoes">
+                  <div className="Pagamento">
+                    {MethodPayment()}
+                  </div>
+                  <div className="Informacoes">
+                    <p>{data?.Info.nome}</p>
+                    <p>{data?.Info.email} - {data?.Info.whatsapp}</p>
+                    <p>{data?.Info.rua}, {data?.Info.numero}</p>
+                    <p>{data?.Info.cidade} - {data?.Info.estado}</p>
+                    <p>{data?.Info.cep}</p>
+                  </div>
                 </div>
-                <div className="Informacoes">
-                 <p>{data?.Info.nome}</p>
-                 <p>{data?.Info.email} - {data?.Info.whatsapp}</p>
-                 <p>{data?.Info.rua}, {data?.Info.numero}</p>
-                 <p>{data?.Info.cidade} - {data?.Info.estado}</p>
-                 <p>{data?.Info.cep}</p>
-                </div>
-              </div>
-             </ContainerPagamento>
+              </ContainerPagamento>
             </ContainerBaixo>
           </ContainerInformation>
         </Container>

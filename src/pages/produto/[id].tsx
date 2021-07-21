@@ -23,7 +23,7 @@ interface IProdutoPage{
   categorias: Array<ICategoria>
 }
 
-const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) => {
+const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }:IProdutoPage) => {
   const Navigator = useRouter()
 
   const addProduto = (produto: IProduto) => {
@@ -45,24 +45,24 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
   }
 
   return (
-   <Layout categorias={categorias}>
-     <ToastContainer
-      autoClose={2000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-     />
+    <Layout categorias={categorias}>
+      <ToastContainer
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Head>
-       <title>Libido LoveShop- {produto && produto.Nome}</title>
-       <meta name="description" content={`${produto && produto.descricao}`} />
-       <meta name="keywords" content={`${produto && produto.Nome}`}></meta>
-     </Head>
+        <title>Libido LoveShop- {produto && produto.Nome}</title>
+        <meta name="description" content={`${produto && produto.descricao}`} />
+        <meta name="keywords" content={`${produto && produto.Nome}`}></meta>
+      </Head>
 
-     {produto && <Wrapper className="Container">
+      {produto && <Wrapper className="Container">
         <p>
           <Link href='/' >
             <a>Home</a>
@@ -79,85 +79,85 @@ const ProdutoPage: React.FC<IProdutoPage> = ({ produto, dispatch, categorias }) 
             )
           })}
           <a style={{ fontWeight: 'bold', cursor: 'default' }}>{produto.Nome}</a>
-         </p>
+        </p>
 
         <InfoContainer >
-         <div className="imageContainer">
-          <Carousel
-            controls={true}
-            touch={true}
-            indicators={true}
-            fade={false}
-            slide={true}
-          >
-            {produto.imagens
-              ? produto.imagens.map(imagem => {
-                return <Carousel.Item key={imagem._id}>
-                <img src={imagem.url} alt={produto.Nome}/>
-              </Carousel.Item>
-              })
-              : null}
-          </Carousel>
+          <div className="imageContainer">
+            <Carousel
+              controls={true}
+              touch={true}
+              indicators={true}
+              fade={false}
+              slide={true}
+            >
+              {produto.imagens
+                ? produto.imagens.map(imagem => {
+                  return <Carousel.Item key={imagem._id}>
+                    <img src={imagem.url} alt={produto.Nome}/>
+                  </Carousel.Item>
+                })
+                : null}
+            </Carousel>
 
-         </div>
-         <div className="info">
-          {produto.pronta && <Tag>Pronta Entrega</Tag>}
-           <div className="topInfo">
-            <h1>{(produto.Nome)}</h1>
-            <div className="descricao">
+          </div>
+          <div className="info">
+            {produto.pronta && <Tag>Pronta Entrega</Tag>}
+            <div className="topInfo">
+              <h1>{(produto.Nome)}</h1>
+              <div className="descricao">
                 <p>
                   {produto.descricao}
                 </p>
+              </div>
             </div>
-           </div>
 
-           <ContainerPreco>
-            <div className="preco">
-              {produto.listPrice
-                ? <ListPrice>
-                <b>De:</b>
-                <div className='precoOFF'>
-                  <h3>{Intl.NumberFormat('pt-BR', {
+            <ContainerPreco>
+              <div className="preco">
+                {produto.listPrice
+                  ? <ListPrice>
+                    <b>De:</b>
+                    <div className='precoOFF'>
+                      <h3>{Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                      }).format(produto.listPrice)}
+                      </h3>
+                      <b style={{ position: 'relative', top: '-4px', color: '#C33E3E', border: '2px solid #C33E3E', padding: '3px 7px' }}>
+                        {(((produto.listPrice - produto.saleprice) / produto.listPrice) * 100).toFixed(0)}% OFF
+                      </b>
+                    </div>
+
+                  </ListPrice>
+                  : null
+                }
+
+                <SalePrice>
+                  {produto.listPrice ? <b>Por:</b> : <p>A partir de:</p>}
+                  <h2>{Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
-                  }).format(produto.listPrice)}
-                  </h3>
-                  <b style={{ position: 'relative', top: '-4px', color: '#C33E3E', border: '2px solid #C33E3E', padding: '3px 7px' }}>
-                    {(((produto.listPrice - produto.saleprice) / produto.listPrice) * 100).toFixed(0)}% OFF
-                  </b>
-                </div>
+                  }).format(produto.saleprice)}
+                  </h2>
+                </SalePrice>
 
-                </ListPrice>
-                : null
-            }
+              </div>
+              <div className="BotoesContainer">
+                <Botao Produto={produto} Click={addProduto} Style={{ width: '100%' }}>Adicionar ao Carrinho</Botao>
+                <Botao Produto={produto} Click={handleComprar} Style={{ width: '100%' }}>Comprar</Botao>
+              </div>
 
-            <SalePrice>
-              {produto.listPrice ? <b>Por:</b> : <p>A partir de:</p>}
-              <h2>{Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(produto.saleprice)}
-              </h2>
-            </SalePrice>
-
-            </div>
-            <div className="BotoesContainer">
-              <Botao Produto={produto} Click={addProduto} Style={{ width: '100%' }}>Adicionar ao Carrinho</Botao>
-              <Botao Produto={produto} Click={handleComprar} Style={{ width: '100%' }}>Comprar</Botao>
-            </div>
-
-          </ContainerPreco>
-         </div>
-       </InfoContainer>
-       {
-         produto.especificacao &&
+            </ContainerPreco>
+          </div>
+        </InfoContainer>
+        {
+          produto.especificacao &&
          <DescricaoContainer>
-            <h2>Descrição</h2>
-             <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }}>
-             </div>
-          </DescricaoContainer>
+           <h2>Descrição</h2>
+           <div dangerouslySetInnerHTML={{ __html: marked(produto.especificacao) }}>
+           </div>
+         </DescricaoContainer>
         }
-     </Wrapper>}
+      </Wrapper>}
     </Layout>
   )
 }

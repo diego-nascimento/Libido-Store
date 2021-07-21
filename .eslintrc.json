@@ -6,15 +6,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "standard",
-        "eslint:recommended"
+        "standard"
     ],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
@@ -28,12 +21,10 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "react/prop-types": 0,
-        "no-use-before-define": 0,
-        "no-case-declarations": 0,
-        "camelcase": "off",
-        "new-cap":"off",
-        "no-unused-vars": "off",
-        "no-undef": "off" 
+        "no-use-before-define": "off",
+        "no-undef": "off",
+        "indent": ["error", 2],
+        "no-case-declarations": "off",
+        "new-cap": "off"
     }
 }

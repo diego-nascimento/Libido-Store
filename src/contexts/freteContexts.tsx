@@ -65,7 +65,7 @@ export type TypeFretes ={
 
 const FreteContext = React.createContext({} as FreteContextType)
 
-const FreteProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
   const [cepValido, setcepValido] = React.useState<boolean>(false) // estado que define se um cep valido foi inserido ou nao
   const [showAddress, setShowAddress] = React.useState<boolean>(false) // State se deve ou não mostrar os campos de endereço
   const [addressEditable, setAddressEditable] = React.useState<TypesAddressInfo>({ // State se campos estão editaveis ou não

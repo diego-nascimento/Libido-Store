@@ -31,24 +31,24 @@ const Pagamento:React.FC = () => {
         <h2>Escolha a melhor forma de pagamento</h2>
         <PagamentoContainer>
           <MethodsContainer>
-              {AvailableMethods.map((method, index) => {
-                return (
-                  <Method key={index} onClick={() => setMethod(index)} selected={SelectedMethod === index}>
-                    {method === 'Boleto' && <ImBarcode />}
-                    {method === 'Cartão' && <ImCreditCard />}
-                    {method === 'Pagamento na entrega' && <GrDeliver />}
-                    <span>{method}</span>
-                  </Method>
-                )
-              })}
+            {AvailableMethods.map((method, index) => {
+              return (
+                <Method key={index} onClick={() => setMethod(index)} selected={SelectedMethod === index}>
+                  {method === 'Boleto' && <ImBarcode />}
+                  {method === 'Cartão' && <ImCreditCard />}
+                  {method === 'Pagamento na entrega' && <GrDeliver />}
+                  <span>{method}</span>
+                </Method>
+              )
+            })}
           </MethodsContainer>
           <WrapperPayment>
-              {error && <p style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
-                <AiFillWarning style={{ marginRight: '5px' }}/>{error}
-                </p>}
-              {SelectedMethod === 0 && <Boleto />}
-              {SelectedMethod === 1 && <CreditCard />}
-              {SelectedMethod === 2 && <PaymentOnDelivery />}
+            {error && <p style={{ color: 'red', display: 'flex', alignItems: 'center' }}>
+              <AiFillWarning style={{ marginRight: '5px' }}/>{error}
+            </p>}
+            {SelectedMethod === 0 && <Boleto />}
+            {SelectedMethod === 1 && <CreditCard />}
+            {SelectedMethod === 2 && <PaymentOnDelivery />}
           </WrapperPayment>
         </PagamentoContainer>
       </PagamentoWrapper>

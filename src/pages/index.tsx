@@ -18,7 +18,7 @@ interface IHome{
   novidades: Array<IProduto>
 }
 
-const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
+const Home: React.FC <IHome> = ({ categorias, destaques, novidades }:IHome) => {
   return (
     <Layout categorias={categorias}>
       <Head>
@@ -30,8 +30,8 @@ const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
       </Header>
       <Banner >
       </Banner>
-        <ListingProductH produtos={destaques} title={'Pra você'} />
-        <ListingProductH produtos={novidades} title={'Acabou de chegar'}/>
+      <ListingProductH produtos={destaques} title={'Pra você'} />
+      <ListingProductH produtos={novidades} title={'Acabou de chegar'}/>
       <Categorias>
         <Title text={'Categorias'}/>
         <Container className="Container">
@@ -42,9 +42,9 @@ const Home: React.FC <IHome> = ({ categorias, destaques, novidades }) => {
             return (
               <Link href={`/categoria/${categoria._id}?categoria=${categoria.Nome}`} key={categoria._id} >
                 <a>
-                <Card >
-                  {categoria.Imagem ? <img src={categoria.Imagem.url} alt={categoria.Nome} /> : <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={categoria.Nome} />}
-                </Card>
+                  <Card >
+                    {categoria.Imagem ? <img src={categoria.Imagem.url} alt={categoria.Nome} /> : <img src="https://www.toptal.com/designers/subtlepatterns/patterns/repeated-square-dark.png" alt={categoria.Nome} />}
+                  </Card>
                 </a>
               </Link>
             )

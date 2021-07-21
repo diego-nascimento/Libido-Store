@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { styles } from '../../styles/styles'
-import Stepper from '@material-ui/core/Stepper'
 
 interface INavegacao{
   MenuBackground: boolean
@@ -116,7 +115,7 @@ export const ContainerNav = styled.div`
   width: 100%;
   cursor: pointer;
   max-height: 60px;
-  padding: 10px 20px;
+      padding: 10px 20px;
   cursor: default;
   
   .CarrinhoButton{

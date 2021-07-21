@@ -12,7 +12,7 @@ type StepProviderProps = {
 
 const StepContext = React.createContext({} as StepContextType)
 
-const StepProvider: React.FC<StepProviderProps> = ({ children }) => {
+const StepProvider: React.FC<StepProviderProps> = ({ children }: any) => {
   const [activeStep, setActiveStep] = React.useState<number>(0)
 
   const resetContext = () => {

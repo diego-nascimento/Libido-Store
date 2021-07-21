@@ -11,7 +11,7 @@ interface IAllProdutos{
   categorias: Array<ICategoria>
 }
 
-const Produtos: React.FC<IAllProdutos> = ({ produtos, categorias }) => {
+const Produtos: React.FC<IAllProdutos> = ({ produtos, categorias }:IAllProdutos) => {
   return (
     <Layout categorias={categorias}>
       <Head>

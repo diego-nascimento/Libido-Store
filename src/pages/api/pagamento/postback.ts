@@ -9,11 +9,11 @@ export default async function handler (
 ) {
   if (Request.method === 'POST') {
     try {
-      const { id, current_status } = Request.body
+      const { id, currentStatus } = Request.body
       const updatePedido = updateStatusTransactionFactory()
       const data: IUpdateStatusTransacionEntry = {
         idTransaction: id,
-        status: current_status
+        status: currentStatus
       }
       const response = await updatePedido.update(data)
       const updateStatus = updateStatusMessageFactory()

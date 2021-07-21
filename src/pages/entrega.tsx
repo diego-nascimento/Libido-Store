@@ -9,7 +9,7 @@ interface IEntrega{
   categorias: Array<ICategoria>
 }
 
-const Entrega: React.FC<IEntrega> = ({ categorias }) => (
+const Entrega: React.FC<IEntrega> = ({ categorias }:IEntrega) => (
   <Layout categorias={categorias}>
     <Head>
       <title>Libido LoveShop- Entregas</title>
@@ -20,7 +20,7 @@ const Entrega: React.FC<IEntrega> = ({ categorias }) => (
           <img src="/delivery-sexshop-pirauba.png" alt="delivery-sexshop-pirauba" />
         </ImageContainer>
         <InfoContainer>
-        <h1>Entregas: </h1>
+          <h1>Entregas: </h1>
           <p>
             Nossos clientes merecem todo o conforto e comodidade possível, e
             é baseado nisso que ofertamos FRETE GRÁTIS para todos os pedidos
@@ -44,8 +44,8 @@ const Entrega: React.FC<IEntrega> = ({ categorias }) => (
         </InfoContainer>
       </Container>
       <Container className="Container">
-      <ImageContainer>
-      <img src="/retirada-sexshop-pirauba.png" alt="Retiradas-sexshop-pirauba" />
+        <ImageContainer>
+          <img src="/retirada-sexshop-pirauba.png" alt="Retiradas-sexshop-pirauba" />
         </ImageContainer>
         <InfoContainer>
           <h1>Retiradas: </h1>

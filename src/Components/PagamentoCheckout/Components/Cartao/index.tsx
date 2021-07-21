@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React from 'react'
 import { PaymentHeader, ButtonContainer, Button, CardInfoContainer, FormularioContainer } from '../../Pagamento.style'
 import { Container, Content } from '../../methods.style'
 import { IFrete, useFrete } from '../../../../contexts/freteContexts'
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }) => {
+const CartaoCredito: React.FC<ICartaoCredito> = ({ total, produtos }:ICartaoCredito) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
   const { handleFinalizar, cardName, cardNumber, cvc, expiresIn, setCardName, setCardNumber, setCvc, setExpiresIn, focus, setFocus, setParcelas, parcelas, loading: LoadingPagamento, setLoading } = usePagamento()
   const classes = useStyles()

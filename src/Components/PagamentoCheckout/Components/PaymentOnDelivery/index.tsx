@@ -13,7 +13,7 @@ interface IDelivery {
   produtos: Array<IProduto>
 }
 
-const Delivery: React.FC<IDelivery> = ({ total, produtos }) => {
+const Delivery: React.FC<IDelivery> = ({ total, produtos }:IDelivery) => {
   const { returnFreteSelected, handleSubmit, loading: LoadingFrete } = useFrete()
   const { handleFinalizar, loading: LoadingPayment, setLoading } = usePagamento()
 
@@ -51,7 +51,7 @@ const Delivery: React.FC<IDelivery> = ({ total, produtos }) => {
         </TextContainer>
       </Warning>
       <ButtonContainer>
-      <Button onClick={handleSubmit(handleSubmitDelivery)} disabled={LoadingFrete || LoadingPayment}>
+        <Button onClick={handleSubmit(handleSubmitDelivery)} disabled={LoadingFrete || LoadingPayment}>
           {LoadingFrete || LoadingPayment ? 'Carregando' : 'Finalizar Pedido'}
         </Button>
       </ButtonContainer>

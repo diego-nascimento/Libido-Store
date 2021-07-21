@@ -7,6 +7,7 @@ import { ICardPaymentInfo } from '../typing/Interfaces/ICardInfo'
 import { PostFactory } from '../Factory/http/PostFactory'
 import { normalize } from '../Util/Normalize'
 import { Focused } from 'react-credit-cards'
+import { HttpResponse } from '../domain/protocols/IHttpHelpers'
 
 type PagamentoProviderTypes ={
   method: number,
@@ -44,7 +45,7 @@ const Methods = ['Boleto', 'Cartão', 'Pagamento na entrega']
 
 const PagamentoContext = React.createContext({} as PagamentoProviderTypes)
 
-const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
+const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }:any) => {
   const [method, setMethod] = React.useState<number>(0)
   const [AvailableMethods, setavailableMethods] = React.useState<Array<string>>(Methods)
   const [parcelas, setParcelas] = React.useState<number>(1)
@@ -124,90 +125,90 @@ const PagamentoProvider: React.FC<PagamentoProviderProps> = ({ children }) => {
         whatsapp: normalize(data.Whatsapp)
       }
       switch (method) {
-        case 'Boleto':
-          const responseBoleto = await post.handle({
-            url: '/api/pagamento/boleto',
-            body: {
-              data: {
-                info: Info,
-                total: total,
-                Produtos: produtos,
-                FreteInfo: FreteSelected
-              }
-            }
-          })
-          if (responseBoleto.StatusCode !== 200) {
-            throw new Error()
-          } else {
-            responseBoleto.body = {
-              Info, total, produtos, FreteSelected
-            }
-            setPedidoInfo(responseBoleto)
-            return true
-          }
-        case 'Pagamento na entrega':
-          const responseEntrega = await post.handle({
-            url: '/api/pagamento/entrega',
-            body: {
-              data: {
-                info: Info,
-                total: total,
-                Produtos: produtos,
-                FreteInfo: FreteSelected
-              }
-            }
-          })
-          if (responseEntrega.StatusCode !== 200) {
-            throw new Error()
-          } else {
-            responseEntrega.body = {
-              Info, total, produtos, FreteSelected
-            }
-            setPedidoInfo(responseEntrega)
-            return true
-          }
-        default:
-          const cardData = getCardPaymentInformation()
-          const CardMethodInfo: ICardPaymentInfo = {
-            nome: data.Nome,
-            bairro: data.Bairro,
-            cep: normalize(data.Cep),
-            cidade: data.Cidade,
-            cpf: normalize(data.Cpf),
-            estado: data.Estado,
-            numero: data.Numero,
-            rua: data.Endereco,
-            whatsapp: normalize(data.Whatsapp),
-            complemento: data.Complemento,
-            email: data.email,
-            cardInfo: {
-              CardCVC: cardData.cvc,
-              CardExpire: normalize(cardData.expiresin),
-              CardName: cardData.name,
-              CardNumber: cardData.number,
-              parcelas: parcelas
+      case 'Boleto':
+        const responseBoleto = await post.handle({
+          url: '/api/pagamento/boleto',
+          body: {
+            data: {
+              info: Info,
+              total: total,
+              Produtos: produtos,
+              FreteInfo: FreteSelected
             }
           }
-          const responseCard = await post.handle({
-            url: '/api/pagamento/cartao',
-            body: {
-              data: {
-                info: CardMethodInfo,
-                total: ((total + FreteSelected.FreteValor) + (total + FreteSelected.FreteValor) * ((Parcelas[parcelas - 1].acrescimo) / 100)).toFixed(2),
-                Produtos: produtos,
-                FreteInfo: FreteSelected
-              }
-            }
-          })
-          if (responseCard.StatusCode !== 200) {
-            throw new Error()
-          } else {
-            responseCard.body = {
-              Info, total, produtos, FreteSelected
-            }
-            setPedidoInfo(responseCard)
-            return true
+        })
+        if (responseBoleto.StatusCode !== 200) {
+          throw new Error()
+        } else {
+          responseBoleto.body = {
+            Info, total, produtos, FreteSelected
           }
+          setPedidoInfo(responseBoleto)
+          return true
+        }
+      case 'Pagamento na entrega':
+        const responseEntrega = await post.handle({
+          url: '/api/pagamento/entrega',
+          body: {
+            data: {
+              info: Info,
+              total: total,
+              Produtos: produtos,
+              FreteInfo: FreteSelected
+            }
+          }
+        })
+        if (responseEntrega.StatusCode !== 200) {
+          throw new Error()
+        } else {
+          responseEntrega.body = {
+            Info, total, produtos, FreteSelected
+          }
+          setPedidoInfo(responseEntrega)
+          return true
+        }
+      default:
+        const cardData = getCardPaymentInformation()
+        const CardMethodInfo: ICardPaymentInfo = {
+          nome: data.Nome,
+          bairro: data.Bairro,
+          cep: normalize(data.Cep),
+          cidade: data.Cidade,
+          cpf: normalize(data.Cpf),
+          estado: data.Estado,
+          numero: data.Numero,
+          rua: data.Endereco,
+          whatsapp: normalize(data.Whatsapp),
+          complemento: data.Complemento,
+          email: data.email,
+          cardInfo: {
+            CardCVC: cardData.cvc,
+            CardExpire: normalize(cardData.expiresin),
+            CardName: cardData.name,
+            CardNumber: cardData.number,
+            parcelas: parcelas
+          }
+        }
+        const responseCard:HttpResponse = await post.handle({
+          url: '/api/pagamento/cartao',
+          body: {
+            data: {
+              info: CardMethodInfo,
+              total: ((total + FreteSelected.FreteValor) + (total + FreteSelected.FreteValor) * ((Parcelas[parcelas - 1].acrescimo) / 100)).toFixed(2),
+              Produtos: produtos,
+              FreteInfo: FreteSelected
+            }
+          }
+        })
+        if (responseCard.StatusCode !== 200) {
+          throw new Error()
+        } else {
+          responseCard.body = {
+            Info, total, produtos, FreteSelected
+          }
+          setPedidoInfo(responseCard)
+          return true
+        }
       }
     } catch (error) {
       if (getSelectedMethod() === 'Boleto' || getSelectedMethod() === 'Pagamento na entrega') {

@@ -8,7 +8,7 @@ interface I404{
   categorias: Array<ICategoria>
 }
 
-const Page404: React.FC<I404> = ({ categorias }) => {
+const Page404: React.FC<I404> = ({ categorias }: I404) => {
   return (
     <Layout categorias={categorias}>
       <Container>

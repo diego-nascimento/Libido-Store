@@ -14,7 +14,7 @@ interface IShowProdutos{
   categorias:Array<ICategoria>
 }
 
-const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) => {
+const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }:IShowProdutos) => {
   return (
     <Wrapper className="Container">
       <Title text={title} />
@@ -23,7 +23,7 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
           <div className="block">
             <Accordion style={{ background: 'rgba(0,0,0,0)', border: 'none' }}>
               <AccordionSummary expandIcon={<MdExpandMore />}>
-                  <h2>Categorias</h2>
+                <h2>Categorias</h2>
               </AccordionSummary>
               <AccordionDetails>
                 <ul>
@@ -39,8 +39,8 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
                     )
                   })}
                 </ul>
-        </AccordionDetails>
-      </Accordion>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </SideBar>
         <Container className="Container">
@@ -50,12 +50,12 @@ const ShowProdutos: React.FC<IShowProdutos> = ({ produtos, title, categorias }) 
                 <a style={{ height: '100%' }}>
                   <Item produto={produto}/>
                 </a>
-            </Link>
+              </Link>
             )
           })}
         </Container>
       </ProdutosContainer>
-      </Wrapper>
+    </Wrapper>
   )
 }
 

@@ -9,7 +9,7 @@ interface IProdutoItem{
   width?: string
 }
 
-const ProdutoItem: React.FC<IProdutoItem> = ({ produto, width }) => {
+const ProdutoItem: React.FC<IProdutoItem> = ({ produto, width }:IProdutoItem) => {
   const [visible, setVisible] = React.useState(false)
   const [Loaded, setLoaded] = React.useState(false)
 
@@ -56,26 +56,26 @@ const ProdutoItem: React.FC<IProdutoItem> = ({ produto, width }) => {
                   />
                 </Carousel.Item>
               }
-              </Carousel>
-            </ImagemContainer>
-            <div className="info">
-              <h2>{(produto.Nome.toLowerCase())}</h2>
-              <Precos>
-                {produto.listPrice
-                  ? <b className={'listPrice'}>{Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                  }).format(produto.listPrice)}
-                </b>
-                  : null}
-                <b className={'salePrice'}>{Intl.NumberFormat('pt-BR', {
+            </Carousel>
+          </ImagemContainer>
+          <div className="info">
+            <h2>{(produto.Nome.toLowerCase())}</h2>
+            <Precos>
+              {produto.listPrice
+                ? <b className={'listPrice'}>{Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL'
-                }).format(produto.saleprice)}
+                }).format(produto.listPrice)}
                 </b>
-              </Precos>
-            </div>
-          </Card>
+                : null}
+              <b className={'salePrice'}>{Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+              }).format(produto.saleprice)}
+              </b>
+            </Precos>
+          </div>
+        </Card>
       </VisibilitySensor>
 
     </>

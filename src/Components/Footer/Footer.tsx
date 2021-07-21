@@ -33,15 +33,15 @@ const Footer: React.FC = () => {
           <RedesSociais>
             <Link href="https://www.instagram.com/loveshopdaari/">
               <a >
-              <SVGContainer>
-                <AiOutlineInstagram />
-              </SVGContainer>
+                <SVGContainer>
+                  <AiOutlineInstagram />
+                </SVGContainer>
               </a>
             </Link>
             <Link href="https://wa.me/message/IMPCTMLVS27FJ1">
               <a >
                 <SVGContainer>
-                <AiOutlineWhatsApp />
+                  <AiOutlineWhatsApp />
                 </SVGContainer>
               </a>
             </Link>
@@ -73,10 +73,10 @@ const Footer: React.FC = () => {
           </ContainerFooterMain>
         </FooterMain>
         <FooterRightSide>
-        <ContainerPagarme>
+          <ContainerPagarme>
             <img src="/ssl.svg" alt="ssl certified" />
           </ContainerPagarme>
-         <ContainerPagarme>
+          <ContainerPagarme>
             <p>POWERED BY</p>
             <img src="/pagarme-logo.png" alt="pagarme" />
           </ContainerPagarme>

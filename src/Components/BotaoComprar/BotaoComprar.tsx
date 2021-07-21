@@ -6,9 +6,10 @@ interface IBotao{
   Click: any
   Style: any
   Produto: IProduto
+  children: any
 }
 
-const BotaoComprar: React.FC<IBotao> = ({ children, Click, Style, Produto }) => {
+const BotaoComprar: React.FC<IBotao> = ({ children, Click, Style, Produto }:IBotao) => {
   return (
     <Botao onClick={() => Click(Produto)} style={Style}>{children}</Botao>
   )
