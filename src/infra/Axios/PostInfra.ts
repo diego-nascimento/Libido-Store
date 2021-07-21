@@ -7,7 +7,7 @@ export class PostInfra implements IPostInfra {
     try {
       const response = await axios({
         method: 'POST',
-        url: `${process.env.APIURL}/${url}`,
+        url: url,
         data: body
       })
       switch (response.status) {

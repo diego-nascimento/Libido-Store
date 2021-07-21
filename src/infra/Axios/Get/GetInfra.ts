@@ -7,9 +7,11 @@ export class GetInfra implements IGetInfra {
     try {
       const response = await axios({
         method: 'GET',
-        url: `${process.env.APIURL}/${url}`,
+        url: url,
         data: body
       })
+
+      console.log(response)
       switch (response.status) {
       case 200:
         return {
