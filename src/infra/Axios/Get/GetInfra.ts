@@ -5,13 +5,10 @@ import axios from 'axios'
 export class GetInfra implements IGetInfra {
   async Get ({ body, url }: IGetEntry): Promise<HttpResponse> {
     try {
-      const response = await axios({
-        method: 'GET',
-        url: url,
+      const response = await axios.get(url, {
         data: body
       })
 
-      console.log(response)
       switch (response.status) {
       case 200:
         return {
