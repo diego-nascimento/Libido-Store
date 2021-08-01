@@ -3,7 +3,6 @@ import Layout from '../Components/Layout/Layout'
 import { Wrapper, Container, CheckoutContainer, ProdutosWrapper, ProdutosContainer, Produto, ProdutoInfoContainer, ImageContainer, ContainerResume, BotaoFinalizar } from '../styles/PageStyles/checkout.style'
 import { connect } from 'react-redux'
 import Bag from '../Components/Carrinho'
-import Link from 'next/link'
 import Head from 'next/head'
 import { IProduto } from '../typing/Interfaces/IProduto'
 import Formulario from '../Components/FormularioCheckout'
@@ -15,6 +14,7 @@ import Pagamento from '../Components/PagamentoCheckout'
 import { Carousel } from 'react-bootstrap'
 import Title from '../Components/Title'
 import { useRouter } from 'next/router'
+import EmptyCart from '../Components/EmptyCart'
 
 interface CarrinhoProps{
   tamanhoCarrinho: number
@@ -60,13 +60,11 @@ const Carrinho: React.FC<CarrinhoProps> = ({
       </Head>
       <Wrapper >
         <Container className="Container">
-          {tamanhoCarrinho <= 0 ? <h1>Seu Carrinho de Compras esta Vazio.</h1> : <Title text={StepsCheckout[step]}></Title>}
           {tamanhoCarrinho <= 0
-            ? <p>
-                 Seu carrinho de compras está aqui para servir a você. Dê um propósito a ele!<br/>
-                Continue Suas Compras: <Link href="/"><a>Produtos</a></Link>
-            </p>
+            ? <EmptyCart />
+
             : <CheckoutContainer>
+              <Title text={StepsCheckout[step]}></Title>
               {step === 0 && <Bag />}
               {step === 1 && <Formulario />}
               {step === 2 && <Pagamento />}
