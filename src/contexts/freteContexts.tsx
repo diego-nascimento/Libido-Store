@@ -58,7 +58,7 @@ type AuthProviderProps = {
 };
 
 export type TypeFretes ={
-  serviço: string,
+  servico: string,
   FreteValor: number,
   prazo: number
 }
@@ -75,15 +75,15 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
     Endereco: true
   })
   const [FreteSelected, setFrete] = React.useState<number>(0) // Qual frete foi selecionado, 0 para boleto, 1 para cartao
-  const [fretes, setFretes] = React.useState<Array<TypeFretes>>([ // estado onde sao salvos as informações sobre os serviços de frete
+  const [fretes, setFretes] = React.useState<Array<TypeFretes>>([ // estado onde sao salvos as informações sobre os servicos de frete
     {
       FreteValor: 0,
       prazo: 0,
-      serviço: ''
+      servico: ''
     }, {
       FreteValor: 0,
       prazo: 0,
-      serviço: ''
+      servico: ''
     }
   ])
   const [error, setError] = React.useState<string | null>(null)
@@ -113,11 +113,11 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
       {
         FreteValor: 0,
         prazo: 0,
-        serviço: ''
+        servico: ''
       }, {
         FreteValor: 0,
         prazo: 0,
-        serviço: ''
+        servico: ''
       }
     ])
   }
@@ -147,18 +147,18 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
     }
   }, [cepValido])
 
-  const getFreteValues = async (cep: string) => { // função que conslta no correio os valores e serviços de frete
+  const getFreteValues = async (cep: string) => { // função que conslta no correio os valores e servicos de frete
     setLoading(true)
     if (cep === '36170000' || !cepValido) { // se o cep é de pirauba, prazo é de 2 dias e o valor é 0
       setLoading(false)
       return setFretes([
         {
-          serviço: 'PAC',
+          servico: 'PAC',
           FreteValor: 0,
           prazo: 2
         },
         {
-          serviço: 'Sedex',
+          servico: 'Sedex',
           FreteValor: 0,
           prazo: 2
         }
@@ -174,7 +174,7 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
     })
 
     let ValorStr: string = responsePAC.body.Servicos.cServico.Valor._text // a informação vem em xml e como texto
-    if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) { // se o valor do serviço retornado, quer dizer que algo esta errado nas informações do correio
+    if (Number.parseFloat(ValorStr.replace(',', '.')) === 0) { // se o valor do servico retornado, quer dizer que algo esta errado nas informações do correio
       setLoading(false) // finaliza o esado de carregamento
       return setcepValido(false) // com isso o cep fica invalido
     }
@@ -197,14 +197,14 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
       prazo: Number.parseInt(responseSEDEX.body.Servicos.cServico.PrazoEntrega._text),
       FreteValor: Number.parseFloat(ValorStr.replace(',', '.'))
     }
-    setFretes([ // seta o estado com os novos valores dos serviços de frete
+    setFretes([ // seta o estado com os novos valores dos servicos de frete
       {
-        serviço: 'PAC',
+        servico: 'PAC',
         FreteValor: PAC.FreteValor,
         prazo: PAC.prazo
       },
       {
-        serviço: 'Sedex',
+        servico: 'Sedex',
         FreteValor: SEDEX.FreteValor,
         prazo: SEDEX.prazo
       }
@@ -217,7 +217,7 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
       return {
         FreteValor: 0,
         prazo: 2,
-        serviço: 'Entregamos na sua casa'
+        servico: 'Entregamos na sua casa'
       }
     } else {
       return fretes[FreteSelected]

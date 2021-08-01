@@ -69,7 +69,7 @@ const Pagamento:React.FC = () => {
           <p className='Editar' onClick={() => setStep(1)}>Editar</p>
         </InfoContainer>
         <EntregaInformation>
-          <p>{ClienteInformations.Cep === '36170-000' ? 'Entregamos pessoalmente' : FreteInformation.serviço}: {FreteInformation.FreteValor === 0
+          <p>{ClienteInformations.Cep === '36170-000' ? 'Entregamos pessoalmente' : FreteInformation.servico}: {FreteInformation.FreteValor === 0
             ? 'Gratis'
             : Intl.NumberFormat('pt-BR', {
               style: 'currency',
