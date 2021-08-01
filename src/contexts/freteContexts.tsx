@@ -27,7 +27,7 @@ type FreteContextType = {
   resetFreteValues: () => void
   setFrete: React.Dispatch<React.SetStateAction<number>>
   setcepValido: React.Dispatch<React.SetStateAction<boolean>>
-  returnFreteSelected: () => {servico: string, FreteValor :number, prazo: number}
+  returnFreteSelected: () => TypeFretes
   error: string | null,
   setError: React.Dispatch<React.SetStateAction<string | null>>
   register: UseFormRegister<FieldValues>
@@ -58,7 +58,7 @@ type AuthProviderProps = {
 };
 
 export type TypeFretes ={
-  servico: string,
+  serviço: string,
   FreteValor: number,
   prazo: number
 }
@@ -79,11 +79,11 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
     {
       FreteValor: 0,
       prazo: 0,
-      servico: ''
+      serviço: ''
     }, {
       FreteValor: 0,
       prazo: 0,
-      servico: ''
+      serviço: ''
     }
   ])
   const [error, setError] = React.useState<string | null>(null)
@@ -113,11 +113,11 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
       {
         FreteValor: 0,
         prazo: 0,
-        servico: ''
+        serviço: ''
       }, {
         FreteValor: 0,
         prazo: 0,
-        servico: ''
+        serviço: ''
       }
     ])
   }
@@ -153,12 +153,12 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
       setLoading(false)
       return setFretes([
         {
-          servico: 'PAC',
+          serviço: 'PAC',
           FreteValor: 0,
           prazo: 2
         },
         {
-          servico: 'Sedex',
+          serviço: 'Sedex',
           FreteValor: 0,
           prazo: 2
         }
@@ -199,12 +199,12 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
     }
     setFretes([ // seta o estado com os novos valores dos serviços de frete
       {
-        servico: 'PAC',
+        serviço: 'PAC',
         FreteValor: PAC.FreteValor,
         prazo: PAC.prazo
       },
       {
-        servico: 'Sedex',
+        serviço: 'Sedex',
         FreteValor: SEDEX.FreteValor,
         prazo: SEDEX.prazo
       }
@@ -217,7 +217,7 @@ const FreteProvider: React.FC<AuthProviderProps> = ({ children }:any) => {
       return {
         FreteValor: 0,
         prazo: 2,
-        servico: 'Entregamos na sua casa'
+        serviço: 'Entregamos na sua casa'
       }
     } else {
       return fretes[FreteSelected]

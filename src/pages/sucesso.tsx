@@ -67,8 +67,6 @@ const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }:ISucesso) => {
     dispatch(CartActions.LimparCarrinho())
   }, [])
 
-  console.log({ data, method })
-
   const MethodPayment = () => {
     switch (method) {
     case 'Boleto':
@@ -150,7 +148,7 @@ const Sucesso: React.FC<ISucesso> = ({ categorias, dispatch }:ISucesso) => {
                 </div>
               </ContainerFrete>
               <ContainerPagamento>
-                <p className='titulo'>Informaçoes do cliente</p>
+                <p className='titulo'>Informações do cliente</p>
                 <div className="ContainerInformacoes">
                   <div className="Pagamento">
                     {MethodPayment()}
