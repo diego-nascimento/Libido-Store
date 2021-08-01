@@ -7,12 +7,12 @@ export const Container = styled.div`
 export const TitleText = styled.h1`
   font-weight: bold;
   text-transform: capitalize;
-  font-size: 2rem;
+  font-size: 1.7rem;
   letter-spacing: 1px;
   color: ${styles.componentsDest};
 
   ::first-letter{
-    font-size: 3.5rem;
+    font-size: 2rem;
     color: ${styles.componentsColor};
 
   }
@@ -21,11 +21,11 @@ export const TitleText = styled.h1`
     font-size: 2rem;
 
     ::first-letter{
-      font-size: 2.5rem;
+      font-size: 1.7rem;
     }
   }
 
   @media(max-width: 500px){
-    font-size: 1.7rem;
+    font-size: 1.3rem;
   }
 `

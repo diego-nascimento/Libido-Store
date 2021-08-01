@@ -9,7 +9,7 @@ export default function cart (state = [], action: any) {
         (produto:IProduto) => produto._id === action.produto._id
       )
       if (productIndex >= 0 && draft[productIndex].quantidade) {
-        draft[productIndex].quantidade += 1
+        draft[productIndex].quantidade = draft[productIndex].quantidade ? draft[productIndex].quantidade : 0 + 1
       } else {
         draft.push({
           ...action.produto,
@@ -27,7 +27,7 @@ export default function cart (state = [], action: any) {
         if (draft[productIndex].quantidade === 1) {
           draft.splice(productIndex, 1)
         } else {
-          draft[productIndex].quantidade -= 1
+          draft[productIndex].quantidade = draft[productIndex].quantidade ? draft[productIndex].quantidade : 0 - 1
         }
       }
       localStorage.setItem('carrinho', JSON.stringify(draft))

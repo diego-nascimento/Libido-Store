@@ -60,11 +60,11 @@ const Footer: React.FC = () => {
                 <p>Entrega</p>
               </a>
             </Link>
-            <Link href="politicas-de-trocas">
+            {/* <Link href="politicas-de-trocas">
               <a>
                 <p>Politicas de trocas e devoluções</p>
               </a>
-            </Link>
+            </Link> */}
             <Link href="/produtos">
               <a>
                 <p>Produtos</p>

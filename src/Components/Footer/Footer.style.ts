@@ -8,6 +8,7 @@ export const FooterWrapper = styled.footer`
   align-items: center;
   color: #ccc;
   flex-direction: column;
+
 `
 
 export const FooterContainer = styled.div`
@@ -25,6 +26,10 @@ export const FooterContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 30px 20px;
+
+    p{
+      font-size: .7rem;
+    }
   }
 `
 
@@ -36,7 +41,7 @@ export const FooterAside = styled.aside`
   width: 100%;
 
   h2{
-    font-size: 1.2rem;
+    font-size: 1rem;
     letter-spacing: 1px;;
     text-transform: uppercase;
   }
@@ -60,12 +65,12 @@ export const Info = styled.div`
   justify-content: flex-start;
 
   h2{
-    font-size: 1rem;
+    font-size: .9rem;
     margin: 0px;
   }
 
   p{
-    font-size: .9rem;
+    font-size: .8rem;
     opacity: .7;
     padding: 0px;
     margin: 0px;
@@ -109,7 +114,7 @@ export const FooterMain = styled.main`
   width: 100%;
 
   h2{
-    font-size: 1.2rem;
+    font-size: 1rem;
     letter-spacing: 1px;;
     text-transform: uppercase;
     margin-bottom: 20px;
@@ -149,9 +154,6 @@ export const FooterRightSide = styled.aside`
   flex-direction: column;
   align-items: flex-end;
 
-  img{
-    width: 150px;
-  }
 
   @media(max-width: 800px){
     display: flex;
@@ -175,7 +177,7 @@ export const ContainerPagarme = styled.div`
     top: 5px;
   }
   img{
-    width: 120px;
+    width: 130px;
   }
 `
 
@@ -196,15 +198,14 @@ export const ContainerFooterBoottom = styled.div`
 `
 
 export const ContainerBandeiras = styled.div`
-  background: white;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: flex-end;
-  background-color: white;
   padding: 5px;
   
   img{
-    width: 200px;
+    width: 140px;
+    border: 3px solid white;
   }
 `
