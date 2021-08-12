@@ -60,11 +60,11 @@ const Carrinho: React.FC<CarrinhoProps> = ({
       </Head>
       <Wrapper >
         <Container className="Container">
+          <Title text={StepsCheckout[step]}></Title>
           {tamanhoCarrinho <= 0
-            ? <EmptyCart />
 
+            ? <EmptyCart />
             : <CheckoutContainer>
-              <Title text={StepsCheckout[step]}></Title>
               {step === 0 && <Bag />}
               {step === 1 && <Formulario />}
               {step === 2 && <Pagamento />}
