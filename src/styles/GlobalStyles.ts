@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
 #__next {
@@ -32,14 +33,6 @@ html{
     overflow-y: scroll;
     height: 100%;
     color: ${styles.fontColor};
-
-    h1, h2{
-      font-family: 'Khula', sans-serif;
-    }
-
-    p, li, a, span{
-      font-family: 'Khula', sans-serif;
-    }
   
     p, h1, h2, a{
       color :${styles.fontColorDest};
