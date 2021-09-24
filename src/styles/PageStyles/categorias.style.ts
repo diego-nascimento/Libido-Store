@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
-export const Banner = styled.section`
+export const Banner = styled.div`
   width: 100vw;
-  height: 250px;
-  background: red;
+  img{
+    width: 100%;
+  }
 `

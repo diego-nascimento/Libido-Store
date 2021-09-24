@@ -5,6 +5,7 @@ export const PageContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  padding: 0px;
 `
 
 export const Main = styled.main`
