@@ -13,6 +13,7 @@ import { FreteProvider } from '../contexts/freteContexts'
 import { PagamentoProvider } from '../contexts/pagamentoContexts'
 import '../styles/styles-compiled.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { ClosedWarning } from '../Components/ClosedWarning'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }:AppProps) => {
   const router = useRouter()
@@ -37,6 +38,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }:AppProps) => {
           <Provider store={store}>
             <GlobalStyles />
             <Component {...pageProps} />
+            <ClosedWarning />
           </Provider>
         </StepProvider>
       </FreteProvider>

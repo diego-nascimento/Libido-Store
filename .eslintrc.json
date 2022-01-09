@@ -36,6 +36,7 @@
         "no-undef": "off",
         "indent": ["error", 2],
         "no-case-declarations": "off",
-        "new-cap": "off"
+        "new-cap": "off",
+        "react/react-in-jsx-scope": "off"
     }
 }
