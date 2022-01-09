@@ -15,7 +15,7 @@ export const ClosedWarning : React.FC = () => {
   }
 
   return (<SC.Container open={open}>
-    <SC.Text>O site já não está mais em funcionamento e ficará no ar apenas como demonstração. Os pedidos não serão cobrados e nem contabilizados.  </SC.Text>
+    <SC.Text>O site já não está mais em funcionamento e ficará no ar apenas como demonstração. Os pedidos não serão mais cobrados e nem contabilizados.  </SC.Text>
     <SC.Text>Muito obrigado de toda equipe Libido SexShop!!!!</SC.Text>
     <SC.Botao onClick={() => handleClose()}>Fechar</SC.Botao>
   </SC.Container>)
